@@ -1,5 +1,15 @@
-<?php 
+<?php
 
+    /**
+     * Guarda los datos de los pasajeros en un array 
+     * @param
+     */
+    function datosPasajeros() {
+        // 
+
+        $datosPasajeros[] = [] ;
+        return $datosPasajeros ; 
+    }
 
     class Viaje {
         private $codigoViaje ; 
@@ -7,6 +17,7 @@
         private $cantMaxPasajeros ; 
         private $cantPasajeros ; 
 
+        private $datosPasajeros ; 
         private $nombrePasajero ; 
         private $apellidoPasajero ; 
         private $nroDocPasajero ; 
@@ -27,7 +38,7 @@
             $this -> nombrePasajero = $nombrePasajero ; 
             $this -> apellidoPasajero = $apellidoPasajero ; 
             $this -> nroDocPasajero = $nroDocPasajero ; 
-        }
+    }
 
         // obetener los datos 
         public function getCodigoViaje() {
@@ -75,30 +86,11 @@
             $this -> nroDocPasajero = $nroDocPasajero ; 
         }
 
-        /**
-         * Guarda los datos de los pasajeros en un array 
-         * @param
-         */
-        public function datosPasajeros() {
-            // 
-
-            $datosPasajeros[] = [] ;
-
-            $datosPasajeros = [
-                "nombre" => '' ,
-                "apellido" => '' ,
-                "nroDoc" => ''
-            ] ; 
-            
-            return $datosPasajeros ; 
-        }   
-        
         public function __toString() {
             return "Nombre y apellido del pasajero: " . $this -> getNombre() . " " . $this -> getApellido() . "\n" . 
-                "DNI del pasajero: " . $this -> getNroDoc() . "" ; 
-
-
+                "DNI del pasajero: " . $this -> getNroDoc() . ""
         }
+
     }
 
 
@@ -107,10 +99,10 @@
     //
 
 
-/*
+    /*
     $datosPasajeros = [] ; 
     $datosPasajeros = datosPasajeros() ; 
-   
+
 
     echo "Ingrese destino: " ; 
     $destino = trim(fgets(STDIN)) ; 
@@ -120,20 +112,20 @@
     $cantMaxPasajeros = trim(fgets(STDIN)) ; 
     echo "Ingrese cantidad de pasajeros: " ; 
     $cantPasajeros = trim(fgets(STDIN)) ; 
-        for($i=0 ; $i<$cantPasajeros ; $i++) {
-            echo "Ingrese nombre del pasajero: " ; 
-            $nombrePasajero = trim(fgets(STDIN)) ; 
-            echo "Ingrese apellido del pasajero: " ; 
-            $apellidoPasajero = trim(fgets(STDIN)) ; 
-            echo "Ingrese nro de documento: " ; 
-            $nroDocPasajero = trim(fgets(STDIN)) ; 
-            $datosPasajeros[$i]['nombre'] = $nombrePasajero ; 
-            $datosPasajeros[$i]['apellido'] = $apellidoPasajero ; 
-            $datosPasajeros[$i]['numero de documento'] = $nroDocPasajero ; 
-        }
+    for($i=0 ; $i<$cantPasajeros ; $i++) {
+        echo "Ingrese nombre del pasajero: " ; 
+        $nombrePasajero = trim(fgets(STDIN)) ; 
+        echo "Ingrese apellido del pasajero: " ; 
+        $apellidoPasajero = trim(fgets(STDIN)) ; 
+        echo "Ingrese nro de documento: " ; 
+        $nroDocPasajero = trim(fgets(STDIN)) ; 
+        $datosPasajeros[$i]['nombre'] = $nombrePasajero ; 
+        $datosPasajeros[$i]['apellido'] = $apellidoPasajero ; 
+        $datosPasajeros[$i]['numero de documento'] = $nroDocPasajero ; 
+    }
 
 
     $viajeMadrid = new Viaje($codigoViaje, $destino, $cantMaxPasajeros, $cantPasajeros, $nombrePasajero, $apellidoPasajero, $nroDocPasajero) ; 
 
     print_r($datosPasajeros) ; 
-*/
+    */

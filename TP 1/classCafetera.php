@@ -22,8 +22,6 @@
             return $this -> cantActual = $cantActual; 
         }
 
-
-
         public function llenarCafetera() {
             $cantActual = $this -> getCapacidadMax() ;
             return $cantActual ; 
@@ -33,26 +31,21 @@
                 if($cantidad > $cantActual) {
                     echo "No tengo la cantidad de cafe suficiente" ; 
                     $cantidad = $cantActual ; 
-                    $cantActual = 0 ; 
-                } elseif($cantidad == $cantActual) {
-                    $cantActual = 0 ; 
+                    $this -> setCantActual(0) ; 
                 } else {
-                    
+                    $cantActual = $cantActual - $cantidad ; 
+                    $this -> setCantActual($cantActual) ;
+                    $cantidad ; 
                 }
-            return $cantActual ; 
+            return $cantidad ; 
         }
         public function vaciarCafetera() {
-            $cantActual = $this -> getCantActual() ; 
-            $cantActual = 0 ; 
+            $cantActual = $this -> setCantActual(0) ; 
             return $cantActual ; 
         }
+
         public function agregarCafe($cantidad) {
-            $cantActual = $this -> getCantActual() ; 
-                if($cantActual > $cantidad) {
-                    // ?????
-                } else {
-                    $cantActual = $cantidad - $cantActual ; 
-                }
+            $cantActual = $this -> setCantActual($cantidad) ; 
             return $cantActual ; 
         }
     }

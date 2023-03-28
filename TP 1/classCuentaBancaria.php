@@ -44,7 +44,11 @@
         }
 
         public function actualizarSaldo() {
+            $saldoActual = $this -> getSaldoActual() ; 
+            $interesAnual = $this -> getInteresAnual() ; 
+            $saldoActual = $saldoActual + ($interesAnual / 365) ; 
 
+            return $saldoActual ; 
         }
 
         public function depositar($cantidad) {
@@ -87,6 +91,12 @@
     $saldoActual = trim(fgets(STDIN)) ; 
     echo "Ingrese interes anual: " ; 
     $interesAnual = trim(fgets(STDIN)) ; 
+
+
+    // funcion Actualizar saldo 
+    $saldoActuali = new CuentaBancaria($nroCuenta, $dniCliente, $saldoActual, $interesAnual) ; 
+    $verSaldoActuali = $saldoActuali -> actualizarSaldo() ; 
+    echo $verSaldoActuali . "\n" ; 
 
 
     // funcion depositar
