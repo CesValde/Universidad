@@ -24,11 +24,6 @@
                     print_r($datosPasajeros) ; 
 
 
-
-
-
-
-
                     /*
                     echo "Ingrese destino: " ; 
                     $destino = trim(fgets(STDIN)) ; 
