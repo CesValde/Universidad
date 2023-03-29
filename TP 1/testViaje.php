@@ -2,14 +2,15 @@
 
     include "classViaje.php" ; 
 
-    $viajeMadrid = new Viaje() ; 
+    $viajeNqn = new Viaje(1234, "Neuquen", 5, 1, "Cesar", "Valderrama", 95947908) ; 
 
     $datosPasajeros = [
         "nombre" => '' , 
         "apellido" => '' , 
         "nroDoc" => ''
     ] ; 
-    $datosPasajeros = datosPasajeros() ; 
+
+    // $datosPasajeros = $this -> datosPasajeros() ; 
    
         do {
             echo "Ingrese una opcion: " . "\n" ; 
@@ -47,10 +48,22 @@
                     
                     break ; 
                 case 2: 
-                    
+                    echo "Que dato desea modificar? " ; 
+                    $dato = trim(fgets(STDIN)) ; 
+
                     break ; 
                 case 3: 
-                    print_r($datosPasajeros) ; 
+                    $destino = $viajeNqn -> getDestino() ; 
+                    echo "\n" ; 
+                    echo "Informacion del viaje a $destino" . "\n" ; 
+                    echo $viajeNqn -> getCodigoViaje() . "\n" ;     
+                    echo $viajeNqn -> getDestino() . "\n" ; 
+                    echo $viajeNqn -> getCantMaxPasajeros() . "\n" ; 
+                    echo $viajeNqn -> getCantPasajeros() . "\n" ; 
+                    echo $viajeNqn -> getNombre() . "\n" ; 
+                    echo $viajeNqn -> getApellido() . "\n" ; 
+                    echo $viajeNqn -> getNroDoc() . "\n" ; 
+                    echo "\n" ; 
                     break ;     
             } 
         }  while($opcion != 4) ; 
