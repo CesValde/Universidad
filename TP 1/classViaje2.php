@@ -29,7 +29,7 @@
             $cantPasajeros, 
             $nombrePasajero, 
             $apellidoPasajero, 
-            $nroDocPasajero, 
+            $nroDocPasajero
         ) {
             $this -> codigoViaje = $codigoViaje ; 
             $this -> destino = $destino ; 
@@ -88,7 +88,7 @@
 
         public function __toString() {
             return "Nombre y apellido del pasajero: " . $this -> getNombre() . " " . $this -> getApellido() . "\n" . 
-                "DNI del pasajero: " . $this -> getNroDoc() . ""
+                "DNI del pasajero: " . $this -> getNroDoc() . "" ;
         }
 
     }

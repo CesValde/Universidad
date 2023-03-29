@@ -3,7 +3,7 @@
     include "classCafetera.php" ;
 
     $cafetera = new Cafetera(100, 60) ; 
-
+echo $cafetera;
     echo $cafetera -> getCapacidadMax() . "\n" ;
     echo $cafetera -> getCantActual() . "\n" ; 
 

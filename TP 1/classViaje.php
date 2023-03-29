@@ -5,7 +5,7 @@
         private $codigoViaje ; 
         private $destino ; 
         private $cantMaxPasajeros ; 
-        private $cantPasajeros ; 
+        private $colPasajeros ; 
 
         private $nombrePasajero ; 
         private $apellidoPasajero ; 
@@ -18,7 +18,7 @@
             $cantPasajeros, 
             $nombrePasajero, 
             $apellidoPasajero, 
-            $nroDocPasajero, 
+            $nroDocPasajero 
         ) {
             $this -> codigoViaje = $codigoViaje ; 
             $this -> destino = $destino ; 

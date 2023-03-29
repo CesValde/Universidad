@@ -18,30 +18,33 @@
             return $this -> cantActual ; 
         }
         public function setCapacidadMax($capacidadMax) {
-            return $this -> capacidadMax = $capacidadMax ; 
+             $this -> capacidadMax = $capacidadMax ; 
         }
         public function setCantActual($cantActual) {
-            return $this -> cantActual = $cantActual; 
+             $this -> cantActual = $cantActual; 
         }
 
         public function llenarCafetera() {
-            $cantActual = $this -> getCapacidadMax() ;
-            return $cantActual ; 
+            $this-> setCantActual($this -> getCapacidadMax());
+           // $cantActual = $this -> getCapacidadMax() ;
+          //  return $cantActual ; 
         }
         public function servirTaza($cantidad) {
             $cantActual = $this -> getCantActual() ; 
+          // $pudoservir = true;
                 if($cantidad > $cantActual) {
-                    echo "No tengo la cantidad de cafe suficiente" ; 
+                 //   echo "No tengo la cantidad de cafe suficiente" ; 
                     $cantidad = $cantActual ; 
                     $this -> setCantActual(0) ; 
                 } else {
                     $cantActual = $cantActual - $cantidad ; 
                     $this -> setCantActual($cantActual) ;
-                    echo "La cantidad actual de la cafetera es de: $cantActual " ; 
+                   // echo "La cantidad actual de la cafetera es de: $cantActual " ; 
                 }
-            // return $cantidad ;      // me muestra en el test el valor que almacena linea 11 
+             return $cantidad ;      // me muestra en el test el valor que almacena linea 11 
         }
         public function vaciarCafetera() {
+            maaaaaaaaaaal
             $cantActual = $this -> setCantActual(0) ; 
             return $cantActual ; 
         }
@@ -54,7 +57,7 @@
                     echo "Ingrese una cantidad igual o menor a $capacidad: " ; 
                     $cantidad = trim(fgets(STDIN)) ; 
                 }
-            $cantActual = $this -> setCantActual($cantidad) ; 
+           $this -> setCantActual($cantidad) ; 
             return $cantActual ; 
         }
     }
