@@ -1,131 +1,327 @@
-<?php
+
+<?php 
+
+    include "classViaje.php" ; 
+
+    /** 
+     * 
+     * 
+     * 
+     */
+    function validarCodViaje($codigoViaje) {
+
+        while($codigoViaje == "") {
+            echo "Error: ingrese un codigo de viaje: " ; 
+            $codigoViaje = trim(fgets(STDIN)) ;
+        }
+        
+        return $codigoViaje ; 
+    }
+
+    /** 
+     * 
+     * 
+     * 
+     */
+    function validarDestino($destino) {
+
+        while(!ctype_alpha($destino) || $destino == "") {
+            echo "Error: ingrese un destino valido: " ; 
+            $destino = trim(fgets(STDIN)) ;
+        }
+        
+        return $destino ; 
+    }
+
+    /** 
+     * 
+     * 
+     * 
+     */
+    function validarMaxPasaj($cantMaxPasajeros) {
+
+        while($cantMaxPasajeros == "" || !ctype_digit($cantMaxPasajeros)) {
+            echo "Error: ingrese una cantidad maxima de pasajeros: " ; 
+            $cantMaxPasajeros = trim(fgets(STDIN)) ;
+        }
+        
+        return $cantMaxPasajeros ; 
+    }
+
+    /** 
+     * 
+     * 
+     * 
+     */
+    function validarNombre($nombre) {
+
+        while(!ctype_alpha($nombre) || $nombre == "") {
+            echo "Error: ingrese un nombre valido: " ; 
+            $nombre = trim(fgets(STDIN)) ;
+        }
+        return $nombre ; 
+    }
 
     /**
-     * Guarda los datos de los pasajeros en un array 
-     * @param
+     * 
+     * 
+     * 
      */
-    function datosPasajeros() {
-        // 
+    function validarApellido($apellido) {
 
-        $datosPasajeros[] = [] ;
-        return $datosPasajeros ; 
+        while(!ctype_alpha($apellido) || $apellido == "") {
+            echo "Error: ingrese un apellido valido: " ; 
+            $apellido = trim(fgets(STDIN)) ;
+        }
+        return $apellido ; 
     }
 
-    class Viaje {
-        private $codigoViaje ; 
-        private $destino ; 
-        private $cantMaxPasajeros ; 
-        private $cantPasajeros ; 
+    /**
+     * 
+     * 
+     * 
+     */
+    function validarDni($dni) {
 
-        private $datosPasajeros ; 
-        private $nombrePasajero ; 
-        private $apellidoPasajero ; 
-        private $nroDocPasajero ; 
-
-        public function __construct(
-            $codigoViaje, 
-            $destino, 
-            $cantMaxPasajeros,
-            $cantPasajeros, 
-            $nombrePasajero, 
-            $apellidoPasajero, 
-            $nroDocPasajero
-        ) {
-            $this -> codigoViaje = $codigoViaje ; 
-            $this -> destino = $destino ; 
-            $this -> cantMaxPasajeros = $cantMaxPasajeros ; 
-            $this -> cantPasajeros = $cantPasajeros ; 
-            $this -> nombrePasajero = $nombrePasajero ; 
-            $this -> apellidoPasajero = $apellidoPasajero ; 
-            $this -> nroDocPasajero = $nroDocPasajero ; 
+        while(!ctype_digit($dni) || $dni == "") {
+            echo "Error: ingrese un dni valido: " ; 
+            $dni = trim(fgets(STDIN)) ;
+        }
+        return $dni ; 
     }
 
-        // obetener los datos 
-        public function getCodigoViaje() {
-            return $this -> codigoViaje ; 
-        }
-        public function getDestino() {
-            return $this -> destino ;   
-        }
-        public function getCantMaxPasajeros() {
-            return $this -> cantMaxPasajeros ; 
-        }
-        public function getCantPasajeros() {
-            return $this -> cantPasajeros ;   
-        }
-        public function getNombre() {
-            return $this -> nombrePasajero ; 
-        }
-        public function getApellido() {
-            return $this -> apellidoPasajero ;   
-        }
-        public function getNroDoc() {
-            return $this -> nroDocPasajero ; 
-        }
+    $pasajeros[] = [
+        "nombre" => '' , 
+        "apellido" => '' , 
+        "nroDoc" => ''
+    ] ; 
 
-        // asignamos los valores 
-        public function setCodigoViaje($codigoViaje) {
-            $this -> codigoViaje = $codigoViaje ; 
-        }
-        public function setDestino($destino) {
-            $this -> destino = $destino ;   
-        }
-        public function setCantMaxPasajeros($cantMaxPasajeros) {
-            $this -> cantMaxPasajeros = $cantMaxPasajeros ; 
-        }
-        public function setCantPasajeros($cantPasajeros) {
-            $this -> cantPasajeros = $cantPasajeros ;   
-        }
-        public function setNombre($nombrePasajero) {
-            $this -> nombrePasajero = $nombrePasajero ; 
-        }
-        public function setApellido($apellidoPasajero) {
-            $this -> apellidoPasajero = $apellidoPasajero ;   
-        }
-        public function setNroDoc($nroDocPasajero) {
-            $this -> nroDocPasajero = $nroDocPasajero ; 
-        }
+    $cantPasajeros = 0 ; 
+    $i = 0 ;
+   
+        do {
 
-        public function __toString() {
-            return "Nombre y apellido del pasajero: " . $this -> getNombre() . " " . $this -> getApellido() . "\n" . 
-                "DNI del pasajero: " . $this -> getNroDoc() . "" ;
-        }
+            echo "Ingrese una opcion: " . "\n" ; 
+            echo "1. Cargar informacion del viaje" . "\n" ;
+            echo "2. Modificar informacion del viaje" . "\n" ; 
+            echo "3. Ver informacion del viaje" . "\n" ; 
+            echo "4. Salir" . "\n" ; 
+            echo "Ingrese opcion: " ; 
+            $opcion = trim(fgets(STDIN)) ;
+            echo "\n" ;
+                while($opcion < 1 || $opcion > 4) {
+                    echo "Ingrese una opcion correcta" ; 
+                    echo "\n" ;  
+                    echo "1. Cargar informacion del viaje" . "\n" ;
+                    echo "2. Modificar informacion del viaje" . "\n" ; 
+                    echo "3. Ver informacion del viaje" . "\n" ; 
+                    echo "4. Salir" . "\n" ; 
+                    echo "Ingrese opcion: " ; 
+                    $opcion = trim(fgets(STDIN)) ;
+                    echo "\n" ; 
+                }         
+    
+            switch($opcion) {
+                case 1: 
+                    // print_r($pasajeros) ;  
+                    
+                    echo "Ingrese codigo de viaje: " ; 
+                    $codigoViaje = trim(fgets(STDIN)) ; 
+                        while($codigoViaje == "") {
+                            echo "Error: ingrese un codigo de viaje: " ; 
+                            $codigoViaje = trim(fgets(STDIN)) ;
+                        }
+                    echo "Ingrese el destino: " ; 
+                    $destino = trim(fgets(STDIN)) ;
+                        while(!ctype_alpha($destino) || $destino == "") {
+                            echo "Error: ingrese un destino valido: " ; 
+                            $destino = trim(fgets(STDIN)) ;
+                        }
+                    echo "Ingrese cantidad maxima de pasajeros: " ; 
+                    $cantMaxPasajeros = trim(fgets(STDIN)) ;
+                        while($cantMaxPasajeros == "" || !ctype_digit($cantMaxPasajeros)) {
+                            echo "Error: ingrese una cantidad maxima de pasajeros: " ; 
+                            $cantMaxPasajeros = trim(fgets(STDIN)) ;
+                        }
+                        while($cantPasajeros < $cantMaxPasajeros) {
+                            echo "Ingrese nombre del pasajero: " ; 
+                            $nombre = trim(fgets(STDIN)) ;  
+                                while(!ctype_alpha($nombre) || $nombre == "") {
+                                    echo "Error: ingrese un nombre valido: " ; 
+                                    $nombre = trim(fgets(STDIN)) ;
+                                }
+                            $pasajeros[$i]['nombre'] = $nombre ;
+                            echo "Ingrese apellido del pasajero: " ; 
+                            $apellido = trim(fgets(STDIN)) ; 
+                                while(!ctype_alpha($apellido) || $apellido == "") {
+                                    echo "Error: ingrese un apellido valido: " ; 
+                                    $apellido = trim(fgets(STDIN)) ;
+                                }
+                            $pasajeros[$i]['apellido'] = $apellido ;
+                            echo "Ingrese nro de documento: " ; 
+                            $dni = trim(fgets(STDIN)) ;
+                                while(!ctype_digit($dni) || $dni == "") {
+                                    echo "Error: ingrese un dni valido: " ; 
+                                    $dni = trim(fgets(STDIN)) ;
+                                }
+                            $pasajeros[$i]['nroDoc'] = $dni ;
+                            $cantPasajeros++ ; 
+                            $i++ ; 
+                        }
+                        $i=0 ; 
+                        print_r($pasajeros) ; 
+                    $viajeNqn = new Viaje ($codigoViaje, $destino, $cantMaxPasajeros, []) ;                  
+                break ; 
+                case 2: 
+                    echo "Que dato desea modificar? " . "\n" ; 
+                    echo "Codigo del viaje -> cdv" . "\n" ; 
+                    echo "Destino -> destino" . "\n" ; 
+                    echo "Cantidad max de pasajeros -> cmp" . "\n" ;
+                    echo "Nombre -> nombre" . "\n" ; 
+                    echo "Apellido -> apellido" . "\n" ; 
+                    echo "Numero de documento -> dni" . "\n" ; 
+                    echo "Ingrese opcion: " ; 
+                    $dato = trim(fgets(STDIN)) ; 
+                    echo "\n" ;             
+                    $dato = str_replace('', '', $dato) ; 
+                    $dato = strtolower($dato) ; 
+                        switch($dato) {
+                            case "cdv": 
+                                echo "Ingrese nuevo codigo de viaje: " ; 
+                                $codigoViaje = trim(fgets(STDIN)) ; 
+                                    while($codigoViaje == "") {
+                                        echo "Error: ingrese un codigo de viaje: " ; 
+                                        $codigoViaje = trim(fgets(STDIN)) ;
+                                    }
+                                $viajeNqn -> setCodigoViaje($codigoViaje) ; 
+                            break ; 
+                            case "destino":
+                                echo "Ingrese nuevo destino: " ; 
+                                $destino = trim(fgets(STDIN)) ; 
+                                    while(!ctype_alpha($destino) || $destino == "") {
+                                        echo "Error: ingrese un destino valido: " ; 
+                                        $destino = trim(fgets(STDIN)) ;
+                                    }
+                                $viajeNqn -> setDestino($destino) ; 
+                            break ; 
+                            case "cmp": 
+                                echo "Ingrese nueva cantidad max de pasajeros: " ; 
+                                $cantMaxPasajeros = trim(fgets(STDIN)) ; 
+                                    while($cantMaxPasajeros == "") {
+                                        echo "Error: ingrese una cantidad maxima de pasajeros: " ; 
+                                        $cantMaxPasajeros = trim(fgets(STDIN)) ;
+                                    }
+                                $viajeNqn -> setCantMaxPasajeros($cantMaxPasajeros) ; 
+                            break ; 
+                            case "nombre": 
+                                echo "Ingrese dni del pasajero: " ; 
+                                $dni = trim(fgets(STDIN)) ; 
+                                    while(!ctype_digit($dni)) {
+                                        echo "Ingrese dni valido: " ; 
+                                        $dni = trim(fgets(STDIN)) ; 
+                                        echo "\n" ;    
+                                    }
+                                $existe = false ; 
+                                $j = 0 ;
+                                    while($j<count($pasajeros)) {
+                                        if($dni == $pasajeros[$j]['nroDoc']) {
+                                            echo "Ingrese nuevo nombre: " ; 
+                                            $nombre = trim(fgets(STDIN)) ; 
+                                                while(!ctype_alpha($nombre) || $nombre == "") {
+                                                    echo "Error: ingrese un nombre valido: " ; 
+                                                    $nombre = trim(fgets(STDIN)) ;
+                                                }
+                                            $pasajeros[$j]['nombre'] = $nombre ; 
+                                            $viajeNqn -> setPasajeros($pasajeros) ; 
+                                            $j = count($pasajeros) ; 
+                                            $existe = true ; 
+                                        }
+                                        $j++ ; 
+                                    }
+                                    if($existe == false) {
+                                        echo "No existe el nro de documento ingresado \n" ; 
+                                    }
+                            break ; 
+                            case "apellido":
+                                echo "Ingrese dni del pasajero: " ; 
+                                $dni = trim(fgets(STDIN)) ; 
+                                    while(!ctype_digit($dni)) {
+                                        echo "Ingrese dni valido: " ; 
+                                        $dni = trim(fgets(STDIN)) ; 
+                                        echo "\n" ;    
+                                    }
+                                $existe = false ; 
+                                $j = 0 ; 
+                                    while($j<count($pasajeros)) {
+                                        if($dni == $pasajeros[$j]['nroDoc']) {
+                                            echo "Ingrese nuevo apellido: " ; 
+                                            $apellido = trim(fgets(STDIN)) ; 
+                                                while(!ctype_alpha($apellido) || $apellido == "") {
+                                                    echo "Error: ingrese un apellido valido: " ; 
+                                                    $apellido = trim(fgets(STDIN)) ;
+                                                }
+                                            $pasajeros[$j]['apellido'] = $apellido ; 
+                                            $viajeNqn -> setPasajeros($pasajeros) ; 
+                                            $j = count($pasajeros) ; 
+                                            $existe = true ; 
+                                        }
+                                        $j++ ; 
+                                    }
+                                    if($existe == false) {
+                                        echo "No existe el nro de documento ingresado \n" ; 
+                                    }
+                            break ; 
+                            case "dni": 
+                                echo "Ingrese dni del pasajero: " ; 
+                                $dni = trim(fgets(STDIN)) ; 
+                                    while(!ctype_digit($dni)) {
+                                        echo "Ingrese dni valido: " ; 
+                                        $dni = trim(fgets(STDIN)) ; 
+                                        echo "\n" ;                                            
+                                    }
 
-    }
+                                    $existe = false ; 
+                                    $j = 0 ; 
+                                    while($j<count($pasajeros)) {
+                                        if($dni == $pasajeros[$j]['nroDoc']) {
+                                            echo "Ingrese nuevo dni: " ; 
+                                            $dni = trim(fgets(STDIN)) ; 
+                                                while(!ctype_digit($dni)) {
+                                                    echo "Ingrese dni valido: " ; 
+                                                    $dni = trim(fgets(STDIN)) ; 
+                                                    echo "\n" ;                                            
+                                                }
+                                            $pasajeros[$j]['nroDoc'] = $dni ; 
+                                            $viajeNqn -> setPasajeros($pasajeros) ; 
+                                            $j = count($pasajeros) ; 
+                                            $existe = true ; 
+                                        }
+                                        $j++ ; 
+                                    }
+                                    if($existe == false) {
+                                        echo "No existe el nro de documento ingresado \n" ; 
+                                        echo "\n" ; 
+                                    }  
+                            break ; 
+                        }
+                break ; 
+                case 3: 
 
+                    // Si no hay pasajeros mandar cartel
 
-    /* Programa Viaje Feliz */
-    //
-    //
-
-
-    /*
-    $datosPasajeros = [] ; 
-    $datosPasajeros = datosPasajeros() ; 
-
-
-    echo "Ingrese destino: " ; 
-    $destino = trim(fgets(STDIN)) ; 
-    echo "Ingrese codigo de destino: " ; 
-    $codigoViaje = trim(fgets(STDIN)) ; 
-    echo "Ingrese cantidad maxima de pasajeros: " ; 
-    $cantMaxPasajeros = trim(fgets(STDIN)) ; 
-    echo "Ingrese cantidad de pasajeros: " ; 
-    $cantPasajeros = trim(fgets(STDIN)) ; 
-    for($i=0 ; $i<$cantPasajeros ; $i++) {
-        echo "Ingrese nombre del pasajero: " ; 
-        $nombrePasajero = trim(fgets(STDIN)) ; 
-        echo "Ingrese apellido del pasajero: " ; 
-        $apellidoPasajero = trim(fgets(STDIN)) ; 
-        echo "Ingrese nro de documento: " ; 
-        $nroDocPasajero = trim(fgets(STDIN)) ; 
-        $datosPasajeros[$i]['nombre'] = $nombrePasajero ; 
-        $datosPasajeros[$i]['apellido'] = $apellidoPasajero ; 
-        $datosPasajeros[$i]['numero de documento'] = $nroDocPasajero ; 
-    }
-
-
-    $viajeMadrid = new Viaje($codigoViaje, $destino, $cantMaxPasajeros, $cantPasajeros, $nombrePasajero, $apellidoPasajero, $nroDocPasajero) ; 
-
-    print_r($datosPasajeros) ; 
-    */
+                    if($cantPasajeros > 0) {
+                        echo $viajeNqn ; 
+                        echo "\n" ; 
+                        for($i=0 ; $i<count($pasajeros) ; $i++) {
+                            echo "Nombre del pasajero " . $pasajeros[$i]['nombre'] . "\n" ; 
+                            echo "Apellido del pasajero " . $pasajeros[$i]['apellido'] . "\n" ; 
+                            echo "Nro de documento del pasajero " . $pasajeros[$i]['nroDoc'] . "\n" ; 
+                            echo "\n" ; 
+                        }   
+                    } else {
+                        echo "No hay datos para mostrar" . "\n" ;
+                        echo "\n" ; 
+                    }                
+                break ;     
+            } 
+        }  while($opcion != 4) ; 

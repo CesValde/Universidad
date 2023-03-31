@@ -18,14 +18,14 @@
             return $this -> cantActual ; 
         }
         public function setCapacidadMax($capacidadMax) {
-             $this -> capacidadMax = $capacidadMax ; 
+            $this -> capacidadMax = $capacidadMax ; 
         }
         public function setCantActual($cantActual) {
-             $this -> cantActual = $cantActual; 
+            $this -> cantActual = $cantActual; 
         }
 
         public function llenarCafetera() {
-            $this-> setCantActual($this -> getCapacidadMax());
+            $this -> setCantActual($this -> getCapacidadMax());
            // $cantActual = $this -> getCapacidadMax() ;
           //  return $cantActual ; 
         }
