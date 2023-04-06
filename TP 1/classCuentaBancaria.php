@@ -46,8 +46,10 @@
         public function actualizarSaldo() {
             $saldoActual = $this -> getSaldoActual() ; 
             $interesAnual = $this -> getInteresAnual() ; 
-            $saldoActual = $saldoActual + ($interesAnual / 365) ; 
-
+            $porcentaje = $interesAnual / 100 ; 
+            $interesAnual = ($porcentaje / 365) * $saldoActual ; 
+            $saldoActual = $saldoActual + $interesAnual ; 
+            $saldoActual = $this -> setSaldoActual($saldoActual) ; 
             return $saldoActual ; 
         }
 
@@ -57,27 +59,6 @@
             $this -> setSaldoActual($saldoActual) ; 
             return $cantidad ; 
         }
-
-        /*
-        public function retirar($cantidad) {
-            $disponible = false ; 
-            $saldoActual = $this -> getSaldoActual() ; 
-
-                if($saldoActual == 0) {
-                    echo "No tiene saldo disponible en su cuenta" ;
-                    $cantidad = 0 ;      
-                } elseif($saldoActual > 0) {
-                    while($cantidad > $saldoActual) {
-                        echo "No tiene la cantidad suficiente en su cuenta \n" ; 
-                        echo "Ingrese cantidad de dinero a retirar: " ; 
-                        $cantidad = trim(fgets(STDIN)) ;
-                        // $saldoActual = $saldoActual - $cantidad ; 
-                        // return $this -> setSaldoActual($saldoActual) ;           // actualizar saldo actual 
-                    }
-                }
-            return $disponible ; 
-        }
-        */
 
         public function retirar($cantidad) {
             $disponible = false ; 
@@ -94,6 +75,9 @@
         }
 
         public function __toString() {
-            return "Numero de cuenta: " ; 
+            return "Numero de cuenta: " . $this -> getNroCuenta() . "\n" .
+                "DNI del cliente: " . $this -> getDniCliente() . "\n" . 
+                "Saldo actual: " . $this -> getSaldoActual() . "\n" .
+                "Interes anual: " . $this -> getInteresAnual() . "%" . "\n" ; 
         }
     }  
