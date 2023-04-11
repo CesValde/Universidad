@@ -42,29 +42,49 @@
         public function getApellido() {
             return $this -> apellido ; 
         }
+
         public function setIsbn($isbn) {
-            return $this -> isbn = $isbn ; 
+            $this -> isbn = $isbn ; 
         }
         public function setTitulo($titulo) {
-            return $this -> titulo = $titulo ;
+            $this -> titulo = $titulo ;
         }
         public function setAnioEdi($anioEdi) {
-            return $this -> anioEdi = $anioEdi ;
+            $this -> anioEdi = $anioEdi ;
         }
         public function setEditorial($editorial) {
-            return $this -> editorial = $editorial ;
+            $this -> editorial = $editorial ;
         }
         public function setNombre($nombre) {
-            return $this -> nombre = $nombre ;
+            $this -> nombre = $nombre ;
         }
         public function setApellido($apellido) {
-            return $this -> apellido = $apellido ; 
+            $this -> apellido = $apellido ; 
         }
 
-        public function perteneceEditorial($pertEditorial) {
+        public function perteneceEditorial($pEditorial) {
+            $editorial = $this -> getEditorial() ; 
+            $pertenece = false ; 
+                if($editorial == $pEditorial) {
+                    $pertenece = true ; 
+                }
+            return $pertenece ; 
+        }
 
-            
+        public function aniosDesdeEdicion() {
+            $anioEdi = $this -> getAnioEdi() ; 
+            $anios = 2023 - $anioEdi ; 
 
-            return $pertEditorial ; 
+            return $anios ; 
+        }
+
+        public function __toString() {
+            return "\n" . 
+                "Numero de isbn: " . $this -> getIsbn() . "\n" .
+                "Titulo: " . $this -> getTitulo() . "\n" .
+                "Año de edicion: " . $this -> getAnioEdi() . "\n" .
+                "Editorial: " . $this -> getEditorial() . "\n" . 
+                "Nombre del autor: " . $this -> getNombre() . "\n" .
+                "Apellido del autor: " . $this -> getApellido() . "\n" ;
         }
     }
