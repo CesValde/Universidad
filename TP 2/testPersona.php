@@ -1,6 +1,7 @@
 <?php 
 
-    include "classPersona.php" ; 
+    include_once "classPersona.php" ; 
+    // include_once "classCuentaBancaria.php" ; 
 
     echo "Ingrese su nombre: " ; 
     $nombre = trim(fgets(STDIN)) ; 
