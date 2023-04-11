@@ -1,5 +1,7 @@
 <?php 
 
+    // incluir test persona ?
+
     class CuentaBancaria {
         private $nroCuenta ; 
         private $persona ; 
@@ -21,8 +23,8 @@
         public function getNroCuenta() {
             return $this -> nroCuenta ;
         }
-        public function get() {
-            return $this ->  ; 
+        public function getPersona() {
+            return $this -> persona ; 
         }
         public function getSaldoActual() {
             return $this -> saldoActual ; 
@@ -33,8 +35,8 @@
         public function setNroCuenta($nroCuenta) {
             $this -> nroCuenta = $nroCuenta ; 
         }
-        public function set($) {
-            $this ->  = $ ; 
+        public function setPersona($persona) {
+            $this -> persona = $persona ; 
         }
         public function setSaldoActual($saldoActual) {
             $this -> saldoActual = $saldoActual ; 
@@ -46,8 +48,10 @@
         public function actualizarSaldo() {
             $saldoActual = $this -> getSaldoActual() ; 
             $interesAnual = $this -> getInteresAnual() ; 
-            $saldoActual = $saldoActual + ($interesAnual / 365) ; 
-
+            $porcentaje = $interesAnual / 100 ; 
+            $interesAnual = ($porcentaje / 365) * $saldoActual ; 
+            $saldoActual = $saldoActual + $interesAnual ; 
+            $saldoActual = $this -> setSaldoActual($saldoActual) ; 
             return $saldoActual ; 
         }
 
@@ -59,64 +63,23 @@
         }
 
         public function retirar($cantidad) {
+            $disponible = false ; 
             $saldoActual = $this -> getSaldoActual() ; 
-                if($saldoActual == 0) {
-                    echo "No tiene saldo disponible en su cuenta" ;
-                    $cantidad = 0 ;      
-                } elseif($saldoActual > 0) {
-                    while($cantidad > $saldoActual) {
-                        echo "No tiene la cantidad suficiente en su cuenta \n" ; 
-                        echo "Ingrese cantidad de dinero a retirar: " ; 
-                        $cantidad = trim(fgets(STDIN)) ;
-                        // $saldoActual = $saldoActual - $cantidad ; 
-                        // return $this -> setSaldoActual($saldoActual) ;           // actualizar saldo actual 
+
+                if($saldoActual > 0) {
+                    if($saldoActual > $cantidad) {
+                        $disponible = true ; 
+                        $saldoActual = $saldoActual - $cantidad ; 
+                        $this -> setSaldoActual($saldoActual) ; 
                     }
                 }
-            return $cantidad ; 
+            return $disponible ; 
         }
-    }
 
-    // 100 / 50 
-
-    /* Programa Banco */
-    //
-    //
-
-    // parametros class CuentaBancaria
-    echo "Ingrese nro de cuenta: " ; 
-    $nroCuenta = trim(fgets(STDIN)) ; 
-    echo "Ingrese su dni: " ; 
-    $dniCliente = trim(fgets(STDIN)) ; 
-    echo "Ingrese su saldo actual: " ; 
-    $saldoActual = trim(fgets(STDIN)) ; 
-    echo "Ingrese interes anual: " ; 
-    $interesAnual = trim(fgets(STDIN)) ; 
-
-
-    // funcion Actualizar saldo 
-    $saldoActuali = new CuentaBancaria($nroCuenta, $dniCliente, $saldoActual, $interesAnual) ; 
-    $verSaldoActuali = $saldoActuali -> actualizarSaldo() ; 
-    echo $verSaldoActuali . "\n" ; 
-
-
-    // funcion depositar
-    echo "Ingrese cantidad de dinero a ingresar: " ; 
-    $cantidad = trim(fgets(STDIN)) ; 
-
-    $deposito = new CuentaBancaria($nroCuenta, $dniCliente, $saldoActual, $interesAnual) ;     
-    $saldo = new CuentaBancaria($nroCuenta, $dniCliente, $saldoActual, $interesAnual) ;      
-    $verDeposito = $deposito -> depositar($cantidad) ; 
-    $saldoDispo = $saldo -> getSaldoActual() ; 
-    echo "Ha depositado $$verDeposito ars a su cuenta. Saldo disponible en su cuenta: $saldoDispo" ; 
-
-
-/* funcion retirar
-    echo "Ingrese cantidad de dinero a retirar: " ; 
-    $cantidad = trim(fgets(STDIN)) ;
-*/
-
-/* listo 
-    $retiro = new CuentaBancaria($nroCuenta, $dniCliente, $saldoActual, $interesAnual) ; 
-    $verRetiro = $retiro -> retirar($cantidad) ; 
-    echo "Ha retirado de su cuenta $$verRetiro ars. Saldo restante en cuenta su $saldoActual " ; 
-*/ 
+        public function __toString() {
+            return "Numero de cuenta: " . $this -> getNroCuenta() . "\n" .
+                "DNI del cliente: " . $this -> getDniCliente() . "\n" . 
+                "Saldo actual: " . $this -> getSaldoActual() . "\n" .
+                "Interes anual: " . $this -> getInteresAnual() . "%" . "\n" ; 
+        }
+    }  
