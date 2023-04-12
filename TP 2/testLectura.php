@@ -1,0 +1,3 @@
+<?php 
+
+    $lectura = new Lectura() ; 
