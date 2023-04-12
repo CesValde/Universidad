@@ -3,11 +3,13 @@
 
     include "classViaje.php" ; 
 
+    /*
     $pasajeros[] = [
         "nombre" => '' , 
         "apellido" => '' , 
         "nroDoc" => ''
     ] ; 
+*/
 
     $cantPasajeros = 0 ; 
     $i = 0 ;
@@ -79,8 +81,9 @@
                             $cantPasajeros++ ; 
                             $i++ ; 
                         } 
-                        print_r($pasajeros) ; 
-                    $viajeNqn = new Viaje ($codigoViaje, $destino, $cantMaxPasajeros, []) ;                  
+                        // print_r($pasajeros) ; 
+                    $viajeNqn = new Viaje ($codigoViaje, $destino, $cantMaxPasajeros, $pasajeros) ;         
+                    // print_r($pasajeros) ;          
                 break ; 
                 case 2: 
                     echo "Que dato desea modificar? " . "\n" ; 
@@ -307,8 +310,10 @@
                         }
                 break ; 
                 case 3: 
+                    /*
                     if($cantPasajeros > 0) {
                         echo $viajeNqn ; 
+                        
                         echo "\n" ; 
                         for($i=0 ; $i<count($pasajeros) ; $i++) {
                             echo "Nombre del pasajero " . $pasajeros[$i]['nombre'] . "\n" ; 
@@ -319,7 +324,11 @@
                     } else {
                         echo "No hay datos para mostrar" . "\n" ;
                         echo "\n" ; 
-                    }                
+                    }     
+                    */           
+                break ;
+                case 4: 
+                    echo $viajeNqn ;               
                 break ;
             } 
-        }  while($opcion != 4) ; 
+        }  while($opcion != 5) ; 

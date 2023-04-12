@@ -12,7 +12,7 @@
             $nroCuenta, 
             $persona, 
             $saldoActual, 
-            $interesAnual, 
+            $interesAnual 
         ) {
             $this -> nroCuenta = $nroCuenta ; 
             $this -> persona = $persona ; 
@@ -78,7 +78,7 @@
 
         public function __toString() {
             return "Numero de cuenta: " . $this -> getNroCuenta() . "\n" .
-                "DNI del cliente: " . $this -> getDniCliente() . "\n" . 
+                "Datos de la persona: " . $this -> getPersona() . "\n" . 
                 "Saldo actual: " . $this -> getSaldoActual() . "\n" .
                 "Interes anual: " . $this -> getInteresAnual() . "%" . "\n" ; 
         }

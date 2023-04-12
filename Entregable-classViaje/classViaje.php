@@ -73,5 +73,10 @@
         public function __toString() {
             return "Codigo del viaje: " . $this -> getCodigoViaje() . "\n" . "Destino: " . $this -> getDestino() . "\n" . 
                 "Cantidad maxima de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" . "Datos de los pasajeros: " . "\n" ;
+                $cadena = "" ;
+                $cadena = $cadena . "Nombre del pasajero " . $pasajeros[$i]['nombre'] . "\n" . 
+                "Apellido del pasajero " . $pasajeros[$i]['apellido'] . "\n" .
+                "Nro de documento del pasajero " . $pasajeros[$i]['nroDoc'] . "\n" ; 
+                
         }
     }

@@ -1,6 +1,6 @@
     <?php 
 
-    include "classCuentaBancaria.php" ; 
+    include "classCuentaBancaria.php" ;
 
     echo "Ingrese nro de cuenta: " ; 
     $nroCuenta = trim(fgets(STDIN)) ; 

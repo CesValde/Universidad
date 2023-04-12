@@ -15,7 +15,7 @@
             $titulo,
             $anioEdi,
             $editorial,
-            $persona,
+            $persona
         ) {
             $this -> isbn = $isbn ;             
             $this -> titulo = $titulo ; 
