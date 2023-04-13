@@ -4,13 +4,7 @@
         private $codigoViaje ; 
         private $destino ; 
         private $cantMaxPasajeros ; 
-        private $pasajeros ; 
-
-        /*
-        private $nombrePasajero ; 
-        private $apellidoPasajero ; 
-        private $nroDocPasajero ; 
-        */ 
+        private $pasajeros ;  
 
         public function __construct(
             $codigoViaje, 
@@ -53,30 +47,36 @@
         }
 
         /**
-         * Guarda los datos de los pasajeros en un array 
+         * Almacena en una cadena los datos de los pasajeros
          * @return array
          */
         public function datosPasajeros() {
             // 
 
-            $pasajeros[] = [] ;
-
+            $cadena = "" ; 
             $pasajeros[] = [
                 "nombre" => '' ,
                 "apellido" => '' ,
                 "nroDoc" => ''
             ] ; 
-            
-            return $pasajeros ; 
+            $pasajeros = $this -> getPasajeros() ; 
+        
+            for($i=0 ; $i<count($pasajeros) ; $i++) {
+                $nombre = $pasajeros[$i]['nombre']  . "\n" ;
+                $apellido = $pasajeros[$i]['apellido'] . "\n" ;
+                $nroDoc = $pasajeros[$i]['nroDoc'] . "\n" ; 
+                $cadena = $cadena . "Nombre: " . $nombre .
+                    "Apellido: " . $apellido . 
+                    "nro doc: " . $nroDoc ; 
+            }    
+            return $cadena ; 
         }   
         
         public function __toString() {
-            return "Codigo del viaje: " . $this -> getCodigoViaje() . "\n" . "Destino: " . $this -> getDestino() . "\n" . 
-                "Cantidad maxima de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" . "Datos de los pasajeros: " . "\n" ;
-                $cadena = "" ;
-                $cadena = $cadena . "Nombre del pasajero " . $pasajeros[$i]['nombre'] . "\n" . 
-                "Apellido del pasajero " . $pasajeros[$i]['apellido'] . "\n" .
-                "Nro de documento del pasajero " . $pasajeros[$i]['nroDoc'] . "\n" ; 
-                
+            $cadena = $this -> datosPasajeros() ; 
+            return "Codigo del viaje: " . $this -> getCodigoViaje() . "\n" . 
+                "Destino: " . $this -> getDestino() . "\n" . 
+                "Cantidad maxima de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" .
+                "Datos de los pasajeros: " . "\n" . $cadena ;                
         }
     }
