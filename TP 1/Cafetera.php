@@ -1,7 +1,5 @@
 <?php 
 
-    // poner comentarios a las funciones ?
-
     class Cafetera {
         private $capacidadMax ; 
         private $cantActual ; 
@@ -25,39 +23,33 @@
         }
 
         public function llenarCafetera() {
-            $this -> setCantActual($this -> getCapacidadMax());
-           // $cantActual = $this -> getCapacidadMax() ;
-          //  return $cantActual ; 
+            // setea la cantidad actual con la capacidad maxima
+            $this -> setCantActual($this -> getCapacidadMax()) ;
         }
+
         public function servirTaza($cantidad) {
             $cantActual = $this -> getCantActual() ; 
-          // $pudoservir = true;
+            $pudoservir = false ;
+
                 if($cantidad > $cantActual) {
-                 //   echo "No tengo la cantidad de cafe suficiente" ; 
-                    $cantidad = $cantActual ; 
                     $this -> setCantActual(0) ; 
                 } else {
                     $cantActual = $cantActual - $cantidad ; 
                     $this -> setCantActual($cantActual) ;
-                   // echo "La cantidad actual de la cafetera es de: $cantActual " ; 
+                    $pudoservir = true ; 
                 }
-             return $cantidad ;      // me muestra en el test el valor que almacena linea 11 
+             return $pudoservir ;
         }
         public function vaciarCafetera() {
-            maaaaaaaaaaal
-            $cantActual = $this -> setCantActual(0) ; 
-            return $cantActual ; 
+            $this -> setCantActual(0) ; 
         }
 
-        public function agregarCafe($cantidad) {
-                $capacidadMax = $this -> getCapacidadMax() ; 
-                $cantActual = $this -> getCantActual() ; 
-                $capacidad = $capacidadMax - $cantActual ; 
-                while($cantidad > $capacidad) {
-                    echo "Ingrese una cantidad igual o menor a $capacidad: " ; 
-                    $cantidad = trim(fgets(STDIN)) ; 
-                }
-           $this -> setCantActual($cantidad) ; 
-            return $cantActual ; 
+        public function agregarCafe($cantActual) {
+            $this -> setCantActual($cantActual) ; 
+        }
+
+        public function __toString() {
+            return "Capacidad maxima de la cafetera: " . $this -> getCapacidadMax() . "\n" . 
+                "Capacidad actual de la cafetera: " . $this -> getCantActual() . "\n" ;
         }
     }
