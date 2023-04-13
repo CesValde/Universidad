@@ -1,7 +1,5 @@
 <?php 
 
-    // incluir test persona ?
-
     class CuentaBancaria {
         private $nroCuenta ; 
         private $persona ; 
@@ -77,9 +75,9 @@
         }
 
         public function __toString() {
-            return "Numero de cuenta: " . $this -> getNroCuenta() . "\n" .
+            return "\n" . "Numero de cuenta: " . $this -> getNroCuenta() . "\n" .
                 "Datos de la persona: " . $this -> getPersona() . "\n" . 
                 "Saldo actual: " . $this -> getSaldoActual() . "\n" .
-                "Interes anual: " . $this -> getInteresAnual() . "%" . "\n" ; 
+                "Interes anual: " . $this -> getInteresAnual() . "%" . "\n" . "\n" ; 
         }
     }  
