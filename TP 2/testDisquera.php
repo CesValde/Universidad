@@ -2,8 +2,8 @@
 
     // preguntar que clases hay que agregar, consultar como se ve
 
-    include_once "classPersona.php" ; 
-    include_once "testPersona.php" ; 
+    include_once "Persona.php" ; 
+    include_once "Persona.php" ; 
     include_once "Disquera.php" ; 
 
 /*

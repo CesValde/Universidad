@@ -1,5 +1,5 @@
 <?php 
-    include "classCalculadora.php" ; 
+    include "Calculadora.php" ; 
 
     /* Test Class Calculadora */ 
     

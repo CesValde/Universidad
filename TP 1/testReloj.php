@@ -1,6 +1,6 @@
 <?php 
 
-    include 'classReloj.php' ; 
+    include 'Reloj.php' ; 
 
     $objReloj = new Reloj(23, 59, 58) ; 
 

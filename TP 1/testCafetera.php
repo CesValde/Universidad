@@ -1,6 +1,6 @@
 <?php 
 
-    include "classCafetera.php" ;
+    include "Cafetera.php" ;
 
     $cafetera = new Cafetera(100, 60) ; 
 echo $cafetera;

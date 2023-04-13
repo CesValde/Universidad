@@ -1,6 +1,6 @@
 <?php 
 
-    include_once "classLibro.php" ;  
+    include_once "Libro.php" ;  
 
     /**
      * Almacena una coleccion de libros 
