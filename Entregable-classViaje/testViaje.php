@@ -1,6 +1,6 @@
 <?php 
 
-    include "classViaje.php" ; 
+    include "Viaje.php" ; 
 
     /**
      * Despliega el menu de opciones
@@ -309,8 +309,8 @@
                                 while($k<count($pasajeros)) {
                                     if($dni == $pasajeros[$k]['nroDoc']) {
                                         /* unset -> elimina el pasajero en la posicion k si coinciden los dni tener en cuenta lo de la clase si el dni estuvo mal 
-                                            desde un principio pedir otros datos para validar que sea la persona correcta */
-                                        unset($pasajeros[$k]) ;        
+                                            desde un principio pedir otros datos para validar que sea la persona correcta */                  
+                                        array_splice($pasajeros, $k, 1) ;                                                                           
                                         $cantPasajeros-- ; 
                                     }
                                     $k++ ; 
@@ -334,6 +334,11 @@
                                     $pasajeroNuevo['nroDoc'] = $dni ;
                                     $cantPasajeros++ ; 
                                     $i++ ;
+                                    $pasajeroNuevo = [
+                                        "nombre" => $nombre , 
+                                        "apellido" => $apellido , 
+                                        "nroDoc" => $dni 
+                                    ] ; 
                                     array_push($pasajeros, $pasajeroNuevo) ; 
                                     $viajeNqn -> setPasajeros($pasajeros) ; 
                                 } else {

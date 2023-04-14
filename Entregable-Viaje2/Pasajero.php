@@ -3,18 +3,18 @@
     class Pasajero {
         private $nombrePasaj ; 
         private $apellidoPasaj ; 
-        private $nroDocPasajero ; 
+        private $nroDocPasaj ; 
         private $nroTelPasaj ; 
 
         public function __construct(
             $nombrePasaj , 
             $apellidoPasaj , 
-            $nroDocPasajero , 
+            $nroDocPasaj , 
             $nroTelPasaj 
         ) {
             $this -> nombrePasaj = $nombrePasaj ; 
             $this -> apellidoPasaj = $apellidoPasaj ;
-            $this -> nroDocPasajero = $nroDocPasajero ; 
+            $this -> nroDocPasaj = $nroDocPasaj ; 
             $this -> nroTelPasaj = $nroTelPasaj ;
         }
  
@@ -25,7 +25,7 @@
             return $this -> apellidoPasaj ; 
         }
         public function getNroDocPasajero() {
-            return $this -> nroDocPasajero ; 
+            return $this -> nroDocPasaj ; 
         }
         public function getNroTelefPasajero() {
             return $this -> nroTelPasaj ; 
@@ -37,36 +37,11 @@
         public function setApellidoPasajer($apellidoPasaj) {
             $this -> apellidoPasaj = $apellidoPasaj ;   
         }
-        public function setNroDocPasajero($nroDocPasajero) {
-            $this -> nroDocPasajero = $nroDocPasajero ; 
+        public function setNroDocPasajero($nroDocPasaj) {
+            $this -> nroDocPasaj = $nroDocPasaj ; 
         }
         public function setNroTelefPasajero($nroTelPasaj) {
             $this -> nroTelPasaj = $nroTelPasaj ; 
-        }
-
-        /**
-         * 
-         * @return 
-         */
-        public function coleccionPasajeros() {
-            $coleccPasajeros[] = [] ;
-
-            $nombrePasaJ = $this -> getNombrePasajero() ; 
-            $apellidoPasaj = $this -> getApellidoPasajero() ; 
-            $nroDocPasajero = $this -> getNroDocPasajero() ; 
-            $nroTelPasaj = $this -> getNroTelefPasajero() ;
-
-            $pasajero = [
-                "nombre" => $nombrePasaJ ,
-                "apellido" => $apellidoPasaj , 
-                "nroDoc" => $nroDocPasajero, 
-                "nroTelf" => $nroTelPasaj
-            ] ; 
-
-            array_push($coleccPasajeros, $pasajero) ; 
-            print_r($coleccPasajeros) ; 
-
-            return $coleccPasajeros ; 
         }
 
         public function __toString() {

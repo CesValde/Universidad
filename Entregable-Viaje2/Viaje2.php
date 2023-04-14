@@ -7,18 +7,21 @@
         private $destino ; 
         private $cantMaxPasajeros ; 
         private $coleccPasajeros ;  
+        private $responsableV ; 
 
         public function __construct(
             $codigoViaje, 
             $destino, 
             $cantMaxPasajeros,
             // coleccion de objetos, los objetos son pasajeros 
-            $coleccPasajeros 
+            $coleccPasajeros, 
+            $responsableV
         ) {
             $this -> codigoViaje = $codigoViaje ; 
             $this -> destino = $destino ; 
             $this -> cantMaxPasajeros = $cantMaxPasajeros ; 
             $this -> coleccPasajeros = $coleccPasajeros ; 
+            $this -> responsableV = $responsableV ;
         }
 
         // obetener los datos 
@@ -34,6 +37,9 @@
         public function getColeccPasajeros() {
             return $this -> coleccPasajeros ; 
         }
+        public function getResponsableV() {
+            return $this -> responsableV ; 
+        }
 
         // asignamos los valores 
         public function setCodigoViaje($codigoViaje) {
@@ -48,6 +54,9 @@
         public function setColeccPasajeros($coleccPasajeros) {
             $this -> coleccPasajeros = $coleccPasajeros ; 
         }
+        public function setResponsableV() {
+            $this -> responsableV = $responsableV ; 
+        }
 
         /**
          * Verifica que el pasajero ya exista en la coleccion
@@ -59,26 +68,15 @@
         }
 
 
+        public function agregaPasajero() {
+            $agrega = false ; 
+            $coleccPasajeros = getColeccPasajeros(); 
+
+            
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return $agrega ; 
+        }
 
 
 
@@ -101,7 +99,7 @@
                 "nroDoc" => '' ,
                 "NroTel" => ''
             ] ; 
-            $coleccPasajeros = $this -> getPasajeros() ; 
+            $coleccPasajeros = $this -> getColeccPasajeros() ; 
         
             for($i=0 ; $i<count($coleccPasajeros) ; $i++) {
                 $nombre = $coleccPasajeros[$i]['nombre'] ;

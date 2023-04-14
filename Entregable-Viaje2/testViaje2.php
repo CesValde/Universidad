@@ -1,7 +1,7 @@
 <?php 
 
     include_once "Pasajero.php" ; 
-    include_once "Viaje2.php " ; 
+    include_once "Viaje2.php" ; 
     include_once "ResponsableV.php" ;
 
     /**
@@ -112,34 +112,14 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+   
     do {
         $opcion = menu() ; 
         switch($opcion) {
             case 1:  
                 echo "Ingrese cantidad de pasajeros " ; 
                 $cantPasajeros = trim(fgets(STDIN)) ; 
-                    for($i=0 ; $i<$cantPasajeros ; $i++) {
-                        
+                    for($i=0 ; $i<$cantPasajeros ; $i++) {                      
                         echo "Ingrese nombre del pasajero: " ; 
                         $nombrePasaj = trim(fgets(STDIN)) ;  
                         $nombrePasaj = validarNombre($nombrePasaj) ; 
@@ -149,42 +129,43 @@
                         $apellidoPasaj = validarApellido($apellidoPasaj) ; 
                         // $coleccPasajeros[$i]['apellido'] = $apellido ;
                         echo "Ingrese nro de documento: " ; 
-                        $nroDocPasajero = trim(fgets(STDIN)) ;
-                        $nroDocPasajero = validarDni($nroDocPasajero) ; 
-                        // $coleccPasajeros[$i]['nroDoc'] = $dni ;
+                        $nroDocPasaj = trim(fgets(STDIN)) ;
+                        $nroDocPasaj = validarDni($nroDocPasaj) ; 
+                        // $coleccPasajeros[$i]['nroDoc'] = $nroDocPasasjero ;
                         echo "Ingrese nro de telefono: " ; 
                         $nroTelPasaj= trim(fgets(STDIN)) ;
-                        $cantPasajeros++ ; 
-                        
+                        // $nroTelPasaj = validarNroTelefono($nroTelPasaj) ;                       
                         echo "\n" ; 
-
-
-                        $pasajero1 = new Pasajero($nombrePasaj, $apellidoPasaj, $nroDocPasajero, $nroTelPasaj) ;
-                        $coleccPasajeros = $pasajero1 -> coleccionPasajeros() ;
-                        $pasajero2 = new Pasajero("Cesar", "Valderrama", 95947908, 1137977246) ;
-                        
-
-                        // $coleccPasajeros = $ -> colecionPasajeros() ;      // pasar por parametro la coleccion ? 
-                        
-                        echo $pasajero1 ; 
-                        echo $pasajero2 ; 
-                        
-                        print_r($coleccPasajeros) ; 
+                        $pasajero = new Pasajero($nombrePasaj, $apellidoPasaj, $nroDocPasaj, $nroTelPasaj) ;
+                        $coleccPasajeros[$i] = $pasajero ; 
+                        print_r($coleccPasajeros) ;                      
                     }
-                // print_r($coleccPasajeros) ; 
-            
+                    // objeto responsable
+                    /*
+                    echo "Ingrese nro de empleado: " ; 
+                    $nroEmpleado = trim(fgets(STDIN)) ; 
+                    echo "Ingrese nro de licencia " ; 
+                    $nroLicencia = trim(fgets(STDIN)) ;
+                    echo "Ingrese nombre del responsable: " ; 
+                    $nombreEmple = trim(fgets(STDIN)) ; 
+                    echo "Ingrese apellido del responsable: " ; 
+                    $apellEmple = trim(fgets(STDIN)) ; 
+                    */
+                    $responsableV = new ResponsableV(202, 999, "Jesus", "Valde") ;
 
-
-
-
-                
-                
-                // primer objeto (coleccion de objetos) objetos pasajeros
-                // seguir aqui 
-                
-
-
-                
+                    // objeto Viaje
+                    /*
+                        echo "Ingrese codigo de viaje: " ; 
+                        $codigoViaje = trim(fgets(STDIN)) ; 
+                        $codigoViaje = validarCodigoViaje($codigoViaje)
+                        echo "Ingrese el destino: " ; 
+                        $destino = trim(fgets(STDIN)) ;
+                        $destino = validarDestino($destino)
+                        echo "Ingrese cantidad maxima de pasajeros: " ; 
+                        $cantMaxPasajeros = trim(fgets(STDIN)) ;
+                        $cantMaxPasajeros = validarCantMaxPasajeros($cantMaxPasajeros) ; 
+                    */
+                    $viajeZulia = new Viaje(1234, "Zulia", 2, $coleccPasajeros, $responsableV) ;
             break ;
             case 2:
                 if($cantPasajeros == 0) {
@@ -206,33 +187,7 @@
                     echo "\n" ; 
                 }
             break ; 
-            case 3: 
-                // objeto responsable
-                /*
-                    echo "Ingrese nro de empleado: " ; 
-                    $nroEmpleado = trim(fgets(STDIN)) ; 
-                    echo "Ingrese nro de licencia " ; 
-                    $nroLicencia = trim(fgets(STDIN)) ;
-                    echo "Ingrese nombre del responsable: " ; 
-                    $nombreEmple = trim(fgets(STDIN)) ; 
-                    echo "Ingrese apellido del responsable: " ; 
-                    $apellEmple = trim(fgets(STDIN)) ;
-                     
-                */
-                $responsable = new ResponsableV(202, 999, "Luffy", "Monkey") ;
-                // objeto Viaje
-                /*
-                    echo "Ingrese codigo de viaje: " ; 
-                    $codigoViaje = trim(fgets(STDIN)) ; 
-                    $codigoViaje = validarCodigoViaje($codigoViaje)
-                    echo "Ingrese el destino: " ; 
-                    $destino = trim(fgets(STDIN)) ;
-                    $destino = validarDestino($destino)
-                    echo "Ingrese cantidad maxima de pasajeros: " ; 
-                    $cantMaxPasajeros = trim(fgets(STDIN)) ;
-                    $cantMaxPasajeros = validarCantMaxPasajeros($cantMaxPasajeros) ; 
-                */
-                // $viajeZulia = new Viaje(1234, "Zulia", 2, $coleccPasajeros) ;
+            case 3:              
                 // echo $viajeZulia ; 
                 echo $responsable ;
             break ; 

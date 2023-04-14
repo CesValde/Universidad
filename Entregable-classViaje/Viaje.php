@@ -60,7 +60,7 @@
                 "nroDoc" => ''
             ] ; 
             $pasajeros = $this -> getPasajeros() ; 
-        
+            
             for($i=0 ; $i<count($pasajeros) ; $i++) {
                 $nombre = $pasajeros[$i]['nombre']  . "\n" ;
                 $apellido = $pasajeros[$i]['apellido'] . "\n" ;
