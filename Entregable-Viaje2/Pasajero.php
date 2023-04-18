@@ -34,7 +34,7 @@
         public function setNombrePasajero($nombrePasaj) {
             $this -> nombrePasaj = $nombrePasaj ; 
         }
-        public function setApellidoPasajer($apellidoPasaj) {
+        public function setApellidoPasajero($apellidoPasaj) {
             $this -> apellidoPasaj = $apellidoPasaj ;   
         }
         public function setNroDocPasajero($nroDocPasaj) {
@@ -42,13 +42,5 @@
         }
         public function setNroTelefPasajero($nroTelPasaj) {
             $this -> nroTelPasaj = $nroTelPasaj ; 
-        }
-
-        public function __toString() {
-            return "\n" . 
-                "Nombre del pasajero: " . $this -> getNombrePasajero() . "\n" . 
-                "Apellido del pasajero: " . $this -> getApellidoPasajero   () . "\n" . 
-                "Numero de documento del pasajero: " . $this -> getNroDocPasajero() . "\n" . 
-                "Numero de telefono del pasajero: " . $this -> getNroTelefPasajero() . "\n" ;
         }
     }
