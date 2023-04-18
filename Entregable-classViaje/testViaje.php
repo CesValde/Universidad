@@ -7,6 +7,8 @@
      * @return string
      */
     function menu() {
+        // string $opcion
+
         echo "\n" ; 
         echo "Ingrese una opcion: " . "\n" ; 
         echo "1. Cargar informacion del viaje" . "\n" ;
@@ -108,44 +110,7 @@
         return $cantMaxPasajeros ; 
     }
 
-    /**
-     * Pide los datos para agregar pasajeros si se cumplen las condiciones
-     * @param string $respuesta
-     * @param boolean $disponible
-     * @param int $cantPasajeros
-     * @param int $cantMaxPasajeros
-     * @param int $i 
-     * @return $array
-     */
-    function agregaPasajero($respuesta, $disponible, $cantPasajeros, $cantMaxPasajeros, $i) {
-
-        if($cantPasajeros < $cantMaxPasajeros) {
-            $disponible = true ; 
-        } elseif($cantPasajeros == $cantMaxPasajeros) {
-            echo "Ya no hay asientos disponibles" . "\n" ;
-            echo "\n" ; 
-            $disponible = false ; 
-        }
-        while($respuesta == "si" && $disponible == true) {
-            while($cantPasajeros < $cantMaxPasajeros) {
-                echo "Ingrese nombre del pasajero: " ; 
-                $nombre = trim(fgets(STDIN)) ;  
-                $nombre = validarNombre($nombre) ; 
-                $pasajeros[$i]['nombre'] = $nombre ;
-                echo "Ingrese apellido del pasajero: " ; 
-                $apellido = trim(fgets(STDIN)) ; 
-                $apellido = validarApellido($apellido) ; 
-                $pasajeros[$i]['apellido'] = $apellido ;
-                echo "Ingrese nro de documento: " ; 
-                $dni = trim(fgets(STDIN)) ;
-                $dni = validarDni($dni) ; 
-                $pasajeros[$i]['nroDoc'] = $dni ;
-                $cantPasajeros++ ; 
-                $i++ ; 
-            }   
-        }
-        return $pasajeros ; 
-    }
+    // Test 
 
     $cantPasajeros = 0 ;
     $i = 0 ;
@@ -155,18 +120,17 @@
         $opcion = menu() ; 
         switch($opcion) {
             case 1:     
-                /*
                 echo "Ingrese codigo de viaje: " ; 
                 $codigoViaje = trim(fgets(STDIN)) ; 
-                $codigoViaje = validarCodigoViaje($codigoViaje)
+                $codigoViaje = validarCodigoViaje($codigoViaje) ; 
                 echo "Ingrese el destino: " ; 
                 $destino = trim(fgets(STDIN)) ;
-                $destino = validarDestino($destino)
+                $destino = validarDestino($destino) ; 
                 echo "Ingrese cantidad maxima de pasajeros: " ; 
                 $cantMaxPasajeros = trim(fgets(STDIN)) ;
                 $cantMaxPasajeros = validarCantMaxPasajeros($cantMaxPasajeros) ; 
-                */
-                    while($cantPasajeros < 2) {
+                
+                    while($cantPasajeros < $cantMaxPasajeros) {
                         echo "Ingrese nombre del pasajero: " ; 
                         $nombre = trim(fgets(STDIN)) ;  
                         $nombre = validarNombre($nombre) ; 
@@ -182,7 +146,7 @@
                         $cantPasajeros++ ; 
                         $i++ ; 
                     } 
-                $viajeNqn = new Viaje (123, "nqn", 2, $pasajeros) ;                    
+                $viajeNqn = new Viaje ($codigoViaje, $destino, $cantMaxPasajeros, $pasajeros) ;                    
             break ; 
             case 2: 
                 if($cantPasajeros == 0) {
@@ -224,123 +188,86 @@
                                 $cantMaxPasajeros = trim(fgets(STDIN)) ; 
                                 $cantMaxPasajeros = validarCantMaxPasajeros($cantMaxPasajeros) ; 
                                 $viajeNqn -> setCantMaxPasajeros($cantMaxPasajeros) ; 
-                                echo "Desea agregar nuevos pasajeros? " ; 
-                                $respuesta = trim(fgets(STDIN)) ; 
-                                    while(!ctype_alpha($respuesta) || $respuesta == "") {
-                                        echo "Error: ingrese una respuesta valida" ; 
-                                        $respuesta = trim(fgets(STDIN)) ; 
-                                    }
-                                $pasajeros = agregaPasajero($respuesta, $disponible, $cantPasajeros, $cantMaxPasajeros, $i) ; 
-                                $viajeNqn -> setPasajeros($pasajeros) ; 
                             break ; 
                             case "nombre": 
                                 echo "Ingrese dni del pasajero: " ; 
                                 $dni = trim(fgets(STDIN)) ; 
                                 $dni = validarDni($dni) ; 
-                                $existe = false ; 
-                                $j = 0 ;
-                                    while($j<count($pasajeros)) {
-                                        if($dni == $pasajeros[$j]['nroDoc']) {
-                                            echo "Ingrese nuevo nombre: " ; 
-                                            $nombre = trim(fgets(STDIN)) ; 
-                                            $nombre = validarNombre($nombre) ; 
-                                            $pasajeros[$j]['nombre'] = $nombre ; 
-                                            $viajeNqn -> setPasajeros($pasajeros) ; 
-                                            $j = count($pasajeros) ; 
-                                            $existe = true ; 
-                                        }
-                                        $j++ ; 
-                                    }
-                                    if($existe == false) {
-                                        echo "No existe el nro de documento ingresado \n" ; 
+                                echo "Ingrese el nuevo nombre: " ;
+                                $nombre = trim(fgets(STDIN)) ; 
+                                $nombre = validarNombre($nombre) ; 
+                                $existe = $viajeNqn -> cambiarNombre($dni, $nombre) ;
+                                    if($existe) {
+                                        echo "El nombre fue modificado \n" ; 
+                                    } else {
+                                        echo "El nombre no pudo ser modificado\n" ;
                                     }
                             break ; 
                             case "apellido":
                                 echo "Ingrese dni del pasajero: " ; 
                                 $dni = trim(fgets(STDIN)) ; 
                                 $dni = validarDni($dni) ; 
-                                $existe = false ; 
-                                $j = 0 ; 
-                                    while($j<count($pasajeros)) {
-                                        if($dni == $pasajeros[$j]['nroDoc']) {
-                                            echo "Ingrese nuevo apellido: " ; 
-                                            $apellido = trim(fgets(STDIN)) ; 
-                                            $apellido = validarApellido($apellido) ; 
-                                            $pasajeros[$j]['apellido'] = $apellido ; 
-                                            $viajeNqn -> setPasajeros($pasajeros) ; 
-                                            $j = count($pasajeros) ; 
-                                            $existe = true ; 
-                                        }
-                                        $j++ ; 
-                                    }
-                                    if($existe == false) {
-                                        echo "No existe el nro de documento ingresado \n" ; 
+                                echo "Ingrese el nuevo apellido: " ;
+                                $apellido = trim(fgets(STDIN)) ; 
+                                $apellido = validarApellido($dni, $apellido) ; 
+                                $existe = $viajeNqn -> cambiarNombre($dni, $apellido) ;
+                                    if($existe) {
+                                        echo "El apellido fue modificado \n" ; 
+                                    } else {
+                                        echo "El apellido no pudo ser modificado\n" ;
                                     }
                             break ; 
                             case "dni": 
-                                echo "Ingrese dni del pasajero: " ; 
+                                echo "Ingrese nuevo dni del pasajero: " ; 
                                 $dni = trim(fgets(STDIN)) ; 
                                 $dni = validarDni($dni) ; 
-                                $existe = false ; 
-                                $j = 0 ; 
-                                    while($j<count($pasajeros)) {
-                                        if($dni == $pasajeros[$j]['nroDoc']) {
-                                            echo "Ingrese nuevo dni: " ; 
-                                            $dni = trim(fgets(STDIN)) ; 
-                                            $dni = validarDni($dni) ;
-                                            $pasajeros[$j]['nroDoc'] = $dni ; 
-                                            $viajeNqn -> setPasajeros($pasajeros) ; 
-                                            $j = count($pasajeros) ; 
-                                            $existe = true ; 
-                                        }
-                                        $j++ ; 
+                                echo "Ingrese nombre del pasajero: " ;
+                                $nombre = trim(fgets(STDIN)) ; 
+                                $nombre = validarNombre($nombre) ; 
+                                echo "Ingrese apellido del pasajero: " ;
+                                $apellido = trim(fgets(STDIN)) ; 
+                                $apellido = validarApellido($dni, $apellido) ; 
+                                $existe = $viajeNqn -> cambiarNombre($dni, $nombre, $apellido) ;
+                                    // se podria decir pq no fue modificado 
+                                    if($existe) {
+                                        echo "El dni fue modificado \n" ; 
+                                    } else {
+                                        echo "El dni no pudo ser modificado\n" ;    
                                     }
-                                    if($existe == false) {
-                                        echo "No existe el nro de documento ingresado \n" ; 
-                                        echo "\n" ; 
-                                    }  
                             break ; 
                             case "ep":
                                 echo "Ingrese dni del pasajero: " ; 
                                 $dni = trim(fgets(STDIN)) ; 
                                 $dni = validarDni($dni) ;
-                                $k = 0 ; 
-                                $pasajeros = $viajeNqn -> getPasajeros() ; 
-                                while($k<count($pasajeros)) {
-                                    if($dni == $pasajeros[$k]['nroDoc']) {
-                                        /* unset -> elimina el pasajero en la posicion k si coinciden los dni tener en cuenta lo de la clase si el dni estuvo mal 
-                                            desde un principio pedir otros datos para validar que sea la persona correcta */                  
-                                        array_splice($pasajeros, $k, 1) ;                                                                           
+                                $eliminado = $viajeNqn -> eliminarPasajero($dni) ; 
+                                    if($eliminado) {
+                                        echo "El pasajero fue eliminado \n" ; 
                                         $cantPasajeros-- ; 
-                                    }
-                                    $k++ ; 
-                                }
-                                $viajeNqn -> setPasajeros($pasajeros) ;                 
+                                        // $pasajeros = $viajeNqn -> getPasajeros() ;
+                                    } else {
+                                        echo "El pasajero no fue eliminado \n" ;
+                                    }         
                             break ; 
                             case "ap": 
-                                $pasajeros = $viajeNqn -> getPasajeros() ;
-                                if($cantPasajeros < 2) {
+                                if($cantPasajeros < $cantMaxPasajeros) {
                                     echo "Ingrese nombre del pasajero: " ; 
                                     $nombre = trim(fgets(STDIN)) ;  
                                     $nombre = validarNombre($nombre) ; 
-                                    $pasajeroNuevo['nombre'] = $nombre ;
                                     echo "Ingrese apellido del pasajero: " ; 
                                     $apellido = trim(fgets(STDIN)) ; 
                                     $apellido = validarApellido($apellido) ; 
-                                    $pasajeroNuevo['apellido'] = $apellido ;
                                     echo "Ingrese nro de documento: " ; 
                                     $dni = trim(fgets(STDIN)) ;
                                     $dni = validarDni($dni) ; 
-                                    $pasajeroNuevo['nroDoc'] = $dni ;
-                                    $cantPasajeros++ ; 
-                                    $i++ ;
-                                    $pasajeroNuevo = [
-                                        "nombre" => $nombre , 
-                                        "apellido" => $apellido , 
-                                        "nroDoc" => $dni 
-                                    ] ; 
-                                    array_push($pasajeros, $pasajeroNuevo) ; 
-                                    $viajeNqn -> setPasajeros($pasajeros) ; 
+                                    $agregado = $viajeNqn -> agregaPasajero($nombre, $apellido, $dni, $cantPasajeros, $cantMaxPasajeros) ; 
+                                        if($agregado) {
+                                            echo "El pasajero fue agregado al viaje \n" ; 
+                                            $cantPasajeros++ ; 
+                                            // print_r($pasajeros) ;
+                                            // $pasajeros = $viajeNqn -> getPasajeros() ;
+                                        } else {
+                                            echo "El pasajero no fue agregado al viaje \n" ;
+                                        }
                                 } else {
                                     echo "No hay asientos disponibles" . "\n" ; 
                                     echo "\n" ; 
