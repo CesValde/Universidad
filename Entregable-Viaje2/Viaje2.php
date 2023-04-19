@@ -77,7 +77,7 @@
                         $j = count($coleccPasajeros) ; 
                         $existe = true ; 
                     }
-                    print_r($coleccPasajeros) ;
+                    // print_r($coleccPasajeros) ;
                     $j++ ; 
                 }
             return $existe ; 

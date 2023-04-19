@@ -8,7 +8,7 @@
         public function __construct(
             $identificacion,
             $nombre,
-            $coleccViajes,
+            $coleccViajes
         ) {
             $this -> identificacion = $identificacion ; 
             $this -> nombre = $nombre ; 
