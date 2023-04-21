@@ -63,6 +63,12 @@
         }
 
         public function __toString() {
-            return "Nombre: " ;
+            return "\n" . 
+            "Nombre: " . $this -> getNombre() . "\n" .
+            "Apellido " . $this -> getApellido() . "\n" .
+            "Numero de documento " . $this -> getNroDoc() . "\n" .
+            "Direccion " . $this -> getDireccion() . "\n" .
+            "Mail " . $this -> getMail() . "\n" .
+            "Telefono " . $this -> getTelefono() . "\n" ;
         }
     }

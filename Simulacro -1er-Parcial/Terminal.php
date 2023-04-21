@@ -36,7 +36,7 @@
         }
 
         public function ventaAutomatica($cantAsientosReq, $fecha, $destino, $empresa) {
-           
+            
         }
 
         public function empresaMayorRecaudacion() {
@@ -44,14 +44,27 @@
         }
 
         public function  responsableViaje($numeroViaje) {
-          
-        }
+            $coleccEmpresas = $this -> getColeccionEmpresas() ;
+            $i=0 ;
+            $j=0 ;
 
-        public function  montoRecaudado() {
-          
+                while($i<count($coleccEmpresas)) {
+                    $empresa = $coleccEmpresas[$i] ;
+                    $coleccViajes = $empresa -> coleccViajes[$j] ;
+                    $nroViaje = $coleccViajes -> nroViaje ; 
+                        if($numeroViaje == $nroViaje) {
+                            $responsable = $coleccViajes -> responsable ;
+                            echo $responsable ;
+                        }
+                    $i++ ;
+                }
+            return $responsable ;
         }
 
         public function __toString() {
-            return " " ;
+            return 
+            "Denominacion: " . $this -> getDenominacion() . "\n" .
+            "Direccion: " . $this -> getDireccion() . "\n" .
+            "Empresas para viajar: " . $this -> getColeccionEmpresas() . "\n" ;
         } 
     }

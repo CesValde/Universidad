@@ -51,7 +51,7 @@
         public function getFecha() {
             return $this -> fecha ; 
         }
-        public function getCantAsientos() {
+        public function getCantAsientosTotales() {
             return $this -> cantAsientosTotales ; 
         }
         public function getCantAsientosDispo() {
@@ -79,7 +79,7 @@
         public function setFecha($fecha) {
             $this -> fecha = $fecha ; 
         }
-        public function setCantAsientos($cantAsientosTotales) {
+        public function setCantAsientosTotales($cantAsientosTotales) {
             $this -> cantAsientosTotales = $cantAsientosTotales ; 
         }
         public function setCantAsientosDispo($cantAsientosDispo) {
@@ -89,11 +89,26 @@
             $this -> responsable = $responsable ; 
         }
 
-        public function asignarAsientosDisponibles($cantAsientosDispo) {
-            
+        public function asignarAsientosDisponibles($cantAsientos) {
+            $cantAsientosDispo = $this -> getCantAsientosDispo() ;
+            $asignados = false ; 
+                if($cantAsientos < $cantAsientosDispo) {
+                    $asignados = true ;
+                }
+            return $asignados ;
         }
 
         public function __toString() {
-            
+            return "\n" .
+            "Destino: " . $this -> getDestino() . "\n" .
+            "Hora de partida " . $this -> getHoraPartida() . "\n" . 
+            "Hora de llegada " . $this -> getHoraLlegada() . "\n" . 
+            "Numero de viaje " . $this -> getNumeroViaje() . "\n" . 
+            "Importe " . $this -> getImporte() . "\n" . 
+            "Fecha " . $this -> getFecha() . "\n" . 
+            "Cantidad de asientos totales" . $this -> getCantAsientosTotales() . "\n" . 
+            "Cantidad de asientos disponibles " . $this -> getCantAsientosDispo() .
+            "\n" . 
+            "Responsable " . $this -> getResponsable() . "\n" ;
         }
     }

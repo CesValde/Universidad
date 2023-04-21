@@ -35,23 +35,58 @@
             $this -> coleccViajes = $coleccViajes ; 
         }
 
-        public function darViajeADestino($destino) {
-           
+        public function darViajeADestino($destino, $cantAsientos) {
+            $coleccViajes = $this -> getColeccionViajes() ; 
+            $coleccViajesDisp = [] ;
+
+                for($i=0 ; $i<count($coleccViajes) ; $i++) {
+                    // $viaje es un objeto 
+                    $viaje = $coleccViajes[$i] ; 
+                        if($viaje -> getDestino() == $destino 
+                            && $viaje -> CantAsientosDispo() >= $cantAsientos) {
+                            $coleccViajesDisp[] = $viaje ; 
+                        }
+                }
+            return $coleccViajesDisp ;
         }
 
         public function incorporarViaje($viaje) {
-           
+            $incorpora = true ;
+            $coleccViajes = $this -> getColeccionViajes() ;
+            $j=0 ;
+
+            while($j<count($coleccViajes) || $incorpora == true) {
+                $viajes = $coleccViajes[$j] ;
+                // print_r($coleccViajes) ;
+
+                // no entiendo 
+                if($viajes -> getDestino() == $viaje -> getDestino()
+                    && $viajes -> getFecha() == $viaje -> getFecha()
+                    && $viajes -> getHoraPartida() == $viaje -> getHoraPartida()) {
+                    $incorpora = false ;
+                }
+                $j++ ;
+            } 
+                if($incorpora == true) {
+                    $coleccViajes [] = $viaje ;
+                    $this -> setColeccionViajes($coleccViajes) ;
+                }
+            return $incorpora ;
         }
 
-        public function  venderViajeADestino($canAsientos, $destino, $fecha) {
-          
+        public function  venderViajeADestino($cantAsientos, $destino, $fecha) {
+            
         }
 
         public function  montoRecaudado() {
-          
+            $coleccViajes = $this -> getColeccionViajes() ;
+           
         }
 
         public function __toString() {
-            return " " ;
+            return 
+            "Identificacion: " . $this -> getIdentificacion() . 
+            "Nombre Empresa: " . $this -> getNombre() .  
+            "Viajes: " . $this -> getColeccionViajes() . "\n" ;
         } 
     }

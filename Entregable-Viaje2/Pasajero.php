@@ -43,4 +43,12 @@
         public function setNroTelefPasajero($nroTelPasaj) {
             $this -> nroTelPasaj = $nroTelPasaj ; 
         }
+
+        public function __toString() {
+            return 
+                "Nombre: " . $this -> getNombrePasajero() . "\n" . 
+                "Apellido: " . $this -> getApellidoPasajero() . "\n" .  
+                "Nro de documento: " . $this -> getNroDocPasajero() . "\n" .  
+                "Nro de Telefono: " . $this -> getNroTelefPasajero() . "\n" ;
+        }    
     }
