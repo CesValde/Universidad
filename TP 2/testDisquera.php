@@ -16,9 +16,10 @@
     $direccion = trim(fgets(STDIN)) ;  
 */ 
 
-    $hora_desde = strtotime( "8:00" ) ;     //  strtotime( $hora_desde )
-    $hora_hasta = strtotime( "22:00" ) ;
+    $hora_desde = strtotime( "8:00" ) ;     // hora unix    (4365364753456)
+    $hora_hasta = strtotime( "22:00" ) ;    // hora unix    (2345674532956)
 
+    $persona = new Persona("Cesarito", "Valderrama", "DNI", 95947908) ; 
     $disqueraCesarito = new Disquera($hora_desde, $hora_hasta, "abierto", "San Martin 463", $persona) ; 
 
     echo "Ingrese hora actual: " ; 
@@ -27,8 +28,10 @@
     $minutos = trim(fgets(STDIN)) ; 
     $estado = $disqueraCesarito -> dentroHorarioAtencion($hora, $minutos) ; 
         if($estado) {
+            echo "\n" ; 
             echo "El local esta abierto" . "\n" ; 
         } else {
+            echo "\n" ; 
             echo "El local esta cerrado" . "\n" ;
         } 
     $disqueraCesarito -> abrirDisquera($hora, $minutos) ; 

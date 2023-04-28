@@ -58,37 +58,33 @@
             $hora_hasta = $this -> getHora_hasta() ; 
             $horaActual = strtotime("$hora:$minutos") ; 
             $estado = false ; 
+            $this -> setEstado("Cerrado") ; 
                 if($horaActual >= $hora_desde && $horaActual <= $hora_hasta) {
                     $estado = true ; 
+                    $this -> setEstado("Abierto") ; 
                 }
             return $estado ; 
         }
 
         public function abrirDisquera($hora, $minutos) {
-            $hora_desde = $this -> getHora_desde() ; 
-            $hora_hasta = $this -> getHora_hasta() ; 
-            $horaActual = strtotime("$hora:$minutos") ; 
-                if($horaActual >= $hora_desde && $horaActual <= $hora_hasta) {
-                    $this -> setEstado("abierto") ; 
+            $estado = $this -> dentroHorarioAtencion($hora, $minutos) ; 
+                if($estado) {
+                    $this -> setEstado("Abierto") ;
                 }
-            // return ?
         }
 
         public function cerrarDisquera($hora, $minutos) {
-            $hora_desde = $this -> getHora_desde() ; 
-            $hora_hasta = $this -> getHora_hasta() ; 
-            $horaActual = strtotime("$hora:$minutos") ; 
-                if($horaActual <= $hora_desde && $horaActual >= $hora_hasta) {
-                    $this -> setEstado("cerrado") ; 
+            $estado = $this -> dentroHorarioAtencion($hora, $minutos) ; 
+                if($estado == false) {
+                    $this -> setEstado("Cerrado") ;
                 }
-            // return ?
         }
 
         public function convertirHorasUnixANormal() {
             $hora_desde = $this -> getHora_desde() ; 
             $hora_hasta = $this -> getHora_hasta() ; 
-            $hora_desde = date("H:i:s", $hora_desde) ;
-            $hora_hasta = date("H:i:s", $hora_hasta) ;
+            $hora_desde = date("H:i:s", $hora_desde) ;  // formato hora normal 08:00:00
+            $hora_hasta = date("H:i:s", $hora_hasta) ;  // formato hora normal 08:00:00
             $this -> setHora_desde($hora_desde) ; 
             $this -> setHora_hasta($hora_hasta) ;  
         }
@@ -98,6 +94,7 @@
                 "Horario de cierre: " . $this -> getHora_hasta() . "\n" . 
                 "Estado del local: " . $this -> getEstado() . "\n" . 
                 "Direccion: " . $this -> getDireccion() . "\n" .
-                "Dueño: " . $this -> getDueño() . "\n" ;
+                "\n" .
+                "Dueño: " . $this -> getDueño() ;
         }
     } 

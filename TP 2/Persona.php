@@ -45,7 +45,8 @@
         }
 
         public function __toString() {
-            return "\n" . "Nombre de la persona: " . $this -> getNombre() . "\n" . 
+            return "\n" . 
+                "Nombre de la persona: " . $this -> getNombre() . "\n" . 
                 "Apellido de la persona: " . $this -> getApellido() . "\n" . 
                 "Tipo de documento: " . $this -> getTipo() . "\n" . 
                 "Nro de documento: " . $this -> getNroDoc() ; 
