@@ -1,16 +1,18 @@
 <?php 
 
-    class Cliente extends Persona {
+    // icnluir la clase padre en la clase hija 
+    include_once "Persona_3.php" ; 
+
+    class Cliente extends Persona_3 {
         private $nroCliente ; 
 
         public function __construct(
-            $nroCliente, 
-            $nombre,
-            $apellido, 
-            $tipoDoc, 
-            $nroDoc
+                $nroCliente, 
+                $nombre,
+                $apellido,  
+                $nroDoc
             ) {
-            parent::__construct($nombre, $apellido, $tipoDoc, $nroDoc) ; 
+            parent::__construct($nombre, $apellido, $nroDoc) ; 
             $this -> nroCliente = $nroCliente ; 
         }
 
@@ -25,7 +27,8 @@
         public function __toString() {
             $cadena = parent::__toString() ;
 
-            $cadena.= "\n Legajo: " . $this -> getNroCliente() ; 
+            $cadena.= "\n" . 
+            "Numero de cliente: " . $this -> getNroCliente() ; 
             return $cadena ; 
         }
     }
