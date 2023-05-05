@@ -8,7 +8,7 @@
         public function __construct(
             $saldo , 
             $tipoCuenta , 
-            // objeto cliente de la clase persona 
+            // objeto Persona_3
             $cliente 
         )
         {
@@ -42,15 +42,21 @@
         }
 
         public function saldoCuenta() {
-
+            $saldo = $this -> getSaldo() ; 
+            return $saldo ; 
         }
 
-        public function realizarDeposito() {
-            
+        public function realizarDeposito($monto) {
+            $saldo = $this -> getSaldo() ; 
+            $saldo = $saldo + $monto ; 
+            $this -> setSaldo($saldo) ;
         }
 
-        public function realizarRetiro() {
-            
+        public function realizarRetiro($monto) {
+            $saldo = $this -> getSaldo() ;
+            $saldo = $saldo - $monto ; 
+            $this -> setSaldo($saldo) ;
+            return $monto ;
         }
 
         public function __toString() {
@@ -58,7 +64,6 @@
             "Saldo de la cuenta: " . $this -> getSaldo() . "\n" .  
             "Tipo de cuenta: " . $this -> getTipoCuenta() . "\n" . 
             "\n" . 
-            "Datos del cliente: " 
-            ; 
+            "Datos del cliente: " . $this -> getCliente() . "\n" ;
         }
     }

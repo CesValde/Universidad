@@ -25,7 +25,7 @@
             return $this -> nroDoc ; 
         }
 
-        public function setNombre($nombre) {
+        public function setNombre($nombre) {    
             $this -> nombre = $nombre ; 
         }
         public function setApellido($apellido) {
@@ -36,7 +36,8 @@
         }
 
         public function __toString() {
-            return "\n" . "Nombre de la persona: " . $this -> getNombre() . "\n" . 
+            return "\n" . 
+                "Nombre de la persona: " . $this -> getNombre() . "\n" . 
                 "Apellido de la persona: " . $this -> getApellido() . "\n" . 
                 "Nro de documento: " . $this -> getNroDoc() ; 
         }

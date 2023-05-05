@@ -12,7 +12,11 @@
                 $apellido,  
                 $nroDoc
             ) {
-            parent::__construct($nombre, $apellido, $nroDoc) ; 
+            parent:: __construct(
+                $nombre, 
+                $apellido, 
+                $nroDoc
+            ) ; 
             $this -> nroCliente = $nroCliente ; 
         }
 
@@ -28,7 +32,7 @@
             $cadena = parent::__toString() ;
 
             $cadena.= "\n" . 
-            "Numero de cliente: " . $this -> getNroCliente() ; 
+            "Numero de cliente: " . $this -> getNroCliente() ;
             return $cadena ; 
         }
     }
