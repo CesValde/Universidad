@@ -14,12 +14,12 @@
 
     // 5.3
     // objeto cuenta corriente
-    $cuentaCorr = new CuentaCorriente(500000, 5000, "corriente", $cliente1) ;
-    $cuentaCorr2 = new CuentaCorriente(400000, 4000, "corriente", $cliente2) ;
+    $cuentaCorr = new CuentaCorriente(500000, 5000, "corriente", $cliente1, 1) ;
+    $cuentaCorr2 = new CuentaCorriente(400000, 4000, "corriente", $cliente2, 2) ;
     // objeto cuenta ahorro
-    $cajaAhorro = new CuentaAhorro(2000, "ahorro", $cliente1) ; 
-    $cajaAhorro2 = new CuentaAhorro(7000, "ahorro", $cliente1) ; 
-    $cajaAhorro3 = new CuentaAhorro(6000, "ahorro", $cliente2) ; 
+    $cajaAhorro = new CuentaAhorro(9000, "ahorro", $cliente1, 3) ; 
+    $cajaAhorro2 = new CuentaAhorro(7000, "ahorro", $cliente1, 4) ; 
+    $cajaAhorro3 = new CuentaAhorro(6000, "ahorro", $cliente2, 5) ; 
 
     // coleccion de cuentas
     $coleccCuentasCorr = [$cuentaCorr, $cuentaCorr2] ; 
@@ -32,7 +32,9 @@
     // checkpoint 
     // numCuenta agg en clases ?
     // punto 5
-    //$cajaAhorro -> realizarDeposito($numCuenta, 300) ; 
+    $banco -> realizarDeposito(1, 300) ; 
+    
+
     //$cajaAhorro2 -> realizarDeposito($numCuenta, 300) ; 
     //$cajaAhorro3 -> realizarDeposito($numCuenta, 300) ;
 

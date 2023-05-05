@@ -4,17 +4,20 @@
         private $saldo ; 
         private $tipoCuenta ; 
         private $cliente ; 
+        private $nroCuenta ; 
 
         public function __construct(
             $saldo , 
             $tipoCuenta , 
             // objeto Persona_3
-            $cliente 
+            $cliente, 
+            $nroCuenta 
         )
         {
             $this -> saldo = $saldo ; 
             $this -> tipoCuenta = $tipoCuenta ; 
             $this -> cliente = $cliente ; 
+            $this -> nroCuenta = $nroCuenta ; 
         }
 
         public function getSaldo() {
@@ -28,6 +31,9 @@
         public function getCliente() {
             return $this -> cliente ; 
         }
+        public function getNroCuenta() {
+            return $this -> nroCuenta ; 
+        }
 
         public function setSaldo($saldo) {
             $this -> saldo = $saldo ; 
@@ -39,6 +45,10 @@
 
         public function setCliente($cliente) {
             $this -> cliente = $cliente ; 
+        }
+
+        public function setNroCuenta($nroCuenta) {
+            $this -> nroCuenta = $nroCuenta ; 
         }
 
         public function saldoCuenta() {

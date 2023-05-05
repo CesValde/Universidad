@@ -11,12 +11,14 @@
             // nro de cuenta , ??   
             $saldo, 
             $tipoCuenta, 
-            $cliente      // obejto Persona_3 
+            $cliente,     // obejto Persona_3 
+            $nroCuenta
         ) {
             parent:: __construct(
                 $saldo, 
                 $tipoCuenta, 
-                $cliente 
+                $cliente, 
+                $nroCuenta
             ) ; 
             $this -> montoMax = $montoMax ; 
         }  

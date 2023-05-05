@@ -75,7 +75,7 @@
                     if($cliente -> getNroCliente() == $nroCliente) {
                         $incorpora = true ;
                         // cliente no pisaria el valor si se agg 2 clientes?? serian la misma variable
-                        $nuevaCtaCorriente = new CuentaCorriente($montoDescubierto, 6000, "fbsdhfghs", $cliente) ;
+                        $nuevaCtaCorriente = new CuentaCorriente($montoDescubierto, 6000, "fbsdhfghs", $cliente, 3) ;
                         array_push($coleccCuentaCorr, $nuevaCtaCorriente) ; 
                         $this -> setColeccCuentaCorr($coleccCuentaCorr) ;
                     }
@@ -92,7 +92,7 @@
                     if($cliente -> getNroCliente() == $nroCliente) {
                         $incorpora = true ;
                         // cliente no pisaria el valor si se agg 2 clientes?? serian la misma variable
-                        $nuevaCajaAhorro = new CuentaAhorro(6000, "azaaz", $cliente) ;
+                        $nuevaCajaAhorro = new CuentaAhorro(6000, "azaaz", $cliente, 4) ;
                         array_push($coleccCajaAhorro, $nuevaCajaAhorro) ; 
                         $this -> setColeccCajaAhorro($coleccCajaAhorro) ;
                     }
@@ -101,7 +101,10 @@
         }
 
         public function realizarDeposito($numCuenta, $monto) {
-            
+            $coleccCuentaCorr = $this -> getColeccCuentaCorr() ; 
+            $coleccCajaAhorro = $this -> getColeccCajaAhorro() ; 
+
+                // un if recorro las colecciones y cuando encuentra chau deposito y corto 
         }
 
         public function realizarRetiro($numCuenta, $monto) {
