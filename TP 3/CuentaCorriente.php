@@ -7,11 +7,10 @@
 
         // Pasar los atributos del elemento padre e hijo
         public function __construct(
-            $montoMax,
-            // nro de cuenta , ??   
+            $montoMax, 
             $saldo, 
             $tipoCuenta, 
-            $cliente,     // obejto Persona_3 
+            $cliente,           // objeto Persona_3 
             $nroCuenta
         ) {
             parent:: __construct(
@@ -56,5 +55,4 @@
             "\n" . 
             "Cliente: " . $this -> getCliente() . "\n" ; 
         }
-
     }

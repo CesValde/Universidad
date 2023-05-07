@@ -4,10 +4,9 @@
 
     class CuentaAhorro extends Cuenta {
         public function __construct(
-            // nro de cuenta , ??
             $saldo, 
             $tipoCuenta, 
-            $cliente,    // obejto Persona_3
+            $cliente,       // objeto Persona_3
             $nroCuenta
         ) {
             parent:: __construct(

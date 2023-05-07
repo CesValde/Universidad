@@ -6,17 +6,16 @@
     include_once "CuentaCorriente.php" ; 
 
     // test
-    // 5.2  
     // objetos clientes  
     $cliente1 = new Cliente(8659, "Cesarito", "Valde", 95947908) ; 
     $cliente2 = new Cliente(7543, "Davito", "Londo", 29568839) ; 
     $coleccClientes = [$cliente1, $cliente2] ; 
 
-    // 5.3
-    // objeto cuenta corriente
+    // objetos cuenta corriente
     $cuentaCorr = new CuentaCorriente(500000, 5000, "corriente", $cliente1, 1) ;
     $cuentaCorr2 = new CuentaCorriente(400000, 4000, "corriente", $cliente2, 2) ;
-    // objeto cuenta ahorro
+
+    // objetos cuenta ahorro
     $cajaAhorro = new CuentaAhorro(9000, "ahorro", $cliente1, 3) ; 
     $cajaAhorro2 = new CuentaAhorro(7000, "ahorro", $cliente1, 4) ; 
     $cajaAhorro3 = new CuentaAhorro(6000, "ahorro", $cliente2, 5) ; 
@@ -25,18 +24,29 @@
     $coleccCuentasCorr = [$cuentaCorr, $cuentaCorr2] ; 
     $coleccCajaAhorro = [$cajaAhorro, $cajaAhorro2, $cajaAhorro3] ; 
 
-    // 5.1 
-    // en caso de nro cuenta pasarlo como nulo ?? 
     $banco = new Banco($coleccCuentasCorr, $coleccCajaAhorro, "ultimo dato", $coleccClientes) ; 
 
-    // checkpoint 
-    // numCuenta agg en clases ?
     // punto 5
-    $banco -> realizarDeposito(1, 300) ; 
-    
+    $deposito = $banco -> realizarDeposito(2, 999999) ;
+    $deposito = $banco -> realizarDeposito(2, 10000) ;
 
-    //$cajaAhorro2 -> realizarDeposito($numCuenta, 300) ; 
-    //$cajaAhorro3 -> realizarDeposito($numCuenta, 300) ;
+    /* 
+        sistema de retorno en numeros para saber pq no fue completado el pago 
+        -1 sobrepaso el max 
+        -2 no existe cuenta 
+        -3 si se hace 
+    */
+        if($deposito == -1) {
+            echo "Se sobrepaso el limite de su cuenta. Deposito rechazado \n" ; 
+        } elseif($deposito == -2) {
+            echo "La cuenta no existe \n" ;
+        } else {
+            echo "Deposito completado \n" ;
+        }
+
+    // este deposito no se hace porque supera el descubierto de la cuenta 
+    $deposito = $banco -> realizarDeposito(1, 8888800) ; 
+    $deposito = $banco -> realizarDeposito(5, 2643634756) ;
 
     // el cliente con nro nro 9990 no existe
     $incorporaCtaCorr = $banco -> incorporarCuentaCorriente(9990, 10000) ;
@@ -58,7 +68,8 @@
     $transferencia = $cuentaCorr -> realizarRetiro(150) ; 
     $cajaAhorro2 -> realizarDeposito($transferencia) ; 
 
-    $nuevoCliente = new Cliente(9990, "Pepito", "ggbro", 1111) ;
+    // ahora es cliente el nro 1111
+    $nuevoCliente = new Cliente(9990, "Tu vieja", "el dramas", 1111) ;
     $existeCliente = $banco -> incorporarCliente($nuevoCliente) ; 
         if($existeCliente) {
             echo "El cliente ya es cliente del banco \n" ;
@@ -89,6 +100,8 @@
             echo "No se agrego la caja de ahorro \n" ;
         }
 
+    // para probar si funcionaba el seteo ultimo valor
+    // $deposito = $banco -> realizarDeposito(2, 999) ;
+
     // punto 7 ? 
     echo $banco ; 
-    // echo $cajaAhorro2 ; 

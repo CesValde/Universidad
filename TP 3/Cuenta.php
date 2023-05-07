@@ -9,8 +9,7 @@
         public function __construct(
             $saldo , 
             $tipoCuenta , 
-            // objeto Persona_3
-            $cliente, 
+            $cliente,       // objeto Persona_3
             $nroCuenta 
         )
         {
@@ -31,6 +30,7 @@
         public function getCliente() {
             return $this -> cliente ; 
         }
+        
         public function getNroCuenta() {
             return $this -> nroCuenta ; 
         }

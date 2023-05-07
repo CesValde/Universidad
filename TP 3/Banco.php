@@ -3,9 +3,8 @@
     class Banco {
         private $coleccCuentaCorr ; 
         private $coleccCajaAhorro ; 
-        private $ultimoValorCuentaAsignado ;    // ultimo dinero ingresado / tipo de cta ?
+        private $ultimoValorCuentaAsignado ;
         private $coleccClientes ; 
-        // nro de cuenta ?? 
 
         public function __construct(
             $coleccCuentaCorr , 
@@ -61,11 +60,11 @@
                 if($existeCliente == false) {
                     array_push($coleccClientes, $nuevoCliente) ; 
                     $this -> setColeccClientes($coleccClientes) ; 
+                    $this -> setUltimoValorCuentasAsignado($nuevoCliente) ;
                 }
             return $existeCliente ;
         }
         
-        // que es monto descubierto ??
         public function incorporarCuentaCorriente($nroCliente, $montoDescubierto) { 
             $coleccClientes = $this -> getColeccClientes() ;
             $coleccCuentaCorr = $this -> getColeccCuentaCorr() ;
@@ -75,9 +74,11 @@
                     if($cliente -> getNroCliente() == $nroCliente) {
                         $incorpora = true ;
                         // cliente no pisaria el valor si se agg 2 clientes?? serian la misma variable
+                        // ejercicio listo y no pisa valor esta en una posicion diferente
                         $nuevaCtaCorriente = new CuentaCorriente($montoDescubierto, 6000, "fbsdhfghs", $cliente, 3) ;
                         array_push($coleccCuentaCorr, $nuevaCtaCorriente) ; 
                         $this -> setColeccCuentaCorr($coleccCuentaCorr) ;
+                        $this -> setUltimoValorCuentasAsignado($nuevaCtaCorriente) ;
                     }
                 }
             return $incorpora ;  
@@ -95,6 +96,7 @@
                         $nuevaCajaAhorro = new CuentaAhorro(6000, "azaaz", $cliente, 4) ;
                         array_push($coleccCajaAhorro, $nuevaCajaAhorro) ; 
                         $this -> setColeccCajaAhorro($coleccCajaAhorro) ;
+                        $this -> setUltimoValorCuentasAsignado($nuevaCajaAhorro) ;
                     }
                 }
             return $incorpora ; 
@@ -103,12 +105,85 @@
         public function realizarDeposito($numCuenta, $monto) {
             $coleccCuentaCorr = $this -> getColeccCuentaCorr() ; 
             $coleccCajaAhorro = $this -> getColeccCajaAhorro() ; 
+            $coleccionCtas = array_merge($coleccCuentaCorr, $coleccCajaAhorro) ; 
+            $i = 0 ;
+            $deposito = -3 ; 
+            $existe = false ; 
 
-                // un if recorro las colecciones y cuando encuentra chau deposito y corto 
+                // recorro a ver si el nro de cuenta existe 
+                foreach($coleccionCtas as $cuenta) {
+                    if($numCuenta == $cuenta -> getNroCuenta()) {
+                        $existe = true ;
+                    } 
+                }
+                    
+                while($numCuenta <> $coleccionCtas[$i] -> getNroCuenta() && $existe == true) {
+                    // echo $i ;
+                    $i++ ;
+                }
+                if($numCuenta == $coleccionCtas[$i] -> getNroCuenta()) {
+                    if($coleccionCtas[$i] -> getTipoCuenta() == "corriente") {
+                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                        $tope = $saldo + $monto ;
+                            if($tope > $coleccionCtas[$i] -> getMontoMax()) {
+                                $deposito = -1 ;
+                            } else {
+                                $this -> setUltimoValorCuentasAsignado($monto) ;
+                                $saldo = $saldo + $monto ; 
+                                $coleccionCtas[$i] -> setSaldo($saldo) ;
+                            }  
+                    } else {
+                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                        $saldo = $saldo + $monto ;
+                        $coleccionCtas[$i] -> setSaldo($saldo) ;
+                        $this -> setUltimoValorCuentasAsignado($monto) ;
+                    }
+                } else {
+                    $deposito = -2 ;
+                }                       
+            return $deposito ;
         }
 
         public function realizarRetiro($numCuenta, $monto) {
+            $coleccCuentaCorr = $this -> getColeccCuentaCorr() ; 
+            $coleccCajaAhorro = $this -> getColeccCajaAhorro() ; 
+            $coleccionCtas = array_merge($coleccCuentaCorr, $coleccCajaAhorro) ; 
+            $i = 0 ;
+            $retiro = -3 ; 
+            $existe = false ; 
 
+                // recorro a ver si el nro de cuenta existe 
+                foreach($coleccionCtas as $cuenta) {
+                    if($numCuenta == $cuenta -> getNroCuenta()) {
+                        $existe = true ;
+                    } 
+                }
+
+                while($numCuenta <> $coleccionCtas[$i] -> getNroCuenta() && $existe == true) {
+                    // echo $i ;
+                    $i++ ;
+                }
+                
+                if($numCuenta == $coleccionCtas[$i] -> getNroCuenta()) {
+                    if($coleccionCtas[$i] -> getTipoCuenta() == "corriente") {
+                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                        $tope = $saldo + $monto ;
+                            if($tope > $coleccionCtas[$i] -> getMontoMax()) {
+                                $retiro = -1 ;
+                            } else {
+                                $this -> setUltimoValorCuentasAsignado($monto) ;
+                                $saldo = $saldo - $monto ; 
+                                $coleccionCtas[$i] -> setSaldo($saldo) ;
+                            }
+                    } else {
+                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                        $saldo = $saldo - $monto ;
+                        $coleccionCtas[$i] -> setSaldo($saldo) ;
+                    }
+                } else {
+                    $retiro = -2 ;
+                }                       
+            return $retiro ;
         }
 
         public function mostrarCuentasCorrientes() {
@@ -159,6 +234,7 @@
             $cadenaCtaCorrientes = $this -> mostrarCuentasCorrientes() ; 
             $cadenaCajaAhorro = $this -> mostrarCajasAhorro() ;
             $cadenaClientes = $this -> mostrarClientes() ;
+            // 
 
             // y si quiero usar el to string de cliente.php ?
             return 
