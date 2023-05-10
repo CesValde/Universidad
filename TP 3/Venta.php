@@ -3,7 +3,7 @@
     class Venta {
         private $fecha ; 
         private $producto ;          // objeto producto 
-        // private $cantProductos ; 
+        // private $cantProductos ;     // coleccion de ventas // no hacer 
         private $cliente ;              // objeto cliente
 
         public function __construct(

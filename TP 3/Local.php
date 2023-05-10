@@ -50,10 +50,12 @@
                         if($codigoBarra == $codigoBarraNuevo) {
                             $incorpora = false ; 
                             // Como identificar que producto agregar a importados o regionales 
+                            // hacer una sola coleccion para los prodcutos 
                         }
                     $i++ ;
                 }
                 if($incorpora) {
+                    // si descuento es > a 0 es regional 
                     array_push($coleccProducRegio, $objProducto) ;
                     $this -> setColeccProducRegio($coleccProducRegio) ;
                 }
@@ -137,6 +139,31 @@
             // return promedioVentas ;
         }
         public function informarConsumoCliente($tipoDoc,$numDoc) {
+            $coleccProducImpor = $this -> getColeccProducImpor() ; 
+            $coleccProducRegio = $this -> getColeccProducRegio() ;
+            $coleccProductos = array_merge($coleccProducImpor, $coleccProducRegio) ;
+            $coleccVentas = $this -> getColeccVentas() ; 
+            $listaProductos = "" ; 
+
+
+                foreach($coleccVentas as $venta) {
+                    $cliente = $venta -> getCliente() ; 
+                        if($cliente -> getTipoDoc() == $tipoDoc && $cliente -> getNroDoc() == $numDoc) {
+                            $producto = $venta -> getProducto() ; 
+                            $listaProductos = $listaProductos . 
+                            "Producto: " . $producto -> getDescripcion() ;  
+                        }
+                }
+            
+
+
+
+
+
+
+
+
+
             // return sumaCostos ;
         }
 
@@ -148,6 +175,10 @@
             $encontro = false ;
             $precioVenta = 0 ;
 
+
+
+
+            
             /* 
                 Hacer precio de venta de los productos. 'El precio de venta de un producto se calcula 
                 sobre el precio de compra, más el porcentaje de ganancia en basea su rubro, más el 
@@ -159,7 +190,11 @@
                     // productos importados
                     foreach($coleccProducImpor as $producto) {
                         if($producto -> getCodigoBarra() == $objProducto -> getCodigoBarra()) {
-                            $precioVenta = $producto -> getPrecioCompra() ;
+                            $precioCompra = $producto -> getPrecioCompra() ;
+                            $rubro = $producto -> getRubro() ; 
+                            $precioVenta = $precioVenta + ($precioCompra * $rubro -> getPorcenGananApli()) ; 
+                            $precioVenta = $precioVenta + ($precioCompra * $producto -> getPorcenIva()) ; 
+
                             $impuestos = ($precioVenta * 0.50) ;
                             $precioVenta = $precioVenta + $impuestos ; 
                             $precioVenta = $precioVenta + ($precioVenta * 0.10) ;
@@ -172,6 +207,14 @@
                     if($encontro <> true) {
                         foreach($coleccProducRegio as $producto) {
                             if($producto -> getCodigoBarra() == $objProducto -> getCodigoBarra()) {
+
+                                // ...
+                                $precioCompra = $producto -> getPrecioCompra() ;
+                                $rubro = $producto -> getRubro() ; 
+                                $precioVenta = $precioVenta + ($precioCompra * $rubro -> getPorcenGananApli()) ; 
+                                $precioVenta = $precioVenta + ($precioCompra * $producto -> getPorcenIva()) ; 
+
+
                                 $rubro = $producto -> getRubro() ;
                                 $descuento = $rubro -> getporcenGananApli() ;
                                 $descuento = $descuento / 100 ;

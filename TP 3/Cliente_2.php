@@ -1,13 +1,10 @@
 <?php
 
-    // incluir la clase padre en la clase hija 
-    include_once "Persona_3.php" ; 
-
     class Cliente extends Persona_3 {
-        private $nroCliente ; 
+        private $tipoDoc ; 
 
         public function __construct(
-                $nroCliente, 
+                $tipoDoc, 
                 $nombre,
                 $apellido,  
                 $nroDoc
@@ -17,22 +14,22 @@
                 $apellido, 
                 $nroDoc
             ) ; 
-            $this -> nroCliente = $nroCliente ; 
+            $this -> tipoDoc = $tipoDoc ; 
         }
 
-        public function getNroCliente() {
-            return $this -> nroCliente ; 
+        public function getTipoDoc() {
+            return $this -> tipoDoc ; 
         }
 
-        public function setNroCliente($nroCliente) {
-            $this -> nroCliente = $nroCliente ; 
+        public function setTipoDoc($tipoDoc) {
+            $this -> tipoDoc = $tipoDoc ; 
         }
 
         public function __toString() {
             $cadena = parent::__toString() ;
 
             $cadena.= "\n" . 
-            "Numero de cliente: " . $this -> getNroCliente() ;
+            "Tipo de documento del cliente: " . $this -> getTipoDoc() ;
             return $cadena ; 
         }
-    }   // modificar
+    }   

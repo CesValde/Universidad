@@ -1,6 +1,6 @@
 <?php 
 
-    include_once "Cliente_2.php" ;        // crear otra clase Cliente con tipoDoc
+    include_once "Cliente_2.php" ;
     include_once "Local.php" ; 
     include_once "Venta.php" ; 
     include_once "Rubro.php" ;
@@ -17,14 +17,15 @@
     // objetos Prodcutos 
 
     // estos objetos tienen que ser new productoRegional // Importado ???
-    $monster = new Producto(1234, "Monster", 100, 2, 500, $rubro1) ; 
-    $celular = new Producto(7435, "Celular", 200, 3, 50000, $rubro1) ;
-    $cpu = new Producto(74027, "CPU", 300, 5, 80000, $rubro2) ;             // 00033 me sale numero raro con un echo
-    $gpu = new Producto(92624, "GPU", 400, 8, 120000, $rubro2) ;
+    $monster = new ProductoImportado(1234, "Monster", 100, 2, 500, $rubro1) ; 
+    $celular = new ProductoImportado(7435, "Celular", 200, 3, 50000, $rubro1) ;
+    $cpu = new ProductoRegional(15, 74027, "CPU", 300, 5, 80000, $rubro2) ;             // 00033 me sale numero raro con un echo
+    $gpu = new ProductoRegional(10, 92624, "GPU", 400, 8, 120000, $rubro2) ;
 
     // colecciones 
     $coleccProducImpor = [$monster, $celular] ;
     $coleccProducRegio = [$cpu, $gpu] ; 
+    // modificar 
     $coleccProductos = array_merge($coleccProducImpor, $coleccProducRegio) ;
     $coleccVentas = [] ;
 
