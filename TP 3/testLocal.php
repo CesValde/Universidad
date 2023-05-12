@@ -1,5 +1,6 @@
 <?php 
 
+    include_once "Persona_3.php" ;
     include_once "Cliente_2.php" ;
     include_once "Local.php" ; 
     include_once "Venta.php" ; 

@@ -139,12 +139,8 @@
             // return promedioVentas ;
         }
         public function informarConsumoCliente($tipoDoc,$numDoc) {
-            $coleccProducImpor = $this -> getColeccProducImpor() ; 
-            $coleccProducRegio = $this -> getColeccProducRegio() ;
-            $coleccProductos = array_merge($coleccProducImpor, $coleccProducRegio) ;
             $coleccVentas = $this -> getColeccVentas() ; 
             $listaProductos = "" ; 
-
 
                 foreach($coleccVentas as $venta) {
                     $cliente = $venta -> getCliente() ; 
@@ -154,17 +150,7 @@
                             "Producto: " . $producto -> getDescripcion() ;  
                         }
                 }
-            
-
-
-
-
-
-
-
-
-
-            // return sumaCostos ;
+            return $listaProductos ;
         }
 
         // es mejor si me pasan el objeto por parametro no? digo yo 
@@ -175,57 +161,56 @@
             $encontro = false ;
             $precioVenta = 0 ;
 
+                // productos importados
+                foreach($coleccProducImpor as $producto) {
+                    if($producto -> getCodigoBarra() == $objProducto -> getCodigoBarra()) {
+                        $precioCompra = $producto -> getPrecioCompra() ;
+                        $rubro = $producto -> getRubro() ; 
+                        $rubro = $rubro -> getPorcenGananApli() / 100 ;
+                        $precioVenta = $precioVenta + ($precioCompra * $rubro) ; 
+                        $iva = $producto -> getPorcenIva() ; 
+                            if($iva > 0 && $iva < 9) {
+                                $iva = $producto -> getPorcenIva() / 10 ; 
+                            } else{
+                                $iva = $producto -> getPorcenIva() / 100 ;
+                            }
+                        $precioVenta = $precioVenta + ($precioCompra * $iva) ; 
 
+                        $impuestos = ($precioVenta * 0.50) ;
+                        $precioVenta = $precioVenta + $impuestos ; 
+                        $precioVenta = $precioVenta + ($precioVenta * 0.10) ;
+                        $encontro = true ;
+                    }
+                }
 
-
-            
-            /* 
-                Hacer precio de venta de los productos. 'El precio de venta de un producto se calcula 
-                sobre el precio de compra, más el porcentaje de ganancia en basea su rubro, más el 
-                porcentaje de IVA que se aplica al producto' . 
-            */
-            // duda de si hacerlo aca 
-
-
-                    // productos importados
-                    foreach($coleccProducImpor as $producto) {
+                // productos regionales
+                if($encontro <> true) {
+                    foreach($coleccProducRegio as $producto) {
                         if($producto -> getCodigoBarra() == $objProducto -> getCodigoBarra()) {
                             $precioCompra = $producto -> getPrecioCompra() ;
                             $rubro = $producto -> getRubro() ; 
-                            $precioVenta = $precioVenta + ($precioCompra * $rubro -> getPorcenGananApli()) ; 
-                            $precioVenta = $precioVenta + ($precioCompra * $producto -> getPorcenIva()) ; 
+                            $rubro = $rubro -> getPorcenGananApli() / 100 ;
+                            $precioVenta = $precioVenta + ($precioCompra * $rubro) ; 
+                            $iva = $producto -> getPorcenIva() ; 
+                                if($iva > 0 && $iva < 9) {
+                                    $iva = $iva / 10 ; 
+                                } else{
+                                    $iva = $iva / 100 ;
+                                }
+                                $precioVenta = $precioVenta + ($precioCompra * $iva) ;  
 
-                            $impuestos = ($precioVenta * 0.50) ;
-                            $precioVenta = $precioVenta + $impuestos ; 
-                            $precioVenta = $precioVenta + ($precioVenta * 0.10) ;
-                            $encontro = true ;
+                                // preguntar esto 
+                                // ejecutar para ver precio al final queda mayor
+                                $descuento = $producto -> getPorcenDescuento() ;
+                                if($descuento > 0 && $descuento < 9) {
+                                    $descuento = $descuento / 10 ; 
+                                } else{
+                                    $descuento = $descuento / 100 ;
+                                }
+                                $precioVenta = $precioVenta - ($precioVenta * $descuento) ;
                         }
-                        
                     }
-
-                    // productos regionales
-                    if($encontro <> true) {
-                        foreach($coleccProducRegio as $producto) {
-                            if($producto -> getCodigoBarra() == $objProducto -> getCodigoBarra()) {
-
-                                // ...
-                                $precioCompra = $producto -> getPrecioCompra() ;
-                                $rubro = $producto -> getRubro() ; 
-                                $precioVenta = $precioVenta + ($precioCompra * $rubro -> getPorcenGananApli()) ; 
-                                $precioVenta = $precioVenta + ($precioCompra * $producto -> getPorcenIva()) ; 
-
-
-                                $rubro = $producto -> getRubro() ;
-                                $descuento = $rubro -> getporcenGananApli() ;
-                                $descuento = $descuento / 100 ;
-                                // agrega el porcentaje de ganancia aplicado al producto 
-                                // esta en la clase producto objeto rubro 
-                                $precioVenta = $producto -> getPrecioCompra() ;   // contradictorio
-                                $descuento = $precioVenta * $descuento ;
-                                $precioVenta = $precioVenta - $descuento ;  // se aplica el descuento
-                            }
-                        }
-                    }   
+                }   
             return $precioVenta ;
         }
         
