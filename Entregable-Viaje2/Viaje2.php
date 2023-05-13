@@ -6,6 +6,7 @@
         private $cantMaxPasajeros ; 
         private $coleccPasajeros ;  
         private $responsableV ; 
+        
 
         public function __construct(
             $codigoViaje, 

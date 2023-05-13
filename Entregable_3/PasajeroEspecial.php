@@ -8,7 +8,9 @@
         public function __construct(
             // atributos padre
             $nombrePasaj , 
-            // $apellidoPasaj , 
+            $apellidoPasaj , 
+            $nroDocPasaj , 
+            $nroTelPasaj ,
             $nroAsiento , 
             $nroTicket, 
 
@@ -18,14 +20,16 @@
             $comida
         ) {
             parent:: __construct(
-                $nombrePasaj, 
-                // $apellidoPasaj, 
-                $nroAsiento,
-                $nroTicket 
+                $nombrePasaj ,
+                $apellidoPasaj ,
+                $nroDocPasaj ,
+                $nroTelPasaj ,
+                $nroAsiento , 
+                $nroTicket
             ) ;
             $this -> sillaRuedas = $sillaRuedas ; 
             $this -> asistencia = $asistencia ; 
-            $this -> $comida = $comida ;
+            $this -> comida = $comida ;
         }
 
         public function getSillaRuedas() {
@@ -58,15 +62,20 @@
             $comida = $this -> getComida() ; 
             $cadena = "" ;
 
-                if($sillaRuedas) {
+                if($sillaRuedas) {   
                     if($asistencia) {
                         if($comida) {
                             $cadena .= 
                                 "Silla de ruedas: Si" . "\n" . 
                                 "Asistencia: Si" . "\n" . 
                                 "Comida: Si" . "\n" ;
+                        } else {
+                            $cadena .= 
+                                "Silla de ruedas: Si" . "\n" . 
+                                "Asistencia: Si" . "\n" . 
+                                "Comida: No" . "\n" ;
                         }
-                    } if($comida) {
+                    } elseif($comida) {
                         $cadena .= 
                         "Silla de ruedas: Si" . "\n" . 
                         "Asistencia: No" . "\n" . 
@@ -75,7 +84,7 @@
                         $cadena .= 
                         "Silla de ruedas: Si" . "\n" . 
                         "Asistencia: No" . "\n" . 
-                        "Comida: No" . "\n" ;
+                        "Comida: No" . "\n" ; 
                     }
                 } elseif($asistencia) { 
                     if($comida) {
@@ -93,18 +102,36 @@
                     $cadena .= 
                     "Silla de ruedas: No" . "\n" . 
                     "Asistencia: No" . "\n" . 
-                    "Comida: No" . "\n" ;
-                }
+                    "Comida: Si" . "\n" ;
+                } 
             return $cadena ; 
+        }
+
+        public function darPorcentajeIncremento() {
+            $sillaRuedas = $this -> getSillaRuedas() ; 
+            $asistencia = $this -> getAsistencia() ; 
+            $comida = $this -> getComida() ; 
+            $porcentaje = 0.15 ; 
+
+            if($sillaRuedas) {
+                if($asistencia) {
+                    if($comida) {
+                        $porcentaje = 0.30 ;
+                    }
+                }
+            }
+            return $porcentaje ; 
         }
 
         public function __toString() {
             $cadena = parent:: __toString() ; 
+            $cadenaCondiciones = $this -> mostrarCondiciones() ;
 
-            $cadena .= "\n" . 
-            "Condiciones del pasajero: " . "\n" .
-            "Silla de ruedas: Si" . "\n" . 
-            "Asistencia: Si" . "\n" . 
-            "Comida: Si" . "\n" ;
+            return "\n" .
+                "Tipo de pasajero: " . "\n" . 
+                "Especial" . "\n" .
+                $cadena .= "\n" . 
+                "Condiciones del pasajero: " . "\n" .
+                $cadenaCondiciones ; 
         }
     }

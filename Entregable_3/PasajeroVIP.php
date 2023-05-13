@@ -7,7 +7,9 @@
         public function __construct(
             // atributos padre
             $nombrePasaj , 
-            // $apellidoPasaj , 
+            $apellidoPasaj , 
+            $nroDocPasaj , 
+            $nroTelPasaj ,
             $nroAsiento , 
             $nroTicket, 
 
@@ -17,7 +19,9 @@
         ) {
             parent:: __construct(
                 $nombrePasaj, 
-                // $apellidoPasaj, 
+                $apellidoPasaj, 
+                $nroDocPasaj , 
+                $nroTelPasaj ,
                 $nroAsiento,
                 $nroTicket 
             ) ;
@@ -41,11 +45,23 @@
             $this -> cantMillas = $cantMillas ;
         }
 
+        public function darPorcentajeIncremento() {
+            $cantMillas = $this -> getCantMillas() ;
+            $porcentaje = 0.35 ; 
+                if($cantMillas > 300) {
+                    $porcentaje = 0.30 ;
+                }
+            return $porcentaje ; 
+        }
+
         public function __toString() {
             $cadena = parent:: __toString() ; 
 
-            $cadena .= "\n" . 
-            "Numero de Viajero: " . $this -> getNroViajero() . "\n" . 
-            "Cantidad de millas: " . $this -> getCantMillas() . "\n" ;
+            return "\n" . 
+                "Tipo de pasajero: " . "\n" .
+                "VIP" . "\n" .   
+                $cadena .= "\n" . 
+                "Numero de Viajero: " . $this -> getNroViajero() . "\n" . 
+                "Cantidad de millas: " . $this -> getCantMillas() . "\n" ;
         }
     }

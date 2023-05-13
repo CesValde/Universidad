@@ -336,13 +336,3 @@
             break ; 
         }
     } while($opcion <> 4) ;
-
-    /*
-    test 
-    1 pasajero 
-    incremento a 2 (cantPasajeros)
-    agg pasajero
-    borro el 1ro 
-    incremento a 3 (cantPasajeros)
-    agg pasajero
-    */
