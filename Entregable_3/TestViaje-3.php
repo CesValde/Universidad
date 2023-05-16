@@ -6,7 +6,6 @@
     include_once "PasajeroVIP.php" ; 
     include_once "PasajeroEspecial.php" ;
     include_once "Responsable.php" ;
-   /*  include_once "Venta.php" ;  */
 
     /**
      * Despliega el menu de opciones
@@ -25,7 +24,7 @@
         echo "Ingrese opcion: " ; 
         $opcion = trim(fgets(STDIN)) ;
         echo "\n" ;
-            while($opcion < 1 || $opcion > 4) {
+            while($opcion < 1 || $opcion > 5) {
                 echo "Ingrese una opcion correcta" . "\n" ; 
                 echo "\n" ;  
                 echo "1. Cargar informacion del viaje" . "\n" ;
@@ -132,35 +131,71 @@
         return $cantMaxPasajeros ; 
     }
 
+    /**
+     * Retorna el booleano correspondiente para el objeto
+     * @param string $sillaRuedas
+     * @return boolean
+     */
+    function EnviarRespuestaSillaDeRuedas($sillaRuedas) {
+        if($sillaRuedas == "si") {
+            $sillaRuedas = true ;
+        } else {
+            $sillaRuedas = false ;
+        }
+        return $sillaRuedas ;
+    }
+
+    /**
+     * Retorna el booleano correspondiente para el objeto
+     * @param string $asistencia
+     * @return boolean
+     */
+    function EnviarRespuestaAsistencia($asistencia) {
+        if($asistencia == "si") {
+            $asistencia = true ;
+        } else {
+            $asistencia = false ;
+        }
+        return $asistencia ;
+    }
+    
+    /**
+     * Retorna el booleano correspondiente para el objeto
+     * @param string $comida
+     * @return boolean
+     */
+    function EnviarRespuestaComida($comida) {
+        if($comida == "si") {
+            $comida = true ;
+        } else {
+            $comida = false ;
+        }
+        return $comida ;
+    }
 
 
-
-    // Test 
     // por cada pasajero debe haber una venta?
-
-
+/* 
     $pasajero1 = new PasajeroEstandar("Cesar", "Valderrama", 95947908, 1137977246, 1, 101) ; 
     $pasajero2 = new PasajeroVIP("Isagi", "Yoichi", 5678, 9876, 2, 102, 0202, 1500) ; 
     $pasajero3 = new PasajeroEspecial("David", "Londo", 29568839, 580412, 3, 103, false, true, false) ;
     $coleccPasajeros = [$pasajero1, $pasajero2, $pasajero3] ;
-    /*    
-        $pasajero6 = new PasajeroEspecial("Hinata", 6, 106, true, false, true) ;
-        $pasajero7 = new PasajeroEspecial("Garp", 7, 107, false, true, false) ;
-        $pasajero8 = new PasajeroEspecial("Saiki", 8, 108, false, true, true) ;
-        $pasajero9 = new PasajeroEspecial("Lelouch", 9, 109, false, false, true) ; 
-    */
+    $pasajero6 = new PasajeroEspecial("Hinata", 6, 106, true, false, true) ;
+    $pasajero7 = new PasajeroEspecial("Garp", 7, 107, false, true, false) ;
+    $pasajero8 = new PasajeroEspecial("Saiki", 8, 108, false, true, true) ;
+    $pasajero9 = new PasajeroEspecial("Lelouch", 9, 109, false, false, true) ; 
     $responsable = new Responsable(1298, 5386453, "El vergas", "sisas") ;
+
 
     $pasajero4 = new PasajeroEspecial("Luffy", "D", 100000, 4656547, 4, 104, true, true, true) ;
     $viajeZulia = new Viaje(12345, "Zulia", 5, $coleccPasajeros, $responsable, 5000, 0) ;
-
-    // preguntar
+*/
 /*  
     echo "Ingrese precio del ticket: " ; 
     $precioTicket = trim(fgets(STDIN)) ;
- */
 
-    $importe = $viajeZulia -> venderPasaje($pasajero4) ;
+
+    /* $importe = $viajeZulia -> venderPasaje($pasajero4) ;
         if($importe == -1) {
             echo "No hay asientos disponibles \n" ;
         } else {
@@ -185,24 +220,11 @@
             echo "El importe total a pagar es de: " . $importe . "\n" . 
             "Datos del pasajero de la venta: " . $pasajero6 . "\n" ;    
         }
+*/
 
-
-    // test final
-    echo $viajeZulia ; 
-
-
-
-
-
-
-
-
-
-
-     /** 
 
     // Test
-    $cantPasajeros = count($coleccPasajeros) ; 
+    $cantPasajeros = 0 ;
     $cantViajes = 0 ;
    
     do {
@@ -237,10 +259,13 @@
                             $nroTelPasaj= trim(fgets(STDIN)) ;
                             $nroTelPasaj = validarNroTelefono($nroTelPasaj) ;         
                             echo "Ingrese el tipo de pasajero: " ; 
-                            $tipoPasajero = trim(fgets(STDIN)) ;     
+                            $tipoPasajero = trim(fgets(STDIN)) ; 
+                            echo "Ingrese nro de ticket: " ;
+                            $nroTicket = trim(fgets(STDIN)) ;
+                            $nroAsiento = 1 ; 
                                 if($tipoPasajero == 'estandar') {
                                     $pasajero = new PasajeroEstandar($nombrePasaj, $apellidoPasaj, $nroDocPasaj , $nroTelPasaj ,$nroAsiento, $nroTicket) ;
-                                } elseIf($tipoPasajero == 'vip') {
+                                } elseif($tipoPasajero == 'vip') {
                                     echo "Ingrese nro de viajero: " ; 
                                     $nroViajero = trim(fgets(STDIN)) ;
                                     echo "Ingrese cantidad de millas: " ; 
@@ -251,12 +276,13 @@
                                     $sillaRuedas = trim(fgets(STDIN)) ;
                                     echo "Necesita ayuda para embarcar o desembarcar?" ; 
                                     $asistencia = trim(fgets(STDIN)) ;
-                                    echo "Alergico algun alimento?"
+                                    echo "Alergico algun alimento?" ;
                                     $comida = trim(fgets(STDIN)) ;
-                                    $pasajero = new PasajeroEspecial($nombrePasaj, $apellidoPasaj, $nroDocPasaj, $nroTelPasaj, $nroAsiento, $nroTicket, $sillaRuedas, $asistencia, $comida)
+                                    $pasajero = new PasajeroEspecial($nombrePasaj, $apellidoPasaj, $nroDocPasaj, $nroTelPasaj, $nroAsiento, $nroTicket, $sillaRuedas, $asistencia, $comida) ;
                                 }
+                            $nroAsiento++ ;
                             echo "\n" ; 
-                            $cantPasajeros++ ;
+                            // $cantPasajeros++ ;
                             $coleccPasajeros[$i] = $pasajero ; 
                             // print_r($coleccPasajeros) ;                      
                         }
@@ -270,9 +296,9 @@
                     $nombreEmple = trim(fgets(STDIN)) ; 
                     echo "Ingrese apellido del responsable: " ; 
                     $apellEmple = trim(fgets(STDIN)) ; 
-                    $responsableV = new ResponsableV($nroEmpleado, $nroLicencia, $nombreEmple, $apellEmple) ;
+                    $responsable = new Responsable($nroEmpleado, $nroLicencia, $nombreEmple, $apellEmple) ;
                     // objeto Viaje
-                    $viajeZulia = new Viaje(12345, "Zulia", 5, $coleccPasajeros, $responsable, 5000, 0) ;
+                    $viajeZulia = new Viaje(12345, "Zulia", $cantMaxPasajeros, $coleccPasajeros, $responsable, 5000, 0) ;
                     $cantViajes++ ;
                 }
             break ;
@@ -403,6 +429,7 @@
                                     $nroTelPasaj= trim(fgets(STDIN)) ;
                                     $nroTelPasaj = validarNroTelefono($nroTelPasaj) ;
 
+                                    // preguntar si se mueve a ventaPasaje
                                     $existePasaj = $viajeZulia -> existePasajero($nombrePasaj, $apellidoPasaj, $nroDocPasaj) ; 
                                         if($existePasaj) {
                                             echo "El pasajero ya esta incluido en el viaje \n" ; 
@@ -416,12 +443,67 @@
                                         }
                                 } else {
                                     echo "No hay asientos disponibles \n" ; 
-                                }                     
+                                }    
                         }
                 }
             break ; 
-            case 3:              
-                
+            case 3: 
+                if($cantViajes <> 0) {
+                    $cantMaxPasajeros = $viajeZulia -> getCantMaxPasajeros() ;
+                   /*  echo $cantMaxPasajeros ; */
+                    $coleccPasajeros = $viajeZulia -> getColeccPasajeros() ;
+                    $cantPasajeros = count($coleccPasajeros) ;
+                  /*   echo $cantPasajeros ; */
+                    if($cantPasajeros < $cantMaxPasajeros) {
+                        echo "Ingrese nombre del pasajero: " ; 
+                        $nombrePasaj = trim(fgets(STDIN)) ;  
+                        $nombrePasaj = validarNombre($nombrePasaj) ;                              
+                        echo "Ingrese apellido del pasajero: " ; 
+                        $apellidoPasaj = trim(fgets(STDIN)) ; 
+                        $apellidoPasaj = validarApellido($apellidoPasaj) ;                               
+                        echo "Ingrese nro de documento: " ; 
+                        $nroDocPasaj = trim(fgets(STDIN)) ;
+                        $nroDocPasaj = validarDni($nroDocPasaj) ;                              
+                        echo "Ingrese nro de telefono: " ; 
+                        $nroTelPasaj= trim(fgets(STDIN)) ;
+                        $nroTelPasaj = validarNroTelefono($nroTelPasaj) ;         
+                        echo "Ingrese el tipo de pasajero: " ; 
+                        $tipoPasajero = trim(fgets(STDIN)) ;     
+                            if($tipoPasajero == 'estandar') {
+                                $pasajero = new PasajeroEstandar($nombrePasaj, $apellidoPasaj, $nroDocPasaj , $nroTelPasaj ,$nroAsiento, $nroTicket) ;
+                            } elseif($tipoPasajero == 'vip') {
+                                echo "Ingrese nro de viajero: " ; 
+                                $nroViajero = trim(fgets(STDIN)) ;
+                                echo "Ingrese cantidad de millas: " ; 
+                                $cantMillas = trim(fgets(STDIN)) ;
+                                $pasajero = new PasajeroVIP($nombrePasaj, $apellidoPasaj, $nroDocPasaj, $nroTelPasaj, $nroAsiento, $nroTicket, $nroViajero, $cantMillas) ;
+                            } else {
+                                echo "Usa silla de ruedas? " ; 
+                                $sillaRuedas = trim(fgets(STDIN)) ;
+                                $sillaRuedas = EnviarRespuestaSillaDeRuedas($sillaRuedas) ;
+                                echo "Necesita ayuda para embarcar o desembarcar? " ; 
+                                $asistencia = trim(fgets(STDIN)) ;
+                                $asistencia = EnviarRespuestaAsistencia($asistencia) ;
+                                echo "Alergico algun alimento? " ;
+                                $comida = trim(fgets(STDIN)) ;
+                                $comida = EnviarRespuestaComida($comida) ;
+                                $pasajero = new PasajeroEspecial($nombrePasaj, $apellidoPasaj, $nroDocPasaj, $nroTelPasaj, $nroAsiento, $nroTicket, $sillaRuedas, $asistencia, $comida) ;
+                            }
+                            $importe = $viajeZulia -> venderPasaje($pasajero) ;
+                            if($importe == -1) {
+                                echo "No hay asientos dispponibles \n" ;
+                            } else {
+                                echo "El importe total a pagar es de: " . $importe . "\n" . 
+                                "Datos del pasajero de la venta: " . $pasajero . "\n" ;    
+                                $cantPasajeros++ ;
+                            }
+                        $cantPasajeros++ ;
+                    } else {
+                        echo "No hay asientos disponibles" ;
+                    }
+                } else {
+                    echo "No hay viajes cargados \n" ;
+                }
             break ; 
             case 4:              
                 if($cantPasajeros == 0) {
@@ -432,6 +514,3 @@
             break ; 
         }
     } while($opcion <> 5) ;
-
-
-*/

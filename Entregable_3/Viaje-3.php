@@ -46,7 +46,7 @@
         public function getPrecioTicket() {
             return $this -> precioTicket ; 
         }
-        public function getDinero() {
+        public function getDineroTotal() {
             return $this -> dineroTotal ; 
         }
         
@@ -244,7 +244,11 @@
             return $eliminado ; 
         } 
         
-
+        /**
+         * Vende un pasaje si hay asientos disponibles retorna el importe a pagar por el pasajero
+         * @param object $pasajero
+         * @return int
+         */
         public function venderPasaje($pasajero) {
             $coleccPasajeros = $this -> getColeccPasajeros() ; 
             $cantPasajeros = count($coleccPasajeros) ; 
@@ -259,6 +263,8 @@
                     $importe = $precioTicket + ($precioTicket * $descuento) ; 
                     array_push($coleccPasajeros, $pasajero) ;
                     $this -> setColeccPasajeros($coleccPasajeros) ;
+                   /*  $dineroTotal .= $importe ;
+                    setDineroTotal($dineroTotal) ; */
                 } else {
                     $importe = -1 ;
                 }
@@ -266,11 +272,12 @@
         }
 
         /**
-         * 
+         * Retorna un booelano para determinar si hay pasajes disponibles 
+         * @param int $cantPasajeros
+         * @return boolean 
          */
         public function hayPasajeDisponible($cantPasajeros) {
             $cantMaxPasajeros = $this -> getCantMaxPasajeros() ; 
-            // echo $cantMaxPasajeros. "\n" ;
             $disponible = false ;
 
                 if($cantPasajeros < $cantMaxPasajeros) {
@@ -280,14 +287,23 @@
         }
 
         
-        // checkpoint 
+        /**
+         * Retorna el costo total del viaje
+         * @return int 
+         */
         public function gastoTotalViaje() {
+            $coleccPasajeros = $this -> getColeccPasajeros() ; 
+            $dineroTotal = 0 ;
 
+                foreach($coleccPasajeros as $pasajero) {
+                    $descuento = $pasajero -> darPorcentajeIncremento() ;
+                    $precioTicket = $this -> getPrecioTicket() ;
+                    $dineroTotal = $dineroTotal + ($precioTicket + ($precioTicket * $descuento)) ; 
+                    // echo $dineroTotal . "\n" ;
+                }
+                $this -> setDineroTotal($dineroTotal) ;
 
-
-
-
-            //return $gastoTotal ; 
+            return $dineroTotal ; 
         } 
         
         /**
@@ -312,12 +328,14 @@
         
         public function __toString() {
             $cadena = $this -> datosPasajeros() ; 
+            $dineroTotal = $this -> gastoTotalViaje() ;
 
             return "\n" .
                 "Codigo del viaje: " . $this -> getCodigoViaje() . "\n" . 
                 "Destino: " . $this -> getDestino() . "\n" . 
                 "Cantidad maxima de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" .
                 "Precio del ticket: " . $this -> getPrecioTicket() . "\n" . 
+                "Dinero Total: " . $dineroTotal . "\n" . 
                 "\n" . 
                 "Datos del responsable: " . $this -> getResponsableV() . "\n" .
                 "Datos de los pasajeros: " . "\n" . $cadena . "\n" ;
