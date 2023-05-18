@@ -1,8 +1,6 @@
 <?php 
 
     class ViajeIntercional extends Viaje {
-        // agg tipoViaje ?
-        // agg impuesto ?
         public function  __construct(
             $destino,
             $horaPartida,
@@ -31,12 +29,13 @@
             $cantAsientosDispo = $this -> getCantAsientosDispo() ;
             $cantAsientosTotales = $this -> getCantAsientosTotales() ;
             $montoBase = $this -> getMontoBase() ;
-            $impuesto = 1.45 ;
+            $impuesto = 0.45 ;
 
             $asientosVendidos = $cantAsientosTotales - $cantAsientosDispo ;
             $importe = $montoBase + (($montoBase * $asientosVendidos) / $cantAsientosTotales) ;
-            $impuesto *= $importe ;    // probar 
-            $importe += $impuesto ;    // probar 
+            $impuesto = $importe * $impuesto ;
+            $importe = $importe + $impuesto ;    
+            
             return $importe ;
         }
 

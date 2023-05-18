@@ -1,8 +1,6 @@
 <?php 
 
     class ViajeNacional extends Viaje {
-        // agg tipoViaje ?
-        // agg descuento ?
         public function  __construct(
             $destino,
             $horaPartida,
@@ -31,12 +29,13 @@
             $cantAsientosDispo = $this -> getCantAsientosDispo() ;
             $cantAsientosTotales = $this -> getCantAsientosTotales() ;
             $montoBase = $this -> getMontoBase() ;
-            $descuento = 1.10 ;
+            $descuento = 0.10 ;
 
             $asientosVendidos = $cantAsientosTotales - $cantAsientosDispo ;
             $importe = $montoBase + (($montoBase * $asientosVendidos) / $cantAsientosTotales) ;
-            $descuento *= $importe ;    // probar 
-            $importe -= $descuento ;    // probar 
+            $descuento = $importe * $descuento ;    
+            $importe = $importe - $descuento ;    
+            
             return $importe ;
         }
 
