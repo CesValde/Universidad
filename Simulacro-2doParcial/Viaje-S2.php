@@ -5,7 +5,7 @@
         private $horaPartida ; 
         private $horaLlegada ; 
         private $nroViaje ; 
-        private $importe ;
+        private $montoBase ;
         private $fecha ; 
         private $cantAsientosTotales ;
         private $cantAsientosDispo ;
@@ -16,7 +16,7 @@
             $horaPartida,
             $horaLlegada,
             $nroViaje,
-            $importe,
+            $montoBase,
             $fecha, 
             $cantAsientosTotales,
             $cantAsientosDispo,
@@ -26,7 +26,7 @@
             $this -> horaPartida = $horaPartida ; 
             $this -> horaLlegada = $horaLlegada ; 
             $this -> nroViaje = $nroViaje ; 
-            $this -> importe = $importe ;
+            $this -> montoBase = $montoBase ;
             $this -> fecha = $fecha ; 
             $this -> cantAsientosTotales = $cantAsientosTotales ; 
             $this -> cantAsientosDispo = $cantAsientosDispo ; 
@@ -45,8 +45,8 @@
         public function getNumeroViaje() {
             return $this -> nroViaje ; 
         }
-        public function getImporte() {
-            return $this -> importe ; 
+        public function getMontoBase() {
+            return $this -> montoBase ; 
         }
         public function getFecha() {
             return $this -> fecha ; 
@@ -73,8 +73,8 @@
         public function setNumeroViaje($nroViaje) {
             $this -> nroViaje = $nroViaje ; 
         }
-        public function setImporte($importe) {
-            $this -> importe = $importe ; 
+        public function setMontoBase($montoBase) {
+            $this -> montoBase = $montoBase ; 
         }
         public function setFecha($fecha) {
             $this -> fecha = $fecha ; 
@@ -98,17 +98,21 @@
             return $asignados ;
         }
 
+        public function calcularImporteViaje() {
+            return 0 ;
+        }
+
         public function __toString() {
             return "\n" .
             "Destino: " . $this -> getDestino() . "\n" .
-            "Hora de partida " . $this -> getHoraPartida() . "\n" . 
-            "Hora de llegada " . $this -> getHoraLlegada() . "\n" . 
-            "Numero de viaje " . $this -> getNumeroViaje() . "\n" . 
-            "Importe " . $this -> getImporte() . "\n" . 
-            "Fecha " . $this -> getFecha() . "\n" . 
-            "Cantidad de asientos totales" . $this -> getCantAsientosTotales() . "\n" . 
-            "Cantidad de asientos disponibles " . $this -> getCantAsientosDispo() .
+            "Hora de partida: " . $this -> getHoraPartida() . "\n" . 
+            "Hora de llegada: " . $this -> getHoraLlegada() . "\n" . 
+            "Numero de viaje: " . $this -> getNumeroViaje() . "\n" . 
+            "Monto base: " . $this -> getMontoBase() . "\n" . 
+            "Fecha: " . $this -> getFecha() . "\n" . 
+            "Cantidad de asientos totales: " . $this -> getCantAsientosTotales() . "\n" . 
+            "Cantidad de asientos disponibles: " . $this -> getCantAsientosDispo() .
             "\n" . 
-            "Responsable " . $this -> getResponsable() . "\n" ;
+            "Responsable: " . $this -> getResponsable() . "\n" ;
         }
     }
