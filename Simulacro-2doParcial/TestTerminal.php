@@ -12,10 +12,10 @@
     $responsableCopa = new Responsable("Viejo", "qti", 0101, "ahi al lado", "viejo@gmail.com", 299765) ; 
     $responsableFlecha = new Responsable("Otro Viejo", "qsy", 0202, "al lado del otro", "viejo2@gmail.com", 2995634) ; 
 
-    $viaje1 = new ViajeNacional("Cipo", "08:00:00", "10:00:00", 1, 1000, "20/03/2023", 10, 3, $responsableFlecha) ; 
-    $viaje2 = new ViajeNacional("Neuquen", "07:00:00", "09:00:00", 2, 2000, "30/09/2023", 10, 5, $responsableFlecha) ; 
-    $viaje3 = new ViajeIntercional("Machiques City", "06:00:00", "22:00:00", 3, 10000, "22/04/2023", 20, 10, $responsableCopa) ;
-    $viaje4 = new ViajeIntercional("Maracibo City", "12:30:00", "16:00:00", 4, 20000, "18/09/2023", 30, 15, $responsableCopa) ; 
+    $viaje1 = new ViajeNacional("Cipo", "08:00:00", "10:00:00", 1, 1000, "20/03/2023", 10, 3, $responsableFlecha, 10) ; 
+    $viaje2 = new ViajeNacional("Neuquen", "07:00:00", "09:00:00", 2, 2000, "30/09/2023", 10, 5, $responsableFlecha, 10) ; 
+    $viaje3 = new ViajeIntercional("Machiques City", "06:00:00", "22:00:00", 3, 10000, "22/04/2023", 20, 10, $responsableCopa, 45, "si") ;
+    $viaje4 = new ViajeIntercional("Maracibo City", "12:30:00", "16:00:00", 4, 20000, "18/09/2023", 30, 15, $responsableCopa, 45, "no") ; 
 
     $coleccViajesNacio = [$viaje1, $viaje2] ;
     $cooleccViajesInter = [$viaje3, $viaje4] ;

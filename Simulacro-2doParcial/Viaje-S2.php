@@ -99,7 +99,14 @@
         }
 
         public function calcularImporteViaje() {
-            return 0 ;
+            $montoBase = $this -> getMontoBase() ; 
+            $asientosTotales = $this -> getCantAsientosTotales() ; 
+            $cantAsientosDispo = $this -> getCantAsientosDispo() ; 
+            $asientosVendidos = $asientosTotales - $cantAsientosDispo ; 
+
+            $importe = $montoBase + ($montoBase * $asientosVendidos / $asientosTotales) ; 
+
+            return $importe ; 
         }
 
         public function __toString() {

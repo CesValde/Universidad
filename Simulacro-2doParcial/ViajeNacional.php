@@ -1,6 +1,8 @@
 <?php 
 
     class ViajeNacional extends Viaje {
+        private $descuento ; 
+
         public function  __construct(
             $destino,
             $horaPartida,
@@ -10,7 +12,8 @@
             $fecha, 
             $cantAsientosTotales,
             $cantAsientosDispo,
-            $responsable
+            $responsable, 
+            $descuento
         ) {
             parent:: __construct(
                 $destino,
@@ -23,36 +26,32 @@
                 $cantAsientosDispo,
                 $responsable
             ) ;
+            $this -> descuento = $descuento ; 
+        }
+
+        public function getDescuento() {
+            return $this -> descuento ; 
+        }
+
+        public function setDescuento($descuento) {
+            $this -> descuento = $descuento ; 
         }
 
         public function calcularImporteViaje() {
-            $cantAsientosDispo = $this -> getCantAsientosDispo() ;
-            $cantAsientosTotales = $this -> getCantAsientosTotales() ;
-            $montoBase = $this -> getMontoBase() ;
-            $descuento = 0.10 ;
-
-            $asientosVendidos = $cantAsientosTotales - $cantAsientosDispo ;
-            $importe = $montoBase + (($montoBase * $asientosVendidos) / $cantAsientosTotales) ;
-            $descuento = $importe * $descuento ;    
-            $importe = $importe - $descuento ;    
+            $montoBase = parent::calcularImporteViaje() ; 
+            $descuento = ($montoBase * $this -> getDescuento()) / 100 ; 
+            $importe = $montoBase - $descuento ;    
             
             return $importe ;
         }
 
         public function __toString() {
             $importe = $this -> calcularImporteViaje() ;
+            $cadena = parent:: __toString() ; 
 
             return "\n" .
-            "Destino: " . $this -> getDestino() . "\n" .
-            "Hora de partida: " . $this -> getHoraPartida() . "\n" . 
-            "Hora de llegada: " . $this -> getHoraLlegada() . "\n" . 
-            "Numero de viaje: " . $this -> getNumeroViaje() . "\n" . 
-            "Monto base: " . $this -> getMontoBase() . "\n" . 
-            "Fecha: " . $this -> getFecha() . "\n" . 
-            "Cantidad de asientos totales: " . $this -> getCantAsientosTotales() . "\n" . 
-            "Cantidad de asientos disponibles: " . $this -> getCantAsientosDispo() . "\n" . 
-            "Importe Total: " . $importe . "\n" . 
-            "\n" . 
-            "Responsable: " . $this -> getResponsable() . "\n" ;
+            $cadena . 
+            "Descuento: " . $this -> getDescuento() . "%" . "\n" . 
+            "Importe Total: " . $importe . "\n" ; 
         }
     }

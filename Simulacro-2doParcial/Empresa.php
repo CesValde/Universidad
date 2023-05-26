@@ -56,6 +56,14 @@
         }
 
         public function darCostoViaje($codigo) {
+            $viaje = $this -> buscarViaje($codigo) ; 
+            $importe = $viaje -> calcularImporteViaje() ;
+
+            return $importe ; 
+        }
+
+/*
+        public function darCostoViaje($codigo) {
             $coleccViajes = $this -> getColeccionViajes() ; 
             $encontro = false ;  
             $i = 0 ; 
@@ -75,6 +83,7 @@
 
             return $importe ; 
         }
+*/
 
         public function mostrarViajes() {
             $coleccViajes = $this -> getColeccViajes() ; 

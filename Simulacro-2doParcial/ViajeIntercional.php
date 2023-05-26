@@ -1,6 +1,9 @@
 <?php 
 
     class ViajeIntercional extends Viaje {
+        private $impuesto ; 
+        private $documentacion ; 
+
         public function  __construct(
             $destino,
             $horaPartida,
@@ -10,7 +13,9 @@
             $fecha, 
             $cantAsientosTotales,
             $cantAsientosDispo,
-            $responsable
+            $responsable, 
+            $impuesto, 
+            $documentacion
         ) {
             parent:: __construct(
                 $destino,
@@ -23,34 +28,43 @@
                 $cantAsientosDispo,
                 $responsable
             ) ;
+            $this -> impuesto = $impuesto ; 
+            $this -> documentacion = $documentacion ; 
+        }
+
+        public function getImpuesto() {
+            return $this -> impuesto ; 
+        }   
+
+        public function setImpuesto($impuesto) {
+            $this -> impuesto = $impuesto ; 
+        }
+
+        public function getDocumentacion() {
+            return $this -> documentacion ; 
+        }   
+
+        public function setDocumentacion($documentacion) {
+            $this -> documentacion = $documentacion ; 
         }
 
         public function calcularImporteViaje() {
-            $cantAsientosDispo = $this -> getCantAsientosDispo() ;
-            $cantAsientosTotales = $this -> getCantAsientosTotales() ;
-            $montoBase = $this -> getMontoBase() ;
-            $impuesto = 0.45 ;
-
-            $asientosVendidos = $cantAsientosTotales - $cantAsientosDispo ;
-            $importe = $montoBase + (($montoBase * $asientosVendidos) / $cantAsientosTotales) ;
-            $impuesto = $importe * $impuesto ;
-            $importe = $importe + $impuesto ;    
+            $montoBase = parent::calcularImporteViaje() ; 
+            $impuesto = ($montoBase * $this -> getImpuesto()) / 100 ; 
+            $importe = $montoBase + $impuesto ;    
             
             return $importe ;
         }
 
         public function __toString() {
+            $importe = $this -> calcularImporteViaje() ;
+            $cadena = parent:: __toString() ; 
+
             return "\n" .
-            "Destino: " . $this -> getDestino() . "\n" .
-            "Hora de partida: " . $this -> getHoraPartida() . "\n" . 
-            "Hora de llegada: " . $this -> getHoraLlegada() . "\n" . 
-            "Numero de viaje: " . $this -> getNumeroViaje() . "\n" . 
-            "Monto base: " . $this -> getMontoBase() . "\n" . 
-            "Fecha: " . $this -> getFecha() . "\n" . 
-            "Cantidad de asientos totales: " . $this -> getCantAsientosTotales() . "\n" . 
-            "Cantidad de asientos disponibles: " . $this -> getCantAsientosDispo() .
-            "\n" . 
-            "Responsable: " . $this -> getResponsable() . "\n" ;
+            $cadena . 
+            "Impuestos: " . $this -> getImpuesto() . "%" . "\n" .
+            "Requiere documentacion adicional: " . $this -> getDocumentacion() . "\n" .  
+            "Importe Total: " . $importe . "\n" ; 
         }
 
     }
