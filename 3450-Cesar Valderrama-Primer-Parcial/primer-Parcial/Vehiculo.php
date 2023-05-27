@@ -6,8 +6,7 @@
         private $anioFabri ; 
         private $descripcion ; 
         private $porcenIncreAnual ; 
-        // boolean
-        private $activo ; 
+        private $activo ;       // boolean
 
         public function __construct(
             $codigo,    
@@ -16,7 +15,7 @@
             $descripcion, 
             $porcenIncreAnual, 
             $activo  
-            ){
+            ) {
             $this -> codigo = $codigo ; 
             $this -> costo = $costo ; 
             $this -> anioFabri = $anioFabri ; 
@@ -62,7 +61,7 @@
             $this -> activo = $activo ; 
         }
 
-        public function darPrecioVenta($costo) {
+        public function darPrecioVenta() {
             $compra = $this -> getCosto() ; 
             $porIncAnual = $this -> getPorcenIncreAnual() ; 
             $anioFabri = $this -> getAnioFabri() ; 
@@ -75,7 +74,7 @@
                 } else {
                     $venta = -1 ;  
                 }
-            return $venta;  
+            return $venta ;  
         }
 
         public function __toString() {

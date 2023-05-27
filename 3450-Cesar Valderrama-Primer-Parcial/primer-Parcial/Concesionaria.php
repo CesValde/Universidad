@@ -3,9 +3,7 @@
     class Concesionaria {
         private $denominacion ;
         private $direccion ; 
-        // coleccion de objetos clientes
         private $coleccClientes ; 
-        // coleccion de objetos vehiculos
         private $coleccVehi ; 
         private $coleccVentas ; 
 
@@ -15,7 +13,7 @@
             $coleccClientes, 
             $coleccVehi, 
             $coleccVentas   
-            ){
+            ) {
             $this -> denominacion = $denominacion ; 
             $this -> direccion = $direccion ; 
             $this -> coleccClientes = $coleccClientes ; 
@@ -54,65 +52,113 @@
             $this -> coleccVentas = $coleccVentas ; 
         }
 
-        public function mostrarClientes() {
-            $coleccClientes = $this -> getColeccClientes() ; 
-            $cadenaClientes = "" ; 
-
-                for($i=0 ; count($coleccClientes) ; $i++) {
-                    $cadenaClientes = $cadenaClientes . 
-                    $coleccClientes[$i] -> getNombre() . "\n" . 
-                    $coleccClientes[$i] -> getApellido() . "\n" . 
-                    $coleccClientes[$i] -> getBaja() . "\n" . 
-                    $coleccClientes[$i] -> getTipoDoc() . "\n" . 
-                    $coleccClientes[$i] -> getNroDoc() . "\n" ;
-                }
-            return $cadenaClientes ; 
-        }
-
         public function retornarVehiculo($codigo) {
             $coleccVehi = $this -> getColeccVehi() ; 
 
-            for($i=0 ; $i<count($coleccVehi) ; $i++) {
-                $codigoColecc = $coleccVehi[$i] ; 
+            $i=0 ; 
+            $encontro = false ;
+
+            while($encontro == false && $i<count($coleccVehi)) {
+                $codigoColecc = $coleccVehi[$i] -> getCodigo() ; 
                     if($codigo == $codigoColecc) {
                         $vehiculo = $coleccVehi[$i] ; 
+                        $encontro = true ; 
                     }
+                $i++ ; 
             }
             return $vehiculo ; 
         }
 
         public function registrarVenta($colCodigosVehiculos, $objCliente) {
-            $activo = $objCliente -> getBaja() ; 
             $coleccVehi = $this -> getColeccVehi() ; 
+            $coleccVentas = $this -> getColeccVentas() ; 
+            $i=0 ; 
+            $j=0 ; 
+            $encontro = false ; 
+            $precioFinal = 0 ; 
 
-            for($i=0 ; $i<count($colCodigosVehiculos) ; $i++) {
-              
-            }
+                if($objCliente -> getBaja()) {
+                    while($encontro == false && $i < count($coleccVehi)) {
+                        $vehiculo = $coleccVehi[$i] ; 
+                            while($j<count($colCodigosVehiculos) && $encontro == false) {
+                                if($colCodigosVehiculos[$j] == $vehiculo -> getCodigo()) {
+                                    // en caso de encontrar y nose pueda vender ?? 
+                                    // retornos numericos ? -1 -2 para diferentes posibilidades 
+                                    if($vehiculo -> getActivo()) {
+                                        $encontro = true ; 
 
-
-            // return 
+                                        /* no entiendo la coleccion de vehiculos le paso una que ya existe
+                                            que funcionalidad tiene */
+                                        $precioFinal = $vehiculo -> darPrecioVenta() ;
+                                        $venta = new Venta(1, "26/05/2023", $objCliente, $coleccVehi, $precioFinal) ;
+                                        array_push($coleccVentas, $venta) ;
+                                        $this -> setColeccVentas($coleccVentas) ;
+                                    }
+                                }
+                                $j++ ; 
+                        } 
+                        $i++ ;
+                }
+            }   
+            return $precioFinal ; 
         }
 
         public function retornarVentasXCliente($tipoDoc, $nroDoc) {
-            $coleccVentas = [] ; 
-            $ventaCliente = [
-                "tipoDoc" => $tipoDoc , 
-                "nroDoc" => $nroDoc 
-            ] ; 
+            $coleccVentas = $this -> getColeccVentas() ; 
+            $coleccVentaCliente = [] ; 
 
-            array_push($coleccVentas, $ventaCliente) ; 
-            return $coleccVentas ; 
+                foreach($coleccVentas as $venta) {
+                    $cliente = $venta -> getCliente() ; 
+                        if($cliente -> getTipoDoc() == $tipoDoc) {
+                            if($cliente -> getNroDoc() == $nroDoc) {
+                                array_push($coleccVentaCliente, $venta) ; 
+                            }
+                        }
+                }
+            return $coleccVentaCliente ; 
+        }
+
+        public function mostrarClientes() {
+            $coleccClientes = $this -> getColeccClientes() ; 
+            $cadenaClientes = "" ; 
+
+                foreach($coleccClientes as $cliente) {
+                    $cadenaClientes = $cadenaClientes . $cliente ; 
+                }
+
+            return $cadenaClientes ; 
+        }
+
+        public function mostrarVehiculos() {
+            $coleccVehi = $this -> getColeccVehi() ; 
+            $cadenaVehi = "" ; 
+            
+                foreach($coleccVehi as $vehiculo) {
+                    $cadenaVehi = $cadenaVehi . $vehiculo ; 
+                }
+            return $cadenaVehi ; 
+        }
+
+        public function mostrarVentas() {
+            $coleccVentas = $this -> getColeccVehi() ; 
+            $cadenaVentas = "" ; 
+            
+                foreach($coleccVentas as $venta) {
+                    $cadenaVentas = $cadenaVentas . $venta ; 
+                }
+            return $cadenaVentas ; 
         }
     
         public function __toString() {
-            $coleccVehi = $this -> getColeccVehi() ; 
-            $cadenaVehiculos = $coleccVehi -> mostrarVehiculos() ; 
+            $cadenaVehiculos = $this -> mostrarVehiculos() ; 
             $cadenaClientes = $this -> mostrarClientes() ; 
+            $cadenaVentas = $this -> mostrarVentas() ; 
+
             return 
             "Denominacion: " . $this -> getDenominacion() . "\n" . 
             "Direccion: " . $this -> getDireccion() . "\n" . 
-            "Clientes: " . $cadenaClientes . "\n" . 
-            "Coleccion de vehiculos: " . $cadenaVehiculos . "\n" . 
-            "Numero de documento: " . $this -> getColeccVentas() . "\n" ;
+            "Clientes: " . "\n" . $cadenaClientes . "\n" . 
+            "Coleccion de vehiculos: " . "\n" . $cadenaVehiculos . "\n" . 
+            "Coleccion de ventas: " . "\n" . $cadenaVentas . "\n" ;
         } 
     }

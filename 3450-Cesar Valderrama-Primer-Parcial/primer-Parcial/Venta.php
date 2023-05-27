@@ -3,9 +3,7 @@
     class Venta {
         private $numero ;
         private $fecha ; 
-        // objeto cliente
         private $cliente ; 
-        // coleccion de objetos vehiculos
         private $coleccVehi ; 
         private $precioFinal ; 
 
@@ -15,7 +13,7 @@
             $cliente , 
             $coleccVehi, 
             $precioFinal   
-            ){
+            ) {
             $this -> numero = $numero ; 
             $this -> fecha = $fecha ; 
             $this -> cliente = $cliente ; 
@@ -59,24 +57,20 @@
 
             if($objVehiculo -> getActivo()) {
                 $precioFinal = $objVehiculo -> darPrecioVenta($costo) ; 
-                $objVehiculo -> setPrecioFinal($precioFinal) ; 
-                array_push($coleccVehi, $objVehiculo) ;
-                $this -> setColeccVehi($objVehiculo) ;
-            } 
+                    if($precioFinal > 0) {
+                        array_push($coleccVehi, $objVehiculo) ;
+                        $this -> setColeccVehi($objVehiculo) ;
+                        $objVehiculo -> setPrecioFinal($precioFinal) ;
+                    }
+            }
         }
 
         public function mostrarVehiculos() {
             $coleccVehi = $this -> getColeccVehi() ; 
             $cadenaVehi = "" ; 
             
-                for($i=0 ; $i<count($coleccVehi) ; $i++) {
-                    $cadenaVehi = $cadenaVehi . 
-                    $coleccVehi[$i] -> getCodigo() . "\n" . 
-                    $coleccVehi[$i] -> getCosto() . "\n" . 
-                    $coleccVehi[$i] -> getAnioFabri() . "\n" . 
-                    $coleccVehi[$i] -> getDescripcion() . "\n" . 
-                    $coleccVehi[$i] -> getPorcenIncreAnual() . "\n" . 
-                    $coleccVehi[$i] -> getActivo() . "\n" ;
+                foreach($coleccVehi as $vehiculo) {
+                    $cadenaVehi = $cadenaVehi . $vehiculo ; 
                 }
             return $cadenaVehi ; 
         }

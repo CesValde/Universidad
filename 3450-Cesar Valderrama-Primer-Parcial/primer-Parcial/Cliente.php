@@ -13,7 +13,7 @@
             $baja, 
             $tipoDoc, 
             $nroDoc    
-            ){
+        ) {
             $this -> nombre = $nombre ; 
             $this -> apellido = $apellido ; 
             $this -> baja = $baja ; 
