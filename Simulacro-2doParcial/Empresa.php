@@ -28,10 +28,10 @@
         public function setIdentificacion($identificacion) {
             $this -> identificacion = $identificacion ; 
         }
-        public function setombre($nombre) {
+        public function setNombre($nombre) {
             $this -> nombre = $nombre ; 
         }
-        public function setoleccViajes($coleccViajes) {
+        public function setColeccViajes($coleccViajes) {
             $this -> coleccViajes = $coleccViajes ; 
         }
 
@@ -61,29 +61,6 @@
 
             return $importe ; 
         }
-
-/*
-        public function darCostoViaje($codigo) {
-            $coleccViajes = $this -> getColeccionViajes() ; 
-            $encontro = false ;  
-            $i = 0 ; 
-
-            while($encontro == false && $i < count($coleccViajes)) {
-                $viaje = $coleccViajes[$i] ; 
-                    if($viaje -> getNumeroViaje() == $codigo) {
-                        $encontro = true ; 
-                        $importe = $viaje -> calcularImporteViaje() ;
-                    }
-                $i++ ; 
-            } 
-
-            if($encontro == false) {
-                $viaje = -1 ;
-            }
-
-            return $importe ; 
-        }
-*/
 
         public function mostrarViajes() {
             $coleccViajes = $this -> getColeccViajes() ; 

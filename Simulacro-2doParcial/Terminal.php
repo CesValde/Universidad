@@ -31,7 +31,7 @@
         public function seDireccion($direccion) {
             $this -> direccion = $direccion ; 
         }
-        public function setoleccEmpresas($coleccEmpresas) {
+        public function setColeccEmpresas($coleccEmpresas) {
             $this -> coleccEmpresas = $coleccEmpresas ; 
         }
 

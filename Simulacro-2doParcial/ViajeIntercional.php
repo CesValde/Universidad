@@ -36,14 +36,14 @@
             return $this -> impuesto ; 
         }   
 
-        public function setImpuesto($impuesto) {
-            $this -> impuesto = $impuesto ; 
-        }
-
         public function getDocumentacion() {
             return $this -> documentacion ; 
         }   
 
+        public function setImpuesto($impuesto) {
+            $this -> impuesto = $impuesto ; 
+        }
+        
         public function setDocumentacion($documentacion) {
             $this -> documentacion = $documentacion ; 
         }
