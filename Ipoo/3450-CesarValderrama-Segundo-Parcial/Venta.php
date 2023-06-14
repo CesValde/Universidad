@@ -65,6 +65,33 @@
             }
         }
 
+        public function retornarTotalVentaNacional() {
+            $coleccVehi = $this -> getColeccVehi() ; 
+            $totalVentas = 0 ; 
+
+                foreach($coleccVehi as $vehiculo) {
+                    $pertenece = $vehiculo instanceof VehiculoNacional ; 
+                        if($pertenece) {
+                            $costo = $vehiculo -> getCosto() ;
+                            $totalVentas = $totalVentas + $costo ; 
+                        }
+                }
+            return $totalVentas ; 
+        }
+
+        public function  retornarVehículoImportado() {
+            $coleccVehi = $this -> getColeccVehi() ; 
+            $coleccVehiImpor = [] ; 
+
+                    foreach($coleccVehi as $vehiculo) {
+                        $pertenece = $vehiculo instanceof VehiculoImportado ; 
+                            if($pertenece) {
+                               array_push($coleccVehiImpor, $vehiculo) ;
+                            }
+                    }
+            return $coleccVehiImpor ;  
+        }
+
         public function mostrarVehiculos() {
             $coleccVehi = $this -> getColeccVehi() ; 
             $cadenaVehi = "" ; 

@@ -141,21 +141,13 @@
             $coleccVentas = $this ->  getColeccVentas(); 
             $coleccVehiImportados = [] ; 
 
-            // print_r($coleccVentas) ;
-
                 foreach($coleccVentas as $venta) {
                     $coleccVehi = $venta -> getColeccVehi() ; 
                         foreach($coleccVehi as $vehiculo) {
                             $pertenece = $vehiculo instanceof VehiculoImportado ; 
                                 if($pertenece) {
-                                    
-                                    // NUEVO
                                     if(!in_array($vehiculo, $coleccVehiImportados)) {
-                                        array_push($coleccVehiImportados, $vehiculo) ;
-                                         // $vehiculoImpor = new VehiculoImportado(15, 1000000, 2023, "Toyota", 125, true, "Noruega", 45) ; 
-                                        // $venta -> incorporarVehiculo($vehiculo) ; 
-                                        /* print_r($coleccVehiImportados) ; 
-                                        echo "hola" ; */ 
+                                        array_push($coleccVehiImportados, $vehiculo) ; 
                                     }
                             }
                         }
