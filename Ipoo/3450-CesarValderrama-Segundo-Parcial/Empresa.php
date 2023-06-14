@@ -82,18 +82,15 @@
                         $vehiculo = $coleccVehi[$i] ; 
                             while($j<count($colCodigosVehiculos) && $encontro == false) {
                                 if($colCodigosVehiculos[$j] == $vehiculo -> getCodigo()) {
-                                    // en caso de encontrar y nose pueda vender ?? 
+                                    // en caso de encontrar y nose pueda vender 
                                     // retornos numericos ? -1 -2 para diferentes posibilidades 
                                     if($vehiculo -> getActivo()) {
                                         $encontro = true ; 
-
-                                        /* no entiendo la coleccion de vehiculos le paso una que ya existe
-                                            que funcionalidad tiene */
                                         $precioFinal = $vehiculo -> darPrecioVenta() ;
                                         $venta = new Venta(1, "26/05/2023", $objCliente, $coleccVehi, $precioFinal) ;
                                         array_push($coleccVentas, $venta) ;
                                         $this -> setColeccVentas($coleccVentas) ;
-                                        $vehiculo -> setActivo(false) ;     // NUEVO 
+                                        $vehiculo -> setActivo(false) ; 
                                     }
                                 }
                                 $j++ ; 
