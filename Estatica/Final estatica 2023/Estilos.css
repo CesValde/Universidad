@@ -1,0 +1,482 @@
+
+  /* Todas las paginas */
+
+    #encabezado {
+        padding: 2%;
+    }
+
+    #sph1T {
+      position: absolute;
+      top: 1%;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: #31BDBD  ; 
+      font-size: 220%
+    }
+
+    #sph1M { 
+      display: flex;
+      position: absolute;            
+      left: 45px;                                         
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: #D40030 ; 
+      font-size: 180%
+    }
+
+    #logo {
+      position: absolute;
+      right: 46%;
+      top: 0% ; 
+    }
+
+    #icons-redes-enc {
+      position: absolute;
+      display: flex;
+      justify-content: space-between; 
+      right: 5%;
+      width: 120px;
+    }
+
+    #pheader { 
+        display: flex;
+        justify-content: space-between ;
+        margin-left: 10%;
+        margin-right: 10%;
+        font-family: cursive;
+        padding: 0.2% ;
+        font-weight: bolder ;
+        font-size: 110% ;
+        position: relative; top: 1.8% ;  
+    }
+
+    #pHeader a:hover {
+        font-size: 15;
+        color: #31BDBD
+    }
+
+    body { 
+        margin: 0%;
+        color: #D40030;
+        background-color:  #ffffff ; 
+    }
+
+    a:link {
+        font-weight: bold ;
+        color: #D40030 ; 
+        text-decoration: none ; 
+    }
+
+    a:visited {
+        color: #D40030 ; 
+        text-decoration: none ; 
+    }
+
+    #piePagina {
+        font-weight: bold ;
+        position: relative;
+        font-size: 15 ;
+    }
+
+    #piePagina #spPiePag {
+        position: absolute; 
+        left: 4%;
+        top: 40px;
+    }
+
+    #piePagina #spPiePag2 {
+      position: absolute; 
+      left: 4%;
+      top: 75px;     
+    } 
+
+    #piePagina .spPiePag a:hover {
+        color: #00B5AC ; 
+    }
+
+    #foot {
+      height: 170px;
+      padding: 1.5% ;
+      background-color: #f5f5f5;
+      position: relative;
+      font-family: cursive;
+    }
+
+    #spfondo {
+      font-family: cursive;
+      font-weight: bold;
+      position: absolute ;
+      left: 44%;
+      top: 172px; 
+      font-size: medium;
+    }
+
+    #icons-redes {
+      width: 7%;
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      left: 46%; 
+      bottom: 175px;
+    }
+
+    .slogans {
+      font-family: cursive;
+      font-weight: bold;
+      position: absolute; 
+      left: 76%; 
+    }
+
+    #since {
+      font-family: cursive;
+      font-weight: bold;
+      position: relative ;
+      height: 4%;
+      left: 44%;
+      top: 10px;
+      font-size: medium;  
+    }
+
+
+  /* Home */
+
+    #torta-home {
+      background-color: #f5f5f5;
+      font-family: cursive; 
+      font-size: large;
+    }
+
+    #torta-home img {
+      position: relative;
+      left: 8%;
+    }
+
+    #spt-h {
+      position: relative; 
+      left: 27%;
+      bottom: 120px;
+      font-size: larger;
+      font-weight: bold;
+    }
+
+    #torta-home ul {
+      position: absolute;
+      left: 50%;
+      bottom: 40%;
+      list-style: none;
+    }
+
+    #contenedor {
+      display: flex;
+      justify-content: space-between;
+      background-color:#ffffff;
+      padding: 2%;
+    }
+
+    .conteiner-img-home {
+      margin: 3%;
+      background-color: #ffffff ; 
+    }
+
+    h4 {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      display: flex;
+      justify-content: center; 
+    }
+
+    #atencion {
+      height: 180px;
+      padding: 2%;
+      background-color: #f5f5f5;
+      font-family: cursive;
+    }
+
+    #atencion span {
+      position: relative;
+      left: 20%;
+      font-size: 30;
+    }
+
+    #atencion div {
+      position: relative; 
+      width: 50%;
+      left: 35% ;
+      top: 32px;
+      font-size: 25;
+    }
+
+    #atencion a span {
+      position: relative; 
+      left: 44.4%;
+      top: 83px;
+      color: #00B5AC;
+      font-size: 22;
+    }
+
+    a:hover #contactanos {
+      background-color: #D40030 ; 
+      color: #FFFFFF;
+    }
+
+    #realiza {
+      height: 200px;
+      padding: 2%;
+      font-size: 29;
+    }
+
+    #realiza a {
+      position: relative; 
+      top: 40px;
+      left: 43.4%;
+      color: #00B5AC;
+    }
+
+    #aqui{ 
+      position: relative; 
+      left: 2.8%;
+    }
+
+    a:hover #aqui {
+      background-color: #D40030 ; 
+      color:#FFFFFF;
+    }
+
+    a:hover #pedido {
+      background-color: #D40030 ; 
+      color:#FFFFFF;
+    }
+  
+
+  /** Galeria */
+  
+  /* QUE LENDOOOOO */
+  .conteiner-galeria span {
+    display: flex;
+    justify-content: center;
+  }
+
+  .header {
+    font-size: 25;
+    font-family: cursive;
+    font-weight: bold; 
+    background-color: #f1eaf1;
+    padding: 1%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .conteiner-imagenes {
+    display: flex;
+    justify-content: space-between;
+    margin: 2%;
+  }
+
+  .a span {
+    padding: 2%;
+    font-family: cursive;
+    background-color: #f5f5f5;
+  }
+
+  /* Descubre */
+  /* Terminar */
+    .sobre-nosotros {
+      background-color: #f5f5f5;
+      font-family: cursive;
+      height: 500px;
+      padding: 1.5%;
+    }
+
+    .sobre-nosotros .p1 {
+      font-size: 40;
+      position: relative;
+      left: 15%;
+    }
+
+    .sobre-nosotros .p2 {
+      font-family: Verdana, Geneva, Tahoma, sans-serif; 
+      font-size: 22;
+      position: relative;
+      left: 15%; 
+    }
+
+    .sobre-nosotros img {
+
+    }
+
+    .opinion {
+      height: 320px;
+      font-family: cursive;
+    }
+
+    .opinion div {
+      font-size: 20;
+    }
+
+  
+  /* Nuestros Productos */ 
+
+  .conteiner-productos {
+    background-color: #ffffff;  
+  }
+
+  .producto {
+    background-color: #f5f5f5;
+    margin: 4%;
+    padding: 3%;
+    height: 600px;
+  }
+
+  .producto ul {
+    font-family: cursive;
+    font-size: 18;
+    list-style: none;
+    position: relative; 
+    left: 70%;
+    bottom: 450px;
+  }
+
+  .producto ul .titulo {
+    font-size: 23;
+    font-weight: bold ; 
+    font-family: cursive;
+  }
+
+
+  /* Validaciones */ 
+  /* quejesto */
+    input {
+      border: 2px solid;
+      border-radius: 4px;
+      border-color: #9805c9;
+      display: block;
+    }
+
+    input:focus {
+      border-color: #b9058f;
+      background-color: aqua;
+    }
+
+
+
+
+
+
+
+
+  /* Valoraciones */ 
+
+  .this {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+
+  .box {
+    width: 50%;
+   /*  display: flex;
+    justify-content: center; */
+    color:#f5f5f5; 
+    position: relative; 
+    background: linear-gradient(45deg, #D40030 , #31BDBD);
+    padding: 25px 50px 35px;
+    border-radius: 25px ;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* Compra */ 
+
+  .h1-carrito {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+  }
+
+  .row {
+    /* width: 90%; *
+    height: 400px; */
+    margin: 4%;
+    padding: 0%;
+    /* border-style: solid;
+    border-color: #ff00bb; */
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+    justify-items: center;
+  }
+  
+
+  .card-body {
+    width: 280px;
+    /* height: 10px; */
+    border: 2%;
+    border-style: solid;
+    border-color: #ababab;
+    background-color: #f5f5f5;
+    text-align: center;
+  } 
+
+
+  .btn-compra {
+    color: #D40030; 
+    font-family: cursive ;
+    font-weight: bold;
+    padding: 4%;
+    background-color: #ffffff;
+    border-color: #31BDBD;
+    border-style: solid;
+  }
+
+
+  table {
+   /*  background-color: #00daee; */
+    width: 90%;
+    margin: 2%;
+    font-family: cursive;
+    font-weight: bold;
+    font-size: 16;
+  }
+
+  tr {
+    text-align: center;
+  }
+
+  th {
+    padding: 10px;
+    /* border: 3px;
+    border-style: solid;
+    border-color: #dfdfdf; */
+  }
+
+
+  .btn-inc {
+    padding: 2% ; 
+    background-color: #31BDBD;
+    color: #FFFFFF; 
+    border-color:#31BDBD; 
+  }
+
+  .btn-borra {
+    padding: 2% ; 
+    background-color: #D40030;
+    color: #FFFFFF; 
+    border-color:#D40030; 
+  }
+
+  button {
+    cursor: pointer;
+    border-radius: 30px;
+  }
