@@ -6,20 +6,24 @@
         private $cliente ; 
         private $coleccVehi ; 
         private $precioFinal ; 
+        private $formaPago ; 
 
         public function __construct(
             $numero,    
             $fecha, 
             $cliente , 
             $coleccVehi, 
-            $precioFinal   
-            ) {
+            $precioFinal,    
+            $formaPago
+        ) {
             $this -> numero = $numero ; 
             $this -> fecha = $fecha ; 
             $this -> cliente = $cliente ; 
             $this -> coleccVehi = $coleccVehi ; 
             $this -> precioFinal = $precioFinal ; 
+            $this -> formaPago = $formaPago ; 
         }
+
         public function getNumero() {
             return $this -> numero ; 
         }
@@ -34,6 +38,9 @@
         }
         public function getPrecioFinal() {
             return $this -> precioFinal ; 
+        }
+        public function getFormaPago() {
+            return $this -> formaPago ; 
         }
 
         public function setNumero($numero) {
@@ -50,6 +57,9 @@
         }
         public function setPrecioFinal($precioFinal) {
             $this -> precioFinal = $precioFinal ; 
+        }
+        public function setFormaPago($formaPago) {
+            $this -> formaPago = $formaPago ; 
         }
 
         public function incorporarVehiculo($objVehiculo) {
@@ -102,6 +112,16 @@
             return $cadenaVehi ; 
         }
 
+        public function registrarInformacionVenta($info) {
+            return $info ; 
+        }
+
+
+        /* instance of para el 15% */
+
+
+
+
         public function __toString() {
             $cadenaVehi = $this -> mostrarVehiculos() ; 
             return 
@@ -111,6 +131,7 @@
             "Datos del cliente: " . $this -> getCliente() . "\n" . 
             "\n" . 
             "Coleccion de vehiculos: " . $cadenaVehi. "\n" . 
-            "Precio Final " . $this -> getPrecioFinal() . "\n" ;
+            "Precio Final " . $this -> getPrecioFinal() . "\n" .
+            "Forma de pago: " . $this -> getFormaPago() . "\n" ;
         }
     }

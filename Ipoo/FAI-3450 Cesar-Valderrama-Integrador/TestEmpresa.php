@@ -5,6 +5,8 @@
     include_once "VehiculoNacional.php" ; 
     include_once "VehiculoInternacional.php" ; 
     include_once "Venta.php" ; 
+    include_once "VentaOnline.php" ; 
+    include_once "VentaLocal.php" ;
     include_once "Empresa.php" ; 
 
     // test 
@@ -27,24 +29,43 @@
     $coleccCodigosVehi2 = [0, 14] ; 
     $coleccCodigosVehi3 = [2, 14] ; 
 
+
+    $info = [
+        "direccionEnvio" => "Cipolletti", 
+        "dniRec" => 95497 , 
+        "nroTelf" => 299455 , 
+    ] ; 
+
+    $info2 = [
+        "dia" => "Lunes", 
+        "horario" => "10:30" , 
+    ] ; 
+
+    $info3 = [
+        "direccionEnvio" => "Cipolletti", 
+        "dniRec" => 10034 , 
+        "nroTelf" => 412587 , 
+    ] ;
+
     // punto 4 
-    $precioFinal = $empresa -> registrarVenta($coleccCodigosVehi1, $cliente2) ; 
+    $precioFinal = $empresa -> registrarVenta($coleccCodigosVehi1, $cliente2, "online", $info) ; 
     echo $precioFinal . "\n" ;
 
     // punto 5 
-    $precioFinal = $empresa -> registrarVenta($coleccCodigosVehi2, $cliente2) ; 
+    $precioFinal = $empresa -> registrarVenta($coleccCodigosVehi2, $cliente2, "local", $info2) ; 
     echo $precioFinal . "\n" ;
 
     // punto 6 
-    $precioFinal = $empresa -> registrarVenta($coleccCodigosVehi3, $cliente2) ; 
+    $precioFinal = $empresa -> registrarVenta($coleccCodigosVehi3, $cliente2, "local", $info) ; 
     echo $precioFinal . "\n" ;
 
     // punto 7 
-    $coleccVehiImportados = $empresa -> informarVentasImportadas() ; 
-    print_r($coleccVehiImportados) . "\n" ;
+    $coleccionVentasOnline = $empresa -> retornarVentasOnline() ; 
+    print_r($coleccionVentasOnline) . "\n" ; 
 
     // punto 8 
-    $total = $empresa -> informarSumaVentasNacionales() ; 
-    echo $total . "\n" ;
+    $totalVentasLocal = $empresa -> retornarImporteVentasEnLocal() ; 
+    echo $totalVentasLocal . "\n" ; 
 
-    // echo $empresa . "\n" ;
+    // punto 9 
+    echo $empresa . "\n" ; 

@@ -69,7 +69,7 @@
             return $vehiculo ; 
         }
 
-        public function registrarVenta($colCodigosVehiculos, $objCliente) {
+        public function registrarVenta($colCodigosVehiculos, $objCliente, $tipo, $info) {
             $coleccVehi = $this -> getColeccVehi() ; 
             $coleccVentas = $this -> getColeccVentas() ; 
             $i=0 ; 
@@ -87,10 +87,30 @@
                                     if($vehiculo -> getActivo()) {
                                         $encontro = true ; 
                                         $precioFinal = $vehiculo -> darPrecioVenta() ;
-                                        $venta = new Venta(1, "26/05/2023", $objCliente, $coleccVehi, $precioFinal) ;
-                                        array_push($coleccVentas, $venta) ;
-                                        $this -> setColeccVentas($coleccVentas) ;
-                                        $vehiculo -> setActivo(false) ; 
+                                            if($tipo == "online" ) {
+                                                /* los valores son genericos en realidad deberian ser variables */
+                                                $venta = new VentaOnline(1, "26/05/2023", $objCliente, $coleccVehi, $precioFinal, "efectivo", "Cipolletti", 95947, 299455) ;
+                                                $info = [
+                                                    "direccionEnvio" => "Cipolletti", 
+                                                    "dniRec" => 95497 , 
+                                                    "nroTelf" => 299455 , 
+                                                ] ; 
+                                                $venta -> registrarInformacionVenta($info) ; 
+                                                array_push($coleccVentas, $venta) ;
+                                                $this -> setColeccVentas($coleccVentas) ;
+                                                $vehiculo -> setActivo(false) ;
+                                            } else {
+                                                /* los valores son genericos en realidad deberian ser variables */
+                                                $venta = new VentaLocal(1, "26/05/2023", $objCliente, $coleccVehi, $precioFinal, "efectivo", "Lunes", "10:30") ;
+                                                $info = [
+                                                    "dia" => "Lunes", 
+                                                    "horario" => "10:30" , 
+                                                ] ; 
+                                                $venta -> registrarInformacionVenta($info) ; 
+                                                array_push($coleccVentas, $venta) ;
+                                                $this -> setColeccVentas($coleccVentas) ;
+                                                $vehiculo -> setActivo(false) ;
+                                            }   
                                     }
                                 }
                                 $j++ ; 
@@ -151,6 +171,38 @@
 
                 }
             return $coleccVehiImportados ; 
+        }
+
+        public function retornarVentasOnline() {
+            $coleccVentas = $this ->  getColeccVentas(); 
+            $coleccVentasOnline = [] ; 
+ 
+                foreach($coleccVentas as $venta) {
+                    $pertenece = $venta instanceof VentaOnline ; 
+                        if($pertenece) {
+                            if(!in_array($venta, $coleccVentasOnline)) {
+                                array_push($coleccVentasOnline, $venta) ; 
+                            }
+                    }
+                }
+
+                
+            return $coleccVentasOnline ;
+        }
+
+        public function  retornarImporteVentasEnLocal() {
+            $coleccVentas = $this ->  getColeccVentas(); 
+            $totalVentasLocal = 0 ; 
+               
+                foreach($coleccVentas as $venta) {
+                    $pertenece = $venta instanceof VentaLocal ; 
+                        if($pertenece) {
+                            $precio = $venta -> getPrecioFinal() ; 
+                            $totalVentasLocal = $totalVentasLocal + $precio ; 
+                        }
+                }
+                
+            return $totalVentasLocal ; 
         }
 
         public function mostrarClientes() {
