@@ -1,0 +1,135 @@
+<html>
+<head>
+  <title>Tabla de Registros</title>
+
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .delete-link {
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Tabla de Registros</h1>
+  
+  <table id="registrosTable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Ciudad</th>
+        <th>Teléfono</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  
+  <h2>Nuevo Registro</h2>
+  
+  <form id="nuevoRegistroForm">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" required>
+    <br>
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" required>
+    <br>
+    <label for="ciudad">Ciudad:</label>
+    <input type="text" id="ciudad" required>
+    <br>
+    <label for="telefono">Teléfono:</label>
+    <input type="text" id="telefono" required>
+    <br>
+    <input type="submit" value="Nuevo Registro">
+  </form>
+
+  <script>
+    var registros = [
+      ["Juan Pérez","Av. Argentina 3000","Neuquén Capital","154888888"],
+      ["Tito Sánchez","Av. Del Trabajador 300","Neuquén Capital","154555555"],
+      ["Cecilia Carrizo","Sierra Grande 900","Neuquén Capital","4485895"],
+      ["Pedro González","Amaranto Usares 1254","Neuquén Capital","4420444"],
+      ["Verónica Lozano","Saturnino Torres 100","Neuquén Capital","5425842"]
+    ];
+
+    // Función para eliminar una fila de la tabla
+    function eliminarFila(i) {
+      registros.splice(i, 1);
+      actualizarTabla();
+    }
+
+    // Función para agregar una nueva fila a la tabla
+    function agregarFila(nombre, direccion, ciudad, telefono) {
+      registros.push([nombre, direccion, ciudad, telefono]);
+      actualizarTabla();
+    }
+
+    // Función para actualizar la tabla con los datos del array
+    function actualizarTabla() {
+      var tabla = document.getElementById("registrosTable");
+      var tbody = tabla.getElementsByTagName("tbody")[0];
+      
+      // Limpiar la tabla
+      while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+      } 
+      
+      // Agregar filas al tbody
+      for (var i = 0; i < registros.length; i++) {
+        var fila = document.createElement("tr");
+        
+        for (var j = 0; j < registros[i].length; j++) {
+          var celda = document.createElement("td");
+          celda.textContent = registros[i][j];
+          fila.appendChild(celda);
+        }
+        
+        var accionCelda = document.createElement("td");
+        var deleteLink = document.createElement("a");
+        deleteLink.textContent = "Borrar";
+        deleteLink.className = "delete-link";
+        deleteLink.setAttribute("data-index", i);
+        deleteLink.addEventListener("click", function() {
+          var index = this.getAttribute("data-index");
+          eliminarFila(index);
+        });
+        accionCelda.appendChild(deleteLink);
+        
+        fila.appendChild(accionCelda);
+        tbody.appendChild(fila);
+      }
+    }
+
+    // Evento submit del formulario para agregar nuevos registros
+    document.getElementById("nuevoRegistroForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      var nombre = document.getElementById("nombre").value;
+      var direccion = document.getElementById("direccion").value;
+      var ciudad = document.getElementById("ciudad").value;
+      var telefono = document.getElementById("telefono").value;
+      
+      agregarFila(nombre, direccion, ciudad, telefono);
+      
+      // Limpiar los campos del formulario
+      this.reset();
+    });
+
+    // Inicializar la tabla al cargar la página
+    actualizarTabla();
+  </script>
+</body>
+</html>

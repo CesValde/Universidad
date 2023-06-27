@@ -7,9 +7,9 @@
 
   <body>
     <div id="encabezado"> 
-      <a href="http://127.0.0.1:5500/Home.html"><span id="sph1T"> Tortas </span></a>
-      <a href="http://127.0.0.1:5500/Home.html"><span id="sph1M"> Mariluz </span></a>
-      <img src="/fotos/IMG-20200704-WA0022.jpg" width="160px" height="150px" id="logo"> 
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/Home.html"><span id="sph1T"> Tortas </span></a>
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/Home.html"><span id="sph1M"> Mariluz </span></a>
+      <img src="./fotos/Logo-tm.jpg" width="160px" height="150px" id="logo"> 
 
       <div id="icons-redes-enc"> 
         <a href=""> 
@@ -34,12 +34,12 @@
     <br><br>
 
     <div id="pHeader"> 
-      <a href="http://127.0.0.1:5500/Home.html"> Home </a> 
-      <a href="http://127.0.0.1:5500/Galeria.html"> Galeria </a>
-      <a href="http://127.0.0.1:5500/NuestrosProductos.html"> NuestrosProductos </a>  
-      <a href="http://127.0.0.1:5500/Descubre.html"> Descubre </a>     
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/Home.html"> Home </a> 
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/Galeria.html"> Galeria </a>
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/NuestrosProductos.html"> NuestrosProductos </a>  
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/Descubre.html"> Descubre </a>     
       <a href="http://127.0.0.1:5500/Valoraciones.html"> Valoraciones </a>               
-      <a href="http://127.0.0.1:5500/Compra.html"> Compra  
+      <a href="http://127.0.0.1:5500/Estatica/Final%20estatica%202023/Compra.html"> Compra  
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
         <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
         </svg> 
@@ -101,7 +101,7 @@
     <template id="template-card">
       <div> 
         <div class="card">
-          <img width="286px" height="260px"> 
+          <img width="285px" height="260px"> 
           <div class="card-body">
             <h5>Titulo</h5>
             <p>precio</p>
@@ -110,6 +110,33 @@
         </div>
       </div>
     </template>
+
+    <div class="formulario"> 
+      <form id="Form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" >
+    
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" >
+    
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" >
+    
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <div class="date-inputs">
+          <input type="text" id="dia" name="dia" placeholder="D&iacute;a" >  
+          <input type="text" id="mes" name="mes" placeholder="Mes" > 
+          <input type="text" id="anio" name="anio" placeholder="A&ntilde;o" >
+        </div>
+
+        <div> 
+          <textarea> </textarea>
+        </div>
+    
+        <input type="submit" value="Enviar" onclick=" return validar(); ">
+      </form>
+    </div>
+
 
     <hr size="2" color="red"> 
     <footer> 
@@ -169,6 +196,7 @@
     </footer>
 
     <script src="Carrito.js"></script>
-
+    <script src="validarFormulario.js"></script>
+    
   </body>
 </html>

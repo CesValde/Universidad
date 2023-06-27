@@ -2,37 +2,37 @@
     {
       "precio": 500,
       "id": 1,
-      "title": "Café",
-      "thumbnailUrl": "/."
+      "title": "Cake",
+      "thumbnailUrl": "fotos/cakechoco.jpeg" 
     },
     {
-      "precio": 300,
+      "precio": 5000,
       "id": 2,
-      "title": "Pizza",
-      "thumbnailUrl": "https://picsum.photos/id/10/600"
+      "title": "Cake",
+      "thumbnailUrl": "fotos/cakeFrutas.jpeg"
     },
     {
-      "precio": 100,
+      "precio": 2000,
       "id": 3,
-      "title": "Agua",
-      "thumbnailUrl": "https://picsum.photos/id/20/600"
+      "title": "Mini cake",
+      "thumbnailUrl": "fotos/MIniSol.jpg"
     },
     {
-      "precio": 50,
+      "precio": 1000,
       "id": 4,
-      "title": "Sandía",
-      "thumbnailUrl": "https://picsum.photos/id/30/600"
+      "title": "Cupcakes",
+      "thumbnailUrl": "fotos/CupcakesBonitos.jpg"
     },
     {
-      "precio": 10,
+      "precio": 1500,
       "id": 5,
-      "title": "Mango",
-      "thumbnailUrl": "https://picsum.photos/id/40/600"
+      "title": "Porcion",
+      "thumbnailUrl": "fotos/PorcionChoco.jpeg"
     },
     {
-      "precio": 150,
+      "precio": 2500,
       "id": 6,
-      "title": "Chela",
-      "thumbnailUrl": "https://picsum.photos/id/50/600"
+      "title": "Marquise",
+      "thumbnailUrl": "fotos/dulceFresas.jpeg"
     }
-  ]
+]

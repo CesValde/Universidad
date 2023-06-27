@@ -138,14 +138,3 @@
             }
         e.stopPropagation() ; 
     }
-
-    fetch('api.json')
-  .then(response => response.json())
-  .then(data => {
-    var thumbnailUrl = data.thumbnailUrl;
-    var imageElement = document.getElementById('imagen');
-    imageElement.src = thumbnailUrl;
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
