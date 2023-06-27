@@ -4,30 +4,23 @@
         private $codigoViaje ; 
         private $destino ; 
         private $cantMaxPasajeros ; 
+        private $idEmpresa ;  
         private $coleccPasajeros ;  
-        private $responsableV ; 
+        private $responsable ; 
         private $precioTicket ;
-        private $dineroTotal ; 
+        private $mensajeOperacion ; 
+      
 
-        public function __construct(
-            $codigoViaje, 
-            $destino, 
-            $cantMaxPasajeros,
-            $coleccPasajeros,    // Los objetos son pasajeros 
-            $responsableV, 
-            $precioTicket, 
-            $dineroTotal 
-        ) {
-            $this -> codigoViaje = $codigoViaje ; 
-            $this -> destino = $destino ; 
-            $this -> cantMaxPasajeros = $cantMaxPasajeros ; 
-            $this -> coleccPasajeros = $coleccPasajeros ; 
-            $this -> responsableV = $responsableV ;
-            $this -> precioTicket = $precioTicket ;
-            $this -> dineroTotal = $dineroTotal ;
+        public function __construct() {
+            $this -> codigoViaje = 0 ; 
+            $this -> destino =  "" ;
+            $this -> cantMaxPasajeros = 0 ;
+            $this -> coleccPasajeros = [] ;
+            $this -> responsable = new Responsable() ;
+            $this -> precioTicket = 0 ;
+            $this -> mensajeOperacion = "" ; 
         }
 
-        // get
         public function getCodigoViaje() {
             return $this -> codigoViaje ; 
         }
@@ -37,20 +30,22 @@
         public function getCantMaxPasajeros() {
             return $this -> cantMaxPasajeros ; 
         }
+        public function getIdEmpresa() {
+            return $this -> idEmpresa ; 
+        }
         public function getColeccPasajeros() {
             return $this -> coleccPasajeros ; 
         }
-        public function getResponsableV() {
-            return $this -> responsableV ; 
+        public function getResponsable() {
+            return $this -> responsable ; 
         }
         public function getPrecioTicket() {
             return $this -> precioTicket ; 
         }
-        public function getDineroTotal() {
-            return $this -> dineroTotal ; 
+        public function getMensajeOperacion() {
+            return $this -> mensajeOperacion ; 
         }
         
-        // set
         public function setCodigoViaje($codigoViaje) {
             $this -> codigoViaje = $codigoViaje ; 
         }
@@ -60,17 +55,37 @@
         public function setCantMaxPasajeros($cantMaxPasajeros) {
             $this -> cantMaxPasajeros = $cantMaxPasajeros ; 
         }
+        public function setIdEmpresa($idEmpresa) {
+            $this -> idEmpresa = $idEmpresa ; 
+        }
         public function setColeccPasajeros($coleccPasajeros) {
             $this -> coleccPasajeros = $coleccPasajeros ; 
         }
-        public function setResponsableV($responsableV) {
-            $this -> responsableV = $responsableV ; 
+        public function setResponsable($responsable) {
+            $this -> responsable = $responsable ; 
         }
         public function setPrecioTicket($precioTicket) {
             $this -> precioTicket = $precioTicket ; 
         }
-        public function setDineroTotal($dineroTotal) {
-            $this -> dineroTotal = $dineroTotal ; 
+        public function setmensajeoperacion($mensajeOperacion) {
+            $this -> mensajeOperacion = $mensajeOperacion ; 
+        }
+
+        /**
+         * @param string $
+         * @param string $
+         * @param int $
+         * @param int $
+         * Carga el objeto con los valores que se pasan por parametro
+         */
+        public function cargar($codigoViaje, $destino, $cantMaxPasajeros, $idEmpresa, $coleccPasajeros, $responsable, $precioTicket) {
+            $this -> setCodigoViaje($codigoViaje) ; 
+            $this -> setDestino($destino) ;
+            $this -> setCantMaxPasajeros($cantMaxPasajeros) ; 
+            $this -> setIdEmpresa($idEmpresa) ; 
+            $this -> setColeccPasajeros($coleccPasajeros) ; 
+            $this -> setResponsable($responsable) ; 
+            $this -> setPrecioTicket($precioTicket) ; 
         }
  
         /**
@@ -146,7 +161,7 @@
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         if($nombre == $coleccPasajeros[$j] -> getNombrePasajero()) {
                             if($apellido == $coleccPasajeros[$j] -> getApellidoPasajero()) {
-                                $coleccPasajeros[$j] -> setApellidoPasajero($apellido) ; 
+                                $coleccPasajeros[$j] -> setNroDocPasajero($nroDocPasaj) ; 
                                 $this -> setColeccPasajeros($coleccPasajeros) ; 
                                 $j = count($coleccPasajeros) ; 
                                 $existe = true ;
@@ -254,7 +269,6 @@
             $cantPasajeros = count($coleccPasajeros) ; 
             $importe = 0 ;
             $descuento = $pasajero -> darPorcentajeIncremento() ;
-            // echo $cantPasajeros . "\n" ;
 
             $disponible = $this -> hayPasajeDisponible($cantPasajeros) ;
                 if($disponible) {              
@@ -263,8 +277,6 @@
                     $importe = $precioTicket + ($precioTicket * $descuento) ; 
                     array_push($coleccPasajeros, $pasajero) ;
                     $this -> setColeccPasajeros($coleccPasajeros) ;
-                   /*  $dineroTotal .= $importe ;
-                    setDineroTotal($dineroTotal) ; */
                 } else {
                     $importe = -1 ;
                 }
@@ -325,19 +337,160 @@
             }    
             return $cadena ; 
         }   
+
+
+
+        /* TP Final */
+
+        /**
+         * Recupera los datos de un viaje por codigo de viaje 
+         * @param int $codigoViaje
+         * @return true en caso de encontrar los datos, false en caso contrario 
+         */		
+        public function Buscar($codigoViaje) {
+            $base = new BaseDatos() ;
+            $consulta = "Select * from viaje  where idviaje = " . $codigoViaje ;
+            $resp = false ;
+            if($base -> Iniciar()) {
+                if($base -> Ejecutar($consulta)) {
+                    if($row = $base -> Registro()) {					
+                        $this -> setCodigoViaje($codigoViaje) ;
+                        $this -> setDestino($row['vdestino']) ;
+                        $this -> setCantMaxPasajeros($row['vcantmaxpasajeros']) ;
+                        $this -> setIdEmpresa($row['idempresa']) ;
+                        $this -> setResponsable($row['rnumeroempleado']) ;
+                        $this -> setPrecioTicket($row['vimporte']) ;
+
+                        /* $coleccPasajeros = $this -> getColeccPasajeros() ; 
+                        $coleccPasajeros = $this -> listar("order by papellido") ; 
+                        $this -> ($row['']) ;       // coleccion de pasajeros ? */
+                        $resp = true ;
+                    }				
+                } else {
+                    $this -> setmensajeoperacion($base -> getError()) ;
+                }
+            } else {
+                $this -> setmensajeoperacion($base -> getError()) ; 
+            }		
+            return $resp ; 
+        }	
+
+        public function listar($condicion = "") {
+            $coleccViajes = null ;
+            $base = new BaseDatos() ;
+            $consulta = "Select * from viaje " ;
+
+            if($condicion != "") {
+                $consulta = $consulta . ' where ' . $condicion;
+            }
+
+            $consulta .= " order by idviaje " ;
+            //echo $consultaPersonas;
+            if($base -> Iniciar()) {
+                if($base -> Ejecutar($consulta)) {				
+                    $coleccViajes = [] ;
+                        while($row = $base -> Registro()) {
+                            $codigoViaje = $row['idviaje'] ; 
+                            $destino = $row['vdestino'] ; 
+                            $cantMaxPasajeros = $row['vcantmaxpasajeros'] ;
+                            $idEmpresa = $row['idempresa'] ;
+                            $responsable = $row['rnumeroempleado'] ;
+                            $precioTicket = $row['vimporte'] ;
+
+                            /* ??? */
+                            $pasajero = new Pasajero() ;
+                            $coleccPasajeros = $pasajero -> listar() ;  
+                            $viaje = new Viaje() ;
+                            $viaje -> cargar($codigoViaje, $destino, $cantMaxPasajeros, $idEmpresa, $coleccPasajeros, $responsable, $precioTicket) ;
+                            array_push($coleccViajes, $viaje) ;
+                        }
+                } else {
+                    $this -> setmensajeoperacion($base -> getError()) ;
+                }
+            } else {
+                $this -> setmensajeoperacion($base -> getError()) ;
+            }	
+            return $coleccViajes ;
+        } 
+        
+        public function insertar() {
+            $base = new BaseDatos() ;
+            $resp = false ; 
+            $responsable = $this -> getResponsable() ;
+            $nroEmpleado = $responsable -> getNroEmpleado() ; 
+
+            $consulta = "INSERT INTO viaje(idviaje, vdestino, vcantmaxpasajeros, idempresa, rnumeroempleado, vimporte) 
+                    VALUES (" .
+                        $this -> getCodigoViaje() . ",'".
+                        $this -> getDestino() . "','" .
+                        $this -> getCantMaxPasajeros() . "','" . 
+                        $this -> getIdEmpresa() . "','" .
+                        $nroEmpleado . "','" .        // objeto completo o el numero no mas ?
+                        // coleccion de viajes ?
+                        $this -> getPrecioTicket(). "')" ;
+            
+            if($base -> Iniciar()) {
+                if($base -> Ejecutar($consulta)) {
+                    $resp =  true ;
+                } else {
+                    $this -> setmensajeoperacion($base -> getError()) ;  
+                }
+            } else {
+                    $this -> setmensajeoperacion($base -> getError()) ;
+            }
+            return $resp ;
+        }
+        
+        public function modificar() {
+            $resp = false ; 
+            $base = new BaseDatos() ;
+            $consulta = "UPDATE viaje SET 
+                vdestino = '" . $this -> getDestino() .
+                "' ,vcantmaxpasajeros = '" . $this -> getCantMaxPasajeros() .
+                "' ,idempresa = '" . $this -> getIdEmpresa() .
+                "' ,rnumeroempleado = '" . $this -> getResponsable() -> getNroEmpleado() .
+                "' ,vimporte = '" . $this -> getPrecioTicket() .
+                "' WHERE idviaje =" . $this -> getCodigoViaje() ;
+
+            if($base -> Iniciar()) {
+                if($base -> Ejecutar($consulta)) {
+                    $resp =  true ;
+                } else {
+                    $this -> setmensajeoperacion($base -> getError()) ;
+                }
+            } else {
+                $this -> setmensajeoperacion($base -> getError()) ;
+            }
+            return $resp ;
+        }
+        
+        public function eliminar() {
+            $base = new BaseDatos() ;
+            $resp = false ;
+
+            if($base -> Iniciar()) {
+                $consulta = "DELETE FROM viaje WHERE idviaje = " . $this -> getCodigoViaje() ;
+                    if($base -> Ejecutar($consulta)) {
+                        $resp = true ;
+                    } else {
+                        $this -> setmensajeoperacion($base -> getError()) ;
+                    }
+            } else {
+                $this -> setmensajeoperacion($base -> getError()) ;
+            }
+            return $resp ; 
+        }
         
         public function __toString() {
-            $cadena = $this -> datosPasajeros() ; 
-            $dineroTotal = $this -> gastoTotalViaje() ;
+           $cadena = $this -> datosPasajeros() ; 
 
             return "\n" .
                 "Codigo del viaje: " . $this -> getCodigoViaje() . "\n" . 
                 "Destino: " . $this -> getDestino() . "\n" . 
                 "Cantidad maxima de pasajeros: " . $this -> getCantMaxPasajeros() . "\n" .
-                "Precio del ticket: " . $this -> getPrecioTicket() . "\n" . 
-                "Dinero Total: " . $dineroTotal . "\n" . 
+                "Precio del ticket: " . $this -> getPrecioTicket() . "\n" .  
                 "\n" . 
-                "Datos del responsable: " . $this -> getResponsableV() . "\n" .
-                "Datos de los pasajeros: " . "\n" . $cadena . "\n" ;
-        }
+                "Datos del responsable: " . $this -> getResponsable() . "\n" .
+                "Datos de los pasajeros: " . "\n" . $cadena . "\n" ; 
+        } 
     }

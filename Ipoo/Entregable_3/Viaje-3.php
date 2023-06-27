@@ -146,7 +146,7 @@
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         if($nombre == $coleccPasajeros[$j] -> getNombrePasajero()) {
                             if($apellido == $coleccPasajeros[$j] -> getApellidoPasajero()) {
-                                $coleccPasajeros[$j] -> setApellidoPasajero($apellido) ; 
+                                $coleccPasajeros[$j] -> setNroDocPasajero($nroDocPasaj) ; 
                                 $this -> setColeccPasajeros($coleccPasajeros) ; 
                                 $j = count($coleccPasajeros) ; 
                                 $existe = true ;
