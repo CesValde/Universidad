@@ -1,5 +1,10 @@
 
   /* Todas las paginas */
+/* 
+    * {
+      overflow-x: hidden;
+      max-width: y;
+    } */
 
     #encabezado {
       padding: 2%;
@@ -118,7 +123,7 @@
       display: flex;
       justify-content: space-between;
       position: absolute;
-      left: 46%; 
+      left: 47%; 
       bottom: 175px;
     }
 
@@ -274,7 +279,8 @@
   .conteiner-imagenes {
     display: flex;
     justify-content: space-between;
-    margin: 2.5%;
+    margin: 2.5% 1% 2.5% 1% ;
+
   }
 
   .mini-footer span {
@@ -285,15 +291,19 @@
 
   /* Descubre */
 
+    #contenedorD {
+      overflow: hidden;
+    }
+
     .presentacion {
       font-family: cursive;
       padding: 3%;
       height: 750px ;
       margin: 3%;
-    }
+    } 
 
     .presentacion p {
-      font-size: 28;
+      font-size: 28px;
       position: relative;
       left: 55% ;
       bottom: 600px ;  
@@ -307,14 +317,14 @@
     }
 
     .sobre-nosotros .p1 {
-      font-size: 40;
+      font-size: 40px;
       position: relative;
       left: 40%;
     }
 
     .sobre-nosotros .p2 {
       font-family: Verdana, Geneva, Tahoma, sans-serif; 
-      font-size: 25;
+      font-size: 25px;
       position: relative;
       left: 30%; 
     }
@@ -324,7 +334,7 @@
       justify-content: center;
       height: 200px;
       font-family: cursive;
-      font-size: 26 ;
+      font-size: 26px ;
       margin: 3%;
     }
 
@@ -336,6 +346,7 @@
 
   .conteiner-productos {
     background-color: #ffffff;  
+    overflow-x: hidden;
   }
 
   .producto {
@@ -343,6 +354,7 @@
     margin: 4%;
     padding: 3%;
     height: 600px;
+    width: 90%;
   }
 
   .producto ul {
@@ -351,8 +363,8 @@
     list-style: none;
     position: relative; 
     left: 70%;
-    bottom: 450px;
-  }
+    bottom: 450px; 
+  } 
 
   .producto ul .titulo {
     font-size: 23;
@@ -405,7 +417,7 @@
 
   #califica {
     position: relative;
-    left: 370px;
+    left: 300px;
     top: 30px ; 
     background-color: #31BDBD ;
     color: #ffffff;

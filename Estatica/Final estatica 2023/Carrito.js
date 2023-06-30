@@ -68,7 +68,8 @@
             producto.cantidad = carrito[producto.id].cantidad + 1 ; 
         }
 
-        carrito[producto.id] = {...producto} ;  /* chatgpt preguntar */
+        // agrega un producto al objeto carrito utilizando el ID del producto como clave
+        carrito[producto.id] = {...producto} ; 
         pintarCarrito() ; 
 
     }
@@ -90,6 +91,7 @@
         items.appendChild(fragment) ; 
         pintarFooter()
 
+        // almacena los datos del carrito en el almacenamiento local del navegador
         localStorage.setItem('carrito', JSON.stringify(carrito)) ; 
     }
 
@@ -101,6 +103,8 @@
                 `
                 return 
             }
+
+            // calcula el número total de productos y el precio total en el carrito de compras.
             const nCantidad = Object.values(carrito).reduce((acc, {cantidad}) => acc + cantidad ,0 )
             const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio ,0)
 
