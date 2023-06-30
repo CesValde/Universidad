@@ -161,7 +161,7 @@
     #torta-home ul {
       position: absolute;
       left: 50%;
-      bottom: 30%;
+      bottom: 10%;
       list-style: none;
       font-size: 24 ;
     }
@@ -173,7 +173,7 @@
 
     #spt-h {
       position: relative; 
-      left: 27%;
+      left: 18%;
       bottom: 120px;
       font-size: 24 ;
       font-weight: bold;
