@@ -9,12 +9,6 @@
 
         public function __construct(
         ) { 
-           /*  $this -> aId = 0 ;
-            $this -> descripCorta = "" ;
-            $this -> descripLarga =  "" ;
-            $this -> coleccActividades = [] ;
-            $this -> mensajeOperacion = "" ; */
-            // dejar vacio ?
         } 
 
         public function getAIdentificacion() {
@@ -89,7 +83,7 @@
 
         // preguntar a chat como funciona xd
         public function listar($condicion = "") {
-            $coleccActividades = null ;
+            // $coleccActividades = null ;
             $base = new BaseDatos() ;
             $consulta = "Select * from actividad " ;
 
@@ -106,9 +100,6 @@
                             $descripCorta = $row['adescripcioncorta'] ; 
                             $descripLarga = $row['adescripcionlarga'] ;
 
-                            /* ??? */
-                            $actividad = new Actividad() ;
-                            $coleccActividades = $actividad -> listar() ;  
                             $actividad = new Actividad() ;
                             $actividad -> cargar($aId, $descripCorta, $descripLarga) ;
                             array_push($coleccActividades, $actividad) ;

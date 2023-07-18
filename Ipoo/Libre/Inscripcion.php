@@ -112,7 +112,7 @@
                 $consulta = $consulta . ' where ' . $condicion;
             }
 
-            $consulta .= " order by iId " ;
+            $consulta .= " order by iidentificacion	 " ;
             if($base -> Iniciar()) {
                 if($base -> Ejecutar($consulta)) {				
                     $coleccInscripciones = [] ;
@@ -123,9 +123,6 @@
                             $mId = $row['midentificacion'] ;
                             $dni = $row['dni'] ; 
 
-                            /* ??? */
-                            $inscripcion = new inscripcion() ;
-                            $coleccInscripciones = $inscripcion -> listar() ;  
                             $inscripcion = new inscripcion() ;
                             $inscripcion -> cargar($iId, $fechaRealiza, $costoFinal, $mId, $dni) ; 
                             array_push($coleccInscripciones, $inscripcion) ;
@@ -143,12 +140,12 @@
             $base = new BaseDatos() ;
             $resp = false ; 
 
-            $consulta = "INSERT INTO inscripcion(iidentificacion, fecha_realizacion, costo_final, midentificacion) 
+            $consulta = "INSERT INTO inscripcion(iidentificacion, fecha_realizacion, costo_final, midentificacion, dni) 
                     VALUES (" .
                         $this -> getiIdentificacion() . ",'".
-                        $this -> getfechaRealizacion() . ",'".
-                        $this -> getcostoFinal() . ",'".
-                        $this -> getMIdentificacion() . ",'".
+                        $this -> getfechaRealizacion() . "','".
+                        $this -> getcostoFinal() . "','".
+                        $this -> getMIdentificacion() . "','".
                         $this -> getIDni(). "')" ;
             
             if($base -> Iniciar()) {

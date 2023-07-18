@@ -10,12 +10,12 @@
         private $fechaInicio ; 
         private $fechaFin ; 
         private $presencial ; 
+        private $aId ; 
         private $coleccModulos ; 
         private $mensajeOperacion ; 
 
         public function __construct(
         ) { 
-            // ?? 
         } 
 
         public function getMIdentificacion() {
@@ -44,6 +44,9 @@
         }
         public function getPresencial() {
             return $this -> presencial ; 
+        }
+        public function getAIdentifica() {
+            return $this -> aId ; 
         }
         public function getColeccModulos() {
             return $this -> coleccModulos ; 
@@ -79,6 +82,9 @@
         public function setPresencial($presencial) {
             $this -> presencial = $presencial ; 
         }
+        public function setAIdentifica($aId) {
+            $this -> aId = $aId ; 
+        }
         public function setColeccModulos($coleccModulos) {
             $this -> coleccModulos = $coleccModulos ; 
         }
@@ -99,7 +105,7 @@
          * 
          * Carga el objeto con los valores que se pasan por parametro
          */
-        public function cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial) {
+        public function cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId) {
             $this -> setMIdentificacion($mId) ; 
             $this -> setDescripcion($descrip) ; 
             $this -> setTopeInscripcion($topeInscrip) ; 
@@ -109,6 +115,7 @@
             $this -> setFechaInicio($fechaInicio) ; 
             $this -> setFechaFin($fechaFin) ; 
             $this -> setPresencial($presencial) ; 
+            $this -> setAIdentifica($aId) ; 
         }
 
         /**
@@ -132,6 +139,7 @@
                         $this -> setFechaInicio($row['fecha_inicio']) ; 
                         $this -> setFechaFin($row['fecha_fin']) ; 
                         $this -> setPresencial($row['es_en_linea']) ; 
+                        $this -> setAIdentifica($row['aidentificacion']) ; 
                         $resp = true ;
                     }				
                 } else {
@@ -158,7 +166,7 @@
                 if($base -> Ejecutar($consulta)) {				
                     $coleccModulos = [] ;
                         while($row = $base -> Registro()) {
-                            $mId = $row['aidentificacion'] ; 
+                            $mId = $row['midentificacion'] ; 
                             $descrip = $row['descripcion'] ; 
                             $topeInscrip = $row['tope_inscripciones'] ; 
                             $costo = $row['costo'] ;
@@ -167,12 +175,10 @@
                             $fechaInicio = $row['fecha_inicio'] ; 
                             $fechaFin = $row['fecha_fin'] ; 
                             $presencial = $row['es_en_linea'] ; 
+                            $aId = $row['aidentificacion'] ; 
 
-                            /* ??? */
                             $modulo = new Modulo() ;
-                            $coleccModulos = $modulo -> listar() ;  
-                            $modulo = new Modulo() ;
-                            $modulo -> cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial) ;
+                            $modulo -> cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId) ;
                             array_push($coleccModulos, $modulo) ;
                         }
                 } else {
@@ -188,17 +194,7 @@
             $base = new BaseDatos() ;
             $resp = false ; 
 
-            $consulta = "INSERT INTO modulo(
-                midentificacion, 
-                descripcion, 
-                tope_inscripciones, 
-                costo, 
-                horario_inicio, 
-                horario_cierre, 
-                fecha_inicio, 
-                fecha_fin, 
-                es_en_linea 
-                ) 
+            $consulta = "INSERT INTO modulo(midentificacion, descripcion, tope_inscripciones, costo, horario_inicio, horario_cierre, fecha_inicio, fecha_fin, es_en_linea, aidentificacion) 
                     VALUES (" .
                         $this -> getMIdentificacion() . ",'".
                         $this -> getDescripcion() . "','" .
@@ -208,7 +204,8 @@
                         $this -> getHorarioCierre() . "','" .
                         $this -> getFechaInicio() . "','" .
                         $this -> getFechaFin() . "','" .
-                        $this -> getPresencial(). "')" ;
+                        $this -> getPresencial() . "','" .
+                        $this -> getAIdentifica() . "')" ;
             
             if($base -> Iniciar()) {
                 if($base -> Ejecutar($consulta)) {
@@ -234,6 +231,7 @@
                "' ,fecha_inicio = '" . $this -> getFechaInicio() .
                "' ,fecha_fin = '" . $this -> getFechaFin() .
                "' ,es_en_linea = '" . $this -> getPresencial() .
+               "' ,aidentificacion = '" . $this -> getAIdentifica() .
                 "' WHERE midentificacion =" . $this -> getMIdentificacion() ;
 
             if($base -> Iniciar()) {
@@ -267,7 +265,6 @@
 
         public function darCostoMódulo() {
             $total = $this -> getCosto() ; 
-
             return $total ; 
         }
 
@@ -282,6 +279,7 @@
             "Horario de cierre: " . $this -> getHorarioCierre() . "\n" . 
             "Fecha inicio: " . $this -> getFechaInicio() . "\n" . 
             "Fecha cierre: " . $this -> getFechaFin() . "\n" . 
-            "Presencial: " . $this -> getPresencial() ; 
+            "Presencial: " . $this -> getPresencial() . "\n" .
+            "Identifiacion de la actividad: " . $this -> getAIdentifica() ; 
         }
     }

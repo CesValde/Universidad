@@ -36,8 +36,8 @@
          * Carga el objeto con los valores que se pasan por parámetro
          */
 
-         public function cargarOnline($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $link, $bonus) {
-            parent::cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial);
+         public function cargarOnline($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId, $link, $bonus) {
+            parent::cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId);
             $this -> setLink($link);
             $this -> setBonus($bonus);
         } 
@@ -63,6 +63,7 @@
                         $this -> setFechaInicio($row['fecha_inicio']) ; 
                         $this -> setFechaFin($row['fecha_fin']) ; 
                         $this -> setPresencial($row['es_en_linea']) ; 
+                        $this -> setAIdentifica($row['aidentificacion']) ; 
 
                         $this -> setLink($row['link_reunion']) ; 
                         $this -> setBonus($row['bonificacion']) ; 
@@ -101,15 +102,13 @@
                             $fechaInicio = $row['fecha_inicio'] ; 
                             $fechaFin = $row['fecha_fin'] ; 
                             $presencial = $row['es_en_linea'] ; 
+                            $aId = $row['aidentificacion'] ; 
 
                             $link = $row['link_reunion'] ; 
                             $bonus = $row['bonificacion'] ; 
 
-                            /* ??? */
                             $modulo = new ModuloOnline() ;
-                            $coleccModulos = $modulo -> listar() ;  
-                            $modulo = new ModuloOnline() ;
-                            $modulo -> cargarOnline($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $link, $bonus) ;
+                            $modulo -> cargarOnline($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId, $link, $bonus) ;
                             array_push($coleccModulos, $modulo) ;
                         }
                 } else {
@@ -135,6 +134,7 @@
                 fecha_inicio, 
                 fecha_fin, 
                 es_en_linea, 
+                aidentificacion,
                 link_reunion, 
                 bonificacion
                 ) 
@@ -148,6 +148,7 @@
                         $this -> getFechaInicio() . "','" .
                         $this -> getFechaFin() . "','" .
                         $this -> getPresencial() . "','" .
+                        $this -> getAIdentifica() . "','" .
                         $this -> getLink() . "','" .
                         $this -> getBonus(). "')" ;
             
@@ -175,6 +176,7 @@
                "' ,fecha_inicio = '" . $this -> getFechaInicio() .
                "' ,fecha_fin = '" . $this -> getFechaFin() .
                "' ,es_en_linea = '" . $this -> getPresencial() .
+               "' ,aidentificacion = '" . $this -> getAIdentifica() .
                "' ,link_reunion = '" . $this -> getLink() .
                "' ,bonificacion = '" . $this -> getBonus() .
                 "' WHERE midentificacion =" . $this -> getMIdentificacion() ;
@@ -209,7 +211,13 @@
         }
 
         public function darCostoMódulo() {
+            $bonus = $this -> getBonus() ; 
             $subTotal = parent::darCostoMódulo() ; 
+            $bonus = $bonus / 100 ; 
+
+            $total = $subTotal - ($subTotal * $bonus) ;
+
+            return $total ; 
         }
         
         public function __toString() {

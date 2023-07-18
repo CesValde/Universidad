@@ -123,9 +123,6 @@
                             $nombre = $row['nombre'] ;
                             $apellido = $row['apellido'] ;
 
-                            /* ??? */
-                            $ingresante = new Ingresante() ;
-                            $coleccIngresantes = $ingresante -> listar() ;  
                             $ingresante = new Ingresante() ;
                             $ingresante -> cargar($dni, $nombre, $apellido, $legajo, $correo) ;
                             array_push($coleccIngresantes, $ingresante) ;
