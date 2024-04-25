@@ -29,9 +29,9 @@
         } else {
             $disponible = $cuentaCesar -> retirar($cantidad) ; 
             if($disponible) {
-            echo "Ha retirado $$cantidad de su cuenta. \n" ; 
+                echo "Ha retirado $$cantidad de su cuenta. \n" ; 
             } else {
-            echo "No tiene la cantidad suficiente en su cuenta para retirar.\n" ;
+                echo "No tiene la cantidad suficiente en su cuenta para retirar.\n" ;
             }
         }
 

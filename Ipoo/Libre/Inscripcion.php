@@ -1,10 +1,10 @@
 <?php 
     
     class Inscripcion {
-        private $iId ; 
+        private $idInscripcion ; 
         private $fechaRealiza ; 
         private $costoFinal ;
-        private $mId ;
+        private $idModulo ;
         private $dni ; 
         private $coleccInscripciones ; 
         private $mensajeOperacion ; 
@@ -14,16 +14,16 @@
         } 
 
         public function getiIdentificacion() {
-            return $this -> iId ; 
+            return $this -> idInscripcion ; 
         }
         public function getfechaRealizacion() {
             return $this -> fechaRealiza ; 
         }
-        public function getcostoFinal() {
+        public function getCostoFinal() {
             return $this -> costoFinal ; 
         }
         public function getMIdentificacion() {
-            return $this -> mId ; 
+            return $this -> idModulo ; 
         }
         public function getIDni() {
             return $this -> dni ; 
@@ -35,17 +35,17 @@
             return $this -> mensajeOperacion ; 
         }
 
-        public function setiIdentificacion($iId) {
-            $this -> iId = $iId ; 
+        public function setiIdentificacion($idInscripcion) {
+            $this -> idInscripcion = $idInscripcion ; 
         }
         public function setfechaRealizacion($fechaRealiza) {
             $this -> fechaRealiza = $fechaRealiza ; 
         }
-        public function setcostoFinal($costoFinal) {
+        public function setCostoFinal($costoFinal) {
             $this -> costoFinal = $costoFinal ; 
         } 
-        public function setMIdentificacion($mId) {
-            $this -> mId = $mId ; 
+        public function setMIdentificacion($idModulo) {
+            $this -> idModulo = $idModulo ; 
         } 
         public function setIDni($dni) {
             $this -> dni = $dni ; 
@@ -58,35 +58,34 @@
         }
 
         /**
-        * @param int $
-        * @param string $
-        * @param string $
-        *
-        *
-        *
+        * @param int $idInscipcion
+        * @param string $fechaRealiza
+        * @param float $costoFinal
+        * @param int $idModulo
+        * @param int $dni
         * Carga el objeto con los valores que se pasan por parametro
         */
-        public function cargar($iId, $fechaRealiza, $costoFinal, $mId, $dni) {
-            $this -> setiIdentificacion($iId) ; 
+        public function cargar($idInscripcion, $fechaRealiza, $costoFinal, $idModulo, $dni) {
+            $this -> setiIdentificacion($idInscripcion) ; 
             $this -> setfechaRealizacion($fechaRealiza) ; 
-            $this -> setcostoFinal($costoFinal) ; 
-            $this -> setMIdentificacion($mId) ; 
+            $this -> setCostoFinal($costoFinal) ; 
+            $this -> setMIdentificacion($idModulo) ; 
             $this -> setIDni($dni) ; 
         }
 
         /**
-        * Recupera los datos de un inscripcion por su iId
-        * @param int $
+        * Recupera los datos de un inscripcion por su idInscripcion
+        * @param int $idInscripcion
         * @return true en caso de encontrar los datos, false en caso contrario 
         */		
-        public function Buscar($iId) {
+        public function Buscar($idInscripcion) {
             $base = new BaseDatos() ;
-            $consulta = "Select * from inscripcion where iId = " . $iId ;
+            $consulta = "Select * from inscripcion where iId = " . $idInscripcion ;
             $resp = false ;
             if($base -> Iniciar()) {
                 if($base -> Ejecutar($consulta)) {
                     if($row = $base -> Registro()) {					
-                        $this -> setiIdentificacion($iId) ;
+                        $this -> setiIdentificacion($idInscripcion) ;
                         $this -> setfechaRealizacion($row['fecha_realizacion']) ; 
                         $this -> setcostoFinal($row['costo_final']) ;
                         $this -> setMIdentificacion($row['midentificacion']) ;
@@ -102,7 +101,11 @@
             return $resp ; 
         }	
 
-        // preguntar a chat como funciona xd
+        /**
+         * Obtiene una lista de actividades de la base de datos que cumplan con una condición opcional
+         * @param string $condicion
+         * @return array
+         */
         public function listar($condicion = "") {
             $coleccInscripciones = null ;
             $base = new BaseDatos() ;
@@ -117,14 +120,14 @@
                 if($base -> Ejecutar($consulta)) {				
                     $coleccInscripciones = [] ;
                         while($row = $base -> Registro()) {
-                            $iId = $row['iidentificacion'] ; 
+                            $idInscripcion = $row['iidentificacion'] ; 
                             $fechaRealiza = $row['fecha_realizacion'] ;
                             $costoFinal = $row['costo_final'] ;
-                            $mId = $row['midentificacion'] ;
+                            $idModulo = $row['midentificacion'] ;
                             $dni = $row['dni'] ; 
 
                             $inscripcion = new inscripcion() ;
-                            $inscripcion -> cargar($iId, $fechaRealiza, $costoFinal, $mId, $dni) ; 
+                            $inscripcion -> cargar($idInscripcion, $fechaRealiza, $costoFinal, $idModulo, $dni) ; 
                             array_push($coleccInscripciones, $inscripcion) ;
                         }
                 } else {
@@ -136,6 +139,10 @@
             return $coleccInscripciones ;
         } 
         
+        /**
+         * Inserta los valores en sus respectivas tablas de la base de datos
+         * @return boolean 
+         */
         public function insertar() {
             $base = new BaseDatos() ;
             $resp = false ; 
@@ -160,6 +167,10 @@
             return $resp ;
         }
         
+        /**
+         * Modifica los valores de sus respectivas tablas en la base de datos
+         * @return boolean
+         */
         public function modificar() {
             $resp = false ; 
             $base = new BaseDatos() ;
@@ -182,6 +193,10 @@
             return $resp ;
         }
         
+        /**
+         * Elimina una fila de la base de datos por su id
+         * @return boolean 
+         */
         public function eliminar() {
             $base = new BaseDatos() ;
             $resp = false ;
@@ -204,7 +219,7 @@
             "\n" . 
             "Identificacion de la inscripcion: " . $this -> getiIdentificacion() . "\n" . 
             "fecha de realizacion de la inscripcion: " . $this -> getfechaRealizacion() . "\n" . 
-            "Costo final de la inscripcion: " . $this -> getcostoFinal() . "\n" ;
+            "Costo final de la inscripcion: " . $this -> getCostoFinal() . "\n" .
             "Idetificacion del modulo: " . $this -> getMIdentificacion() . "\n" . 
             "DNI del ingresante: " . $this -> getIDni() ; 
         }

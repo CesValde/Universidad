@@ -1,7 +1,7 @@
 <?php 
 
     class Modulo {
-        private $mId ; 
+        private $idModulo ; 
         private $descrip ; 
         private $topeInscrip ;
         private $costo ; 
@@ -10,7 +10,7 @@
         private $fechaInicio ; 
         private $fechaFin ; 
         private $presencial ; 
-        private $aId ; 
+        private $idActividad ; 
         private $coleccModulos ; 
         private $mensajeOperacion ; 
 
@@ -19,7 +19,7 @@
         } 
 
         public function getMIdentificacion() {
-            return $this -> mId ; 
+            return $this -> idModulo ; 
         }
         public function getDescripcion() {
             return $this -> descrip ; 
@@ -46,7 +46,7 @@
             return $this -> presencial ; 
         }
         public function getAIdentifica() {
-            return $this -> aId ; 
+            return $this -> idActividad ; 
         }
         public function getColeccModulos() {
             return $this -> coleccModulos ; 
@@ -55,8 +55,8 @@
             return $this -> mensajeOperacion ; 
         }
 
-        public function setMIdentificacion($mId) {
-            $this -> mId = $mId ; 
+        public function setMIdentificacion($idModulo) {
+            $this -> idModulo = $idModulo ; 
         }
         public function setDescripcion($descrip) {
             $this -> descrip = $descrip ; 
@@ -82,8 +82,8 @@
         public function setPresencial($presencial) {
             $this -> presencial = $presencial ; 
         }
-        public function setAIdentifica($aId) {
-            $this -> aId = $aId ; 
+        public function setAIdentifica($idActividad) {
+            $this -> idActividad = $idActividad ; 
         }
         public function setColeccModulos($coleccModulos) {
             $this -> coleccModulos = $coleccModulos ; 
@@ -93,20 +93,20 @@
         }
 
         /**
-         * @param int $mId
+         * @param int $idModulo
          * @param string $descrip
-         * @param string $
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
+         * @param int $topeInscrip
+         * @param int $costo
+         * @param string $horarioInicio
+         * @param string $horarioCierre
+         * @param string $fechaInicio 
+         * @param string $fechaFin
+         * @param string $presencial
+         * @param int $idActividad
          * Carga el objeto con los valores que se pasan por parametro
          */
-        public function cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId) {
-            $this -> setMIdentificacion($mId) ; 
+        public function cargar($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad) {
+            $this -> setMIdentificacion($idModulo) ; 
             $this -> setDescripcion($descrip) ; 
             $this -> setTopeInscripcion($topeInscrip) ; 
             $this -> setCosto($costo) ;
@@ -115,22 +115,22 @@
             $this -> setFechaInicio($fechaInicio) ; 
             $this -> setFechaFin($fechaFin) ; 
             $this -> setPresencial($presencial) ; 
-            $this -> setAIdentifica($aId) ; 
+            $this -> setAIdentifica($idActividad) ; 
         }
 
         /**
          * Recupera los datos de un modulo por su identificacion 
-         * @param int $mId
+         * @param int $idModulo
          * @return true en caso de encontrar los datos, false en caso contrario 
          */		
-        public function Buscar($mId) {
+        public function Buscar($idModulo) {
             $base = new BaseDatos() ;
-            $consulta = "Select * from modulo where midentificacion = " . $mId ;
+            $consulta = "Select * from modulo where midentificacion = " . $idModulo ;
             $resp = false ;
             if($base -> Iniciar()) {
                 if($base -> Ejecutar($consulta)) {
                     if($row = $base -> Registro()) {					
-                        $this -> setMIdentificacion($mId) ; 
+                        $this -> setMIdentificacion($idModulo) ; 
                         $this -> setDescripcion($row['descripcion']) ; 
                         $this -> setTopeInscripcion($row['tope_inscripciones']) ; 
                         $this -> setCosto($row['costo']) ;
@@ -151,7 +151,11 @@
             return $resp ; 
         }
 
-        // preguntar a chat como funciona xd 
+        /**
+         * Obtiene una lista de actividades de la base de datos que cumplan con una condición opcional
+         * @param string $condicion
+         * @return array
+         */ 
         public function listar($condicion = "") {
             $coleccModulos = null ;
             $base = new BaseDatos() ;
@@ -166,7 +170,7 @@
                 if($base -> Ejecutar($consulta)) {				
                     $coleccModulos = [] ;
                         while($row = $base -> Registro()) {
-                            $mId = $row['midentificacion'] ; 
+                            $idModulo = $row['midentificacion'] ; 
                             $descrip = $row['descripcion'] ; 
                             $topeInscrip = $row['tope_inscripciones'] ; 
                             $costo = $row['costo'] ;
@@ -175,10 +179,10 @@
                             $fechaInicio = $row['fecha_inicio'] ; 
                             $fechaFin = $row['fecha_fin'] ; 
                             $presencial = $row['es_en_linea'] ; 
-                            $aId = $row['aidentificacion'] ; 
+                            $idActividad = $row['aidentificacion'] ; 
 
                             $modulo = new Modulo() ;
-                            $modulo -> cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId) ;
+                            $modulo -> cargar($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad) ;
                             array_push($coleccModulos, $modulo) ;
                         }
                 } else {
@@ -190,6 +194,10 @@
             return $coleccModulos ;
         } 
         
+         /**
+         * Inserta los valores en sus respectivas tablas de la base de datos
+         * @return boolean 
+         */
         public function insertar() {
             $base = new BaseDatos() ;
             $resp = false ; 
@@ -219,6 +227,10 @@
             return $resp ;
         }
         
+        /**
+         * Modifica los valores de sus respectivas tablas en la base de datos
+         * @return boolean
+         */
         public function modificar() {
             $resp = false ; 
             $base = new BaseDatos() ;
@@ -246,6 +258,10 @@
             return $resp ;
         }
         
+        /**
+         * Elimina una fila de la base de datos por su id
+         * @return boolean 
+         */
         public function eliminar() {
             $base = new BaseDatos() ;
             $resp = false ;
@@ -263,6 +279,10 @@
             return $resp ; 
         }
 
+        /**
+         * Retorna el importe final correspondiente a la inscripción de un respectivo módulo
+         * @return float 
+         */
         public function darCostoMódulo() {
             $total = $this -> getCosto() ; 
             return $total ; 

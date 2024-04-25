@@ -79,7 +79,7 @@
             return $totalVentas ; 
         }
 
-        public function  retornarVehículoImportado() {
+        public function retornarVehículoImportado() {
             $coleccVehi = $this -> getColeccVehi() ; 
             $coleccVehiImpor = [] ; 
 

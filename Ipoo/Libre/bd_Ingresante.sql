@@ -1,14 +1,14 @@
         CREATE DATABASE bdingresante ; 
 
         CREATE TABLE actividad (
-        aidentificacion bigint AUTO_INCREMENT,
-        adescripcioncorta varchar(150),
-        adescripcionlarga varchar(150), 
-        PRIMARY KEY(aidentificacion)
+            aidentificacion bigint AUTO_INCREMENT,
+            adescripcioncorta varchar(150),
+            adescripcionlarga varchar(150), 
+            PRIMARY KEY(aidentificacion)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
         CREATE TABLE modulo (
-            midentificacion int AUTO_INCREMENT,
+            midentificacion bigint AUTO_INCREMENT,
             descripcion varchar(255),
             tope_inscripciones int,
             costo int,
@@ -16,9 +16,9 @@
             horario_cierre time,
             fecha_inicio date,
             fecha_fin date,
-            es_en_linea boolean,   /*  editar xd */
+            es_en_linea varchar(100), 
             link_reunion varchar(255),
-            bonificacion decimal(5, 2),
+            bonificacion int,
             aidentificacion bigint,
             PRIMARY KEY(midentificacion),
             FOREIGN KEY(aidentificacion) REFERENCES actividad (aidentificacion)  ON UPDATE CASCADE ON DELETE CASCADE
@@ -36,8 +36,8 @@
         CREATE TABLE inscripcion (
             iidentificacion int AUTO_INCREMENT,
             fecha_realizacion date,
-            costo_final decimal(10, 2),     /* int  */ 
-            midentificacion int,
+            costo_final int,  
+            midentificacion bigint ,
             dni varchar(20), 
             PRIMARY KEY(iidentificacion),
             FOREIGN KEY(midentificacion) REFERENCES modulo (midentificacion)  ON UPDATE CASCADE ON DELETE CASCADE,

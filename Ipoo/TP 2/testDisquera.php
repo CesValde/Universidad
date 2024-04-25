@@ -1,7 +1,5 @@
 <?php 
 
-    // preguntar que clases hay que agregar, consultar como se ve
-
     include_once "Persona.php" ; 
     include_once "Disquera.php" ; 
 

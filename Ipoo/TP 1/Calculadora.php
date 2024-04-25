@@ -16,10 +16,10 @@
             return $this -> num2 ; 
         }
         public function setNum1($nro1) {
-            return $this -> num1 = $nro1 ; 
+            $this -> num1 = $nro1 ; 
         }
         public function setNum2($nro2) {
-            return $this -> num2 = $nro2 ; 
+            $this -> num2 = $nro2 ; 
         } 
         public function sumar() {
             $resulSuma = $this -> getNum1() + $this -> getNum2() ; 
@@ -39,7 +39,9 @@
         }
 
     }
-
+    
+    /* Usar test cafetera */
+    
     /*
     $suma = new Calculadora(5, 10) ; 
     $restar = new Calculadora(8, 10) ;
@@ -55,4 +57,4 @@
     echo $calculoResta . "\n" ; 
     echo $calculoMulti . "\n" ; 
     echo $calculoDivision . "\n" ; 
-    */ 
+    */

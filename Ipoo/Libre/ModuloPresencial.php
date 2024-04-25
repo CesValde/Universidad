@@ -7,6 +7,10 @@
             ) ; 
         }  
 
+        /**
+         * Retorna el importe final correspondiente a la inscripción de un respectivo módulo
+         * @return int 
+         */
         public function darCostoMódulo() {
             $total = parent::darCostoMódulo() ; 
             return $total ; 

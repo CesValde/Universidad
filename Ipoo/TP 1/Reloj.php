@@ -26,13 +26,13 @@
             return $this -> segundos ; 
         }
         public function setHoras($horas) {
-            return $this -> horas = $horas ; 
+            $this -> horas = $horas ; 
         }
         public function setMinutos($minutos) {
-            return $this -> minutos = $minutos ;
+            $this -> minutos = $minutos ;
         }
         public function setSegundos($segundos) {
-            return $this -> segundos = $segundos ;
+            $this -> segundos = $segundos ;
         }
 
         public function __toString() {

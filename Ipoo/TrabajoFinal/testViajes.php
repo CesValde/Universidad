@@ -7,7 +7,7 @@ use LDAP\Result;
     include_once "Responsable.php" ; 
     include_once "Viaje.php" ; 
     include_once "BaseDatos.php" ; 
-    /* include_once "bdviajes.sql" ;  */
+    include_once "bdviajes.sql" ;  
 
 
     /**

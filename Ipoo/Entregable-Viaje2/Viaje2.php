@@ -11,8 +11,7 @@
         public function __construct(
             $codigoViaje, 
             $destino, 
-            $cantMaxPasajeros,
-            // coleccion de objetos, los objetos son pasajeros 
+            $cantMaxPasajeros, 
             $coleccPasajeros, 
             $responsableV
         ) {
@@ -78,7 +77,6 @@
                         $j = count($coleccPasajeros) ; 
                         $existe = true ; 
                     }
-                    // print_r($coleccPasajeros) ;
                     $j++ ; 
                 }
             return $existe ; 
@@ -221,7 +219,6 @@
                         array_splice($coleccPasajeros, $j, 1) ; 
                         $eliminado = true ;
                         $this -> setColeccPasajeros($coleccPasajeros) ; 
-                        // print_r($coleccPasajeros) ;
                     }
                     $j++ ; 
                 }

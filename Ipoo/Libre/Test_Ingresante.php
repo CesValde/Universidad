@@ -7,11 +7,12 @@ use LDAP\Result;
     include_once "ModuloOnline.php" ; 
     include_once "Ingresante.php" ; 
     include_once "Inscripcion.php" ; 
-    include_once "bd_ingresante.phpphp" ; 
-
+    include_once "bdingresante.php" ; 
 
     /**
      * Método que convierte arrays u objetos en cadenas de texto
+     * @param array 
+     * @return string 
      */
     function arrayString($array){
         $str = "" ;
@@ -30,8 +31,6 @@ use LDAP\Result;
      * @return string
      */
     function menu() {
-        // string $opcion
-
         echo "\n" ; 
         echo "Ingrese una opcion: " . "\n" ; 
         echo "1. Actividad" . "\n" ;
@@ -62,15 +61,13 @@ use LDAP\Result;
      * @return string
      */
     function menuActividad() {
-        // string $opcion
-
         echo "\n" ; 
         echo "Ingrese una opcion: " . "\n" ; 
         echo "1. Crear actividad" . "\n" ;
         echo "2. Modificar actividad" . "\n" ;
         echo "3. Eliminar actividad" . "\n" ;
         echo "4. Ver actividades" . "\n" ; 
-        echo "5. Ver todas las actividades de un ingresante" . "\n" ; // 5.6 
+        echo "5. Ver todas las actividades de un ingresante" . "\n" ; 
         echo "6. Regresar" . "\n" ;
         echo "Ingrese opcion: " ; 
         $opcion = trim(fgets(STDIN)) ;
@@ -83,7 +80,7 @@ use LDAP\Result;
                 echo "2. Modificar actividad" . "\n" ;
                 echo "3. Eliminar actividad" . "\n" ;
                 echo "4. Ver actividades" . "\n" ; 
-                echo "5. Ver todas las actividades de un ingresante" . "\n" ; // 5.6 
+                echo "5. Ver todas las actividades de un ingresante" . "\n" ; 
                 echo "6. Regresar" . "\n" ;
                 echo "Ingrese opcion: " ; 
                 $opcion = trim(fgets(STDIN)) ;
@@ -97,8 +94,6 @@ use LDAP\Result;
      * @return string
      */
     function menuModulo() {
-        // string $opcion
-
         echo "\n" ; 
         echo "Ingrese una opcion: " . "\n" ; 
         echo "1. Crear modulos" . "\n" ;
@@ -158,35 +153,33 @@ use LDAP\Result;
 
     /**
      * Despliega el submenu de opciones
-     * @return string
+     * @return int
      */
     function menuInscripcion() {
-        // string $opcion
-
         echo "\n" ; 
         echo "Ingrese una opcion: " . "\n" ; 
         echo "1. Crear inscripcion" . "\n" ;
         echo "2. Modificar inscripcion" . "\n" ;
         echo "3. Eliminar inscripcion" . "\n" ;
-        echo "4. Ver inscripciones" . "\n" ;        // 5.2
-        echo "5. Ver inscripciones en un modulo determinado" . "\n" ;       // 5.3
-        echo "6. Ver incripciones a una actividad determinada" . "\n" ;         // 5.4
-        echo "7. Ver todos los registros dado un modulo de un mismo dni que tenga mas de un registro" . "\n" ;  // 5.5
-        echo "7. Regresar" . "\n" ;
+        echo "4. Ver inscripciones" . "\n" ; 
+        echo "5. Ver inscripciones en un modulo determinado" . "\n" ;
+        echo "6. Ver incripciones a una actividad determinada" . "\n" ; 
+        echo "7. Ver todos los registros dado un modulo de un mismo dni que tenga mas de un registro" . "\n" ; 
+        echo "8. Regresar" . "\n" ;
         echo "Ingrese opcion: " ; 
         $opcion = trim(fgets(STDIN)) ;
         echo "\n" ;
-            while($opcion < 1 || $opcion > 7) {
+            while($opcion < 1 || $opcion > 8) {
                 echo "Ingrese una opcion correcta" . "\n" ; 
                 echo "\n" ;  
                 echo "1. Crear " . "\n" ;
                 echo "2. Modificar " . "\n" ;
                 echo "3. Eliminar " . "\n" ;
-                echo "4. Ver inscripciones" . "\n" ;    // 5.2
-                echo "5. Ver inscripciones en un modulo determinado" . "\n" ;       // 5.3
-                echo "6. Ver incripciones a una actividad determinada" . "\n" ;         // 5.4
-                echo "7. Ver todos los registros dado un modulo de un mismo dni que tenga mas de un registro" . "\n" ;  // 5.5
-                echo "7. Regresar" . "\n" ;
+                echo "4. Ver inscripciones" . "\n" ; 
+                echo "5. Ver inscripciones en un modulo determinado" . "\n" ; 
+                echo "6. Ver incripciones a una actividad determinada" . "\n" ;  
+                echo "7. Ver todos los registros dado un modulo de un mismo dni que tenga mas de un registro" . "\n" ;  
+                echo "8. Regresar" . "\n" ; 
                 echo "Ingrese opcion: " ; 
                 $opcion = trim(fgets(STDIN)) ;
                 echo "\n" ; 
@@ -196,23 +189,13 @@ use LDAP\Result;
 
     /**
      * Retorna true si el ingresante ya existe en la misma actividad
-     * @param 
-     * @return 
+     * @param int $idActv
+     * @param array $coleccActividades
+     * @return boolean
      */
-
-    function existeEnActividad($idActv, $coleccActividades, $idMod, $coleccInscripciones) { 
+    function existeEnActividad($idActv, $coleccActividades) { 
         $i = 0 ; 
-        $j = 0 ;
         $existe = false ;
-
-        
-
-
-            while($j < count($coleccInscripciones) && $existe == false) {
-
-            }
-
-
 
             while($i < count($coleccActividades) && $existe == false) {
                     $actividad = $coleccActividades[$i] ; 
@@ -222,10 +205,8 @@ use LDAP\Result;
                     }
                     $i++ ; 
             }
-
         return $existe ; 
     }
-
 
     /* Test */
 
@@ -245,9 +226,9 @@ use LDAP\Result;
     $cantIncripciones = 0 ; 
 
     /* AUTO_INCREMENT */ // se tiene que ir incrementando 
-    $idActividad = 10 ;
-    $idModulo = 101 ;
+    $idActividad = 100 ;
     $idInscripcion = 1 ; 
+    $idModulo = 10 ; 
 
     do {
         /* Despliega el menu principal */
@@ -272,24 +253,22 @@ use LDAP\Result;
                             $cantActividades++ ; 
                             $idActividad++ ; 
                             array_push($coleccActividades, $actividad) ; 
-
-                            // opcional ?
-                            $actividad -> setColeccionActividades($coleccActividades) ;
+                            // $actividad -> setColeccionActividades($coleccActividades) ;
 
                         break ; 
                         case 2: 
                             /* Modificar una actividad */
 
                             echo "Ingrese el id de la actividad a modificar: " ; 
-                            $idActividad = trim(fgets(STDIN)) ; 
+                            $idAct = trim(fgets(STDIN)) ; 
                             $actividad = new Actividad() ;
-                            $encontro = $actividad -> Buscar($idActividad) ;
+                            $encontro = $actividad -> Buscar($idAct) ;
                                 if($encontro) {
                                     echo "Ingrese nueva descripcion corta de la actividad: " ; 
                                     $descripCorta = trim(fgets(STDIN)) ; 
                                     echo "Ingrese nueva descripcion larga de la actividad: " ; 
                                     $descripLarga = trim(fgets(STDIN)) ;
-                                    $actividad -> cargar($idActividad, $descripCorta, $descripLarga) ; 
+                                    $actividad -> cargar($idAct, $descripCorta, $descripLarga) ; 
                                     $modifico = $actividad -> modificar() ; 
                                         if($modifico) {
                                             echo "La actividad fue modificada \n" ; 
@@ -304,10 +283,10 @@ use LDAP\Result;
                             /* Eliminar una actividad */
 
                             echo "Ingrese el id de la actividad a eliminar: " ; 
-                            $idActividad = trim(fgets(STDIN)) ; 
+                            $idAct = trim(fgets(STDIN)) ; 
 
                             $actividad = new Actividad() ;
-                            $encontro = $actividad -> Buscar($idActividad) ;
+                            $encontro = $actividad -> Buscar($idAct) ;
                                 if($encontro) {
                                     $borrado = $actividad -> eliminar() ;
                                         if($borrado) {
@@ -332,37 +311,39 @@ use LDAP\Result;
                             }   
                         break ; 
                         case 5:
-                            // DNI del ingresante objetivo
-                            $dni_ingresante = "123456789"; // Reemplaza con el DNI del ingresante deseado
+                            // Ver todas las actividades de un ingresante por su dni
+                            $base = new BaseDatos() ;
 
-                            // Consulta SQL para obtener las actividades inscritas por el ingresante
-                            $sql = "SELECT a.aidentificacion, a.adescripcioncorta, a.adescripcionlarga
+                            echo "Ingrese dni de un ingresante: " ; 
+                            $dni = trim(fgets(STDIN)) ;
+ 
+                            $consulta = "SELECT a.aidentificacion, a.adescripcioncorta, a.adescripcionlarga
                                     FROM actividad AS a
                                     JOIN modulo AS m ON a.aidentificacion = m.aidentificacion
                                     JOIN inscripcion AS i ON m.midentificacion = i.midentificacion
-                                    WHERE i.dni = '$dni_ingresante'";
+                                    WHERE i.dni = '$dni'";
 
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                // Mostrar los resultados obtenidos
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "ID de Actividad: " . $row["aidentificacion"] . "<br>";
-                                    echo "Descripción Corta: " . $row["adescripcioncorta"] . "<br>";
-                                    echo "Descripción Larga: " . $row["adescripcionlarga"] . "<br>";
-                                    echo "<br>";
+                            if($base -> Iniciar()) {
+                                if($base -> Ejecutar($consulta)) {    
+                                    while ($row = $base -> Registro()) {
+                                        echo "ID de Actividad: " . $row["aidentificacion"] . "\n" ;
+                                        echo "Descripción Corta: " . $row["adescripcioncorta"] . "\n" ;
+                                        echo "Descripción Larga: " . $row["adescripcionlarga"] . "\n" ;
+                                        echo "<br>";
+                                    }
+                                } else {
+                                    $this -> setmensajeoperacion($base -> getError()) ;
                                 }
                             } else {
-                                echo "El ingresante no tiene inscripciones a actividades.";
+                                $this -> setmensajeoperacion($base -> getError()) ;
                             }
                         break ;
                     }
                     $opcionActividad = menuActividad() ;
                 }
-                     
             break ;
             case 2:
-                 /* Despliega el menu para la seccion de modulo */
+                /* Despliega el menu para la seccion de modulo */
                 $opcionModulo = menuModulo() ; 
                 while($opcionModulo <> 5) {
                     switch($opcionModulo) {
@@ -372,27 +353,15 @@ use LDAP\Result;
                             if($cantActividades == 0) {
                                 echo "Debe crear una actividad \n" ; 
                             } else {
-                                // $horaActual = strtotime("$hora:$minutos") ;
+                                // $horaActual = strtotime("$hora:$minutos") ;     // formato hora unix
                                 // date("H:i:s", $hora_desde) ;  // formato hora normal 08:00:00    
-                                //$fechaInicio = date('y-m-d') ; 
-                                //$fechaFin = date('y-m-d') ; 
 
-                                // para incrementar el id de modulo en caso de que no quiera agregar una actividad al mismo modulo
-                                echo "Quiere conservar el modulo? " ; 
-                                $res = trim(fgets(STDIN)) ; 
-                                    if($cantModulos > 0 && $res == 'no') {
-                                        $idModulo++ ;
-                                    }
-
-                                // agregarle id de actividad 
-                                //$actividad = new Actividad() ; 
-                                //$coleccActividades = $actividad -> getColeccActividades() ; 
                                     foreach($coleccActividades as $actividad) {
                                         $id = $actividad -> getAIdentificacion() ; 
                                         echo $id . "\n" ; 
                                     }
                                 echo "Cual id de actividad quiere vincular a este modulo? " ; 
-                                $idActividad = trim(fgets(STDIN)) ; 
+                                $idAct = trim(fgets(STDIN)) ; 
 
                                 echo "Ingrese Descripcion: " ; 
                                 $descripcion = trim(fgets(STDIN)) ;
@@ -400,30 +369,32 @@ use LDAP\Result;
                                 $topeInscrip = trim(fgets(STDIN)) ;
                                 echo "Ingrese costo de inscripcion: " ;
                                 $costo = trim(fgets(STDIN)) ;
-                                //echo "Ingrese horario de inicio: " ; 
-                                $horarioInicio = "09:10:10" ; 
-                                //echo "Ingrese horario de cierre: " ; 
-                                $horarioCierre = "20:20:00" ; 
-                                //echo "Ingrese fecha de inicio: " ; 
-                                $fechaInicio = "2002-03-08" ;
-                                //echo "Ingrese fecha de fin: " ; 
-                                $fechaFin = "2020-10-31" ;
+                                    if($idModulo == "mañana") {
+                                        $horarioInicio = "09:00:00" ; 
+                                        $horarioCierre = "14:00:00" ; 
+                                    } else {
+                                        $horarioInicio = "17:00:00" ; 
+                                        $horarioCierre = "22:00:00" ; 
+                                    }
+                                echo "Ingrese fecha de inicio: " ; 
+                                $fechaInicio = trim(fgets(STDIN)) ;
+                                echo "Ingrese fecha de fin: " ; 
+                                $fechaFin = trim(fgets(STDIN)) ; ;
                                 echo "Es presencial o online? " ; 
-                                $enLinea = trim(fgets(STDIN)) ; 
-                                    if($enLinea == 'online') {
-                                        $presencial = "si" ;
-                                        echo $presencial ; 
+                                $presencial = trim(fgets(STDIN)) ; 
+                                $fechaInicio = date('y-m-d') ; 
+                                $fechaFin = date('y-m-d') ; 
+                                    if($presencial == 'online') {
                                         $link = "linkDeReunion.com" ; 
                                         $bonus = 20 ; 
                                         $modulo = new ModuloOnline() ; 
-                                        $modulo -> cargarOnline($idModulo, $descripcion, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad, $link, $bonus) ; 
+                                        $modulo -> cargarOnline($idModulo, $descripcion, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idAct, $link, $bonus) ; 
                                         $modulo -> insertar() ;             
                                         $cantModulos++ ;
                                         array_push($coleccModulos, $modulo) ;  
                                     } else {
-                                        $presencial = "no" ; 
                                         $modulo = new ModuloPresencial() ; 
-                                        $modulo -> cargar($idModulo, $descripcion, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad) ; 
+                                        $modulo -> cargar($idModulo, $descripcion, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idAct) ; 
                                         $modulo -> insertar() ;
                                         $cantModulos++ ;
                                         array_push($coleccModulos, $modulo) ;  
@@ -432,13 +403,11 @@ use LDAP\Result;
                         break ; 
                         case 2: 
                             /* Modificar modulo */
-                            $fechaInicio = date('y-m-d') ; 
-                            $fechaFin = date('y-m-d') ;
 
                             echo "Ingrese el id del modulo a modificar: " ; 
-                            $idModulo = trim(fgets(STDIN)) ;
+                            $idMod = trim(fgets(STDIN)) ;
                             $modulo = new Modulo() ;
-                            $encontro = $modulo -> Buscar($idModulo) ; 
+                            $encontro = $modulo -> Buscar($idMod) ; 
                                 if($encontro) {
                                     echo "Ingrese nueva descripcion: " ; 
                                     $descripcion = trim(fgets(STDIN)) ;
@@ -446,10 +415,13 @@ use LDAP\Result;
                                     $topeInscrip = trim(fgets(STDIN)) ;
                                     echo "Ingrese nuevo costo de inscripcion: " ;
                                     $costo = trim(fgets(STDIN)) ;
-                                    echo "Ingrese nuevo horario de inicio: " ; 
-                                    $horarioInicio = trim(fgets(STDIN)) ;
-                                    echo "Ingrese nuevo horario de cierre: " ; 
-                                    $horarioCierre = trim(fgets(STDIN)) ;
+                                        if($idModulo == "mañana") {
+                                            $horarioInicio = "09:00:00" ; 
+                                            $horarioCierre = "14:00:00" ; 
+                                        } else {
+                                            $horarioInicio = "17:00:00" ; 
+                                            $horarioCierre = "22:00:00" ; 
+                                        }
                                     echo "Ingrese nueva fecha de inicio: " ; 
                                     $fechaInicio = trim(fgets(STDIN)) ;
                                     echo "Ingrese nueva fecha de fin: " ; 
@@ -457,16 +429,18 @@ use LDAP\Result;
                                     echo "Es presencial o online? " ; 
                                     $presencial = trim(fgets(STDIN)) ; 
 
+                                    $idAct = $modulo -> getAIdentifica() ;
+                                    $fechaInicio = date('y-m-d') ; 
+                                    $fechaFin = date('y-m-d') ;
                                     if($presencial == 'online') {
                                         $link = "linkDeReunion.com" ; 
                                         $bonus = 20 ; 
                                         $modulo = new ModuloOnline ; 
-                                        $modulo -> cargarOnline($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad, $link, $bonus) ; 
+                                        $modulo -> cargarOnline($idMod, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idAct, $link, $bonus) ; 
                                         $modifico = $modulo -> modificar() ;  
                                     } else {
                                         $modulo = new ModuloPresencial ; 
-                                        // si no probar con modulo solo 
-                                        $modulo -> cargar($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad) ; 
+                                        $modulo -> cargar($idMod, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idAct) ; 
                                         $modifico = $modulo -> modificar() ; 
                                     }
 
@@ -483,8 +457,8 @@ use LDAP\Result;
                             /* eliminar modulo */
 
                             echo "Ingrese el id del modulo a eliminar: " ; 
-                            $idModulo = trim(fgets(STDIN)) ;
-                            $encontro = $modulo -> Buscar($idModulo) ; 
+                            $idMod = trim(fgets(STDIN)) ;
+                            $encontro = $modulo -> Buscar($idMod) ; 
                                 if($encontro) {
                                     $borrado = $modulo -> eliminar() ; 
                                         if($borrado) {
@@ -518,6 +492,7 @@ use LDAP\Result;
                         case 1: 
                             /* Crear ingresante */
 
+                            $legajo = null ; 
                             echo "Ingrese el dni del ingresante: " ; 
                             $dni = trim(fgets(STDIN)) ;
                             echo "Ingrese nombre del ingresante: " ; 
@@ -615,93 +590,94 @@ use LDAP\Result;
                     switch($opcionInscripcion) {
                         case 1: 
                             /* Crear inscripcion */
+                            $base = new BaseDatos() ;
 
-                            $cantActividades = 1 ;//count($coleccActividades) ;
-                            $cantModulos = 1 ;//count($coleccModulos) ; 
+                            $cantActividades = 0 ;  // count($coleccActividades) ;
+                            $cantModulos = 1 ;      // count($coleccModulos) ; 
+
                             if($cantModulos == 0 && $cantIngresantes == 0) {
                                 echo "Debe crear un modulo y un ingresante para realizar una inscripcion \n" ; 
                             } else {
-                                echo "Ingrese el id de modulo a inscribir: " ; 
-                                $idModulo = trim(fgets(STDIN)) ; 
+                                foreach($coleccActividades as $actividad) {
+                                    $descrip = $actividad -> getDescripcionCorta() ; 
+                                    echo $descrip . "\n" ; 
+                                }
+
+
+                                echo "Ingrese el nombre de actividad a inscribir: " ; 
+                                $idAct = trim(fgets(STDIN)) ;  
                                 echo "Ingrese dni del ingresante a inscribir: " ; 
                                 $dni = trim(fgets(STDIN)) ; 
 
-                                $modulo = new Modulo() ; 
-                                $ingresante = new Ingresante() ; 
-                                $coleccModulos = $modulo -> listar() ; 
-                                $coleccIngresantes = $ingresante -> listar() ; 
-                                $i = 0 ; 
-                                $j = 0 ; 
-                                $encontroId = false ; 
-                                $encontroDni = false ; 
 
-                                    // busco si existe el id del modulo
-                                    while($i < count($coleccModulos) && $encontroId == false) {
-                                        //echo "ENTRE \n" ;
-                                        $modulo = $coleccModulos[$i] ; 
-                                        $idMod = $modulo -> getMIdentificacion() ;
-                                        //echo $idMod . "\n" ; 
-                                        if($idMod == $idModulo) {
-                                            // echo "ID? \n" ; 
-                                            $encontroId = true ; 
-                                            $idActv = $modulo -> getAIdentifica() ;
-                                            $pertenece = $modulo instanceof moduloOnline ; 
-                                                if($pertenece) {
-                                                    $modulo = new ModuloOnline() ; 
-                                                    $costoFinal = $modulo -> darCostoMódulo() ;
-                                                } else {
-                                                    $modulo = new Modulo() ;
-                                                    $costoFinal = $modulo -> darCostoMódulo() ;
-                                                }
+                                // busco si existe el dni del ingresante
+                                while($j < count($coleccIngresantes) && $encontroDni == false) {
+                                    $ingresante = $coleccIngresantes[$j] ; 
+                                    $comparoDni = $ingresante -> getDni() ; 
+                                    if($comparoDni == $dni) {
+                                        $encontroDni = true ; 
+                                    }
+                                    $j++ ; 
+                                }
+
+
+
+
+
+
+
+
+
+
+                                /* obtener coleccion de inscripciones obtengo el id de modulo para revisar si en los modulos esta el dni y el
+                                    id de actividad ingresados por teclado */
+
+                                    // si es mayor a 0 verificar que no exista mismo ingresante por misma actividad
+                                    if($cantIncripciones > 0) {
+                                        while($i < count($coleccInscripciones) && $existeInsc == false) {
+                                            $inscripcion = $coleccInscripciones[$i] ; 
+                                            $mIdent = $inscripcion -> getMIdentificacion() ; 
+                                            
+
+
+                                            $i++ ; 
                                         }
-                                        $i++ ; 
                                     }
 
-                                    // busco si existe el dni del ingresante
-                                    while($j < count($coleccIngresantes) && $encontroDni == false) {
-                                        //echo "ENTRO ACA? \n" ;
-                                        $ingresante = $coleccIngresantes[$j] ; 
-                                        $mismoDni = $ingresante -> getDni() ; 
-                                        if($mismoDni == $dni) {
-                                            $encontroDni = true ; 
-                                            //echo "DNI ? \n" ; 
-                                        }
-                                        $j++ ; 
-                                    }
 
-                                    //echo "HOLA" ;
+                                       
 
-                                   
                                 // si ambos son true se puede crear la inscripcion
                                 if($encontroDni == true && $encontroId == true) {
+
+                                    // consulta para verificar si ya existe en la actividad a inscribir
                                     $consulta = "SELECT COUNT(*) AS total FROM inscripcion AS i
                                     INNER JOIN modulo AS m ON i.midentificacion = m.midentificacion
-                                    WHERE i.dni = '{$this->dni}' AND m.aidentificacion = '{$this->aidentificacion}'";
+                                    WHERE i.dni = $dni AND m.aidentificacion = $idModu" ; 
 
-                                    if ($base->Iniciar()) {
-                                        if ($base->Ejecutar($consulta)) {
-                                            $resultado = $base->Registro();
+                                    if($base -> Iniciar()) {
+                                        if($base -> Ejecutar($consulta)) {
+                                            $resultado = $base -> Registro();
                                             $totalInscripciones = $resultado['total'];
-
-                                            if ($totalInscripciones > 0) {
-                                                echo "El ingresante ya está inscrito en un módulo de esta actividad.";
-                                                return false;
-                                            } }}
-                                            if($existe) {
-                                                echo "El ingresante ya existe en esta actividad \n" ; 
-                                            } else {
-                                                $fechaRealiza = date('y-m-d') ; 
-                                                // echo "Ingrese fecha de realizacion" ; 
-                                                $fechaRealiza = "2076-01-28" ;  
-                                                $inscripcion = new Inscripcion() ; 
-                                                $inscripcion -> cargar($idInscripcion, $fechaRealiza, $costoFinal, $idModulo, $dni) ; 
-                                                $inscripcion -> insertar() ; 
-                                                array_push($coleccInscripciones) ; 
-                                                $idInscripcion++ ; 
-                                                $cantIncripciones++ ; 
-                                            }                                   
-                                } else {
-                                    echo "No se pudo realizar la inscripcion \n" ;
+                                                if($totalInscripciones > 0) {
+                                                    echo "El ingresante ya está inscrito en un módulo de esta actividad \n";
+                                                } else {
+                                                    $fechaRealiza = date('y-m-d') ; 
+                                                    echo "Ingrese fecha de realizacion" ; 
+                                                    $fechaRealiza = "2076-01-28" ;  
+                                                    $fechaRealiza = date('y-m-d') ; 
+                                                    $inscripcion = new Inscripcion() ; 
+                                                    $inscripcion -> cargar($idInscripcion, $fechaRealiza, $costoFinal, $idModu, $dni) ; 
+                                                    $inscripcion -> insertar() ; 
+                                                    array_push($coleccInscripciones) ; 
+                                                    $idInscripcion++ ; 
+                                                    $cantIncripciones++ ; 
+                                                    echo "\n" ;
+                                                }
+                                        }                                   
+                                    } else {
+                                        echo "No se pudo realizar la inscripcion \n" ;
+                                    }
                                 }
                             }
                         break ; 
@@ -709,9 +685,9 @@ use LDAP\Result;
                             /* Modificar inscripcion */
 
                             echo "Ingrese el id de inscripcion a modificar: " ; 
-                            $idInscripcion = trim(fgets(STDIN)) ; 
+                            $idInscrip = trim(fgets(STDIN)) ; 
                             $inscripcion = new Inscripcion() ;
-                            $encontro = $inscripcion -> Buscar($idInscripcion) ; 
+                            $encontro = $inscripcion -> Buscar($idInscrip) ; 
                                 if($encontro) {
                                     echo "Ingrese el nuevo id de modulo a inscribir: " ; 
                                     $idModulo = trim(fgets(STDIN)) ; 
@@ -725,34 +701,34 @@ use LDAP\Result;
                                     $encontroId == false ; 
                                     $encontroDni == false ; 
                             
-                                        while($i < count($coleccModulos) || $encontroId == false) {
-                                            if($coleccModulos[0] -> getMIdentificacion() == $idModulo) {
-                                                $encontroId = true ; 
-                                                $pertenece = $modulo instanceof moduloOnline ; 
-                                                    if($pertenece) {
-                                                        $modulo = new ModuloOnline() ; 
-                                                        $costoFinal = $modulo -> darCostoMódulo() ;
-                                                    } else {
-                                                        $modulo = new ModuloPresencial() ;
-                                                        $costoFinal = $modulo -> darCostoMódulo() ;
-                                                    }
-                                            }
-                                            $i++ ; 
+                                    while($i < count($coleccModulos) || $encontroId == false) {
+                                        if($coleccModulos[$i] -> getMIdentificacion() == $idModulo) {
+                                            $encontroId = true ; 
+                                            $pertenece = $modulo instanceof moduloOnline ; 
+                                                if($pertenece) {
+                                                    $modulo = new ModuloOnline() ; 
+                                                    $costoFinal = $modulo -> darCostoMódulo() ;
+                                                } else {
+                                                    $modulo = new ModuloPresencial() ;
+                                                    $costoFinal = $modulo -> darCostoMódulo() ;
+                                                }
                                         }
+                                        $i++ ; 
+                                    }
 
-                                        while($i < count($coleccIngresantes) || $encontroDni == false) {
-                                            if($coleccIngresantes[0] -> getDni() == $dni) {
-                                                $encontroDni = true ; 
-                                            }
-                                            $i++ ; 
+                                    while($i < count($coleccIngresantes) || $encontroDni == false) {
+                                        if($coleccIngresantes[$i] -> getDni() == $dni) {
+                                            $encontroDni = true ; 
                                         }
+                                        $i++ ; 
+                                    }
 
                                     if($encontroDni && $encontroId) {
+                                        echo "Ingrese fecha de realizacion" ; 
+                                        $fechaRealiza = trim(fgets(STDIN)) ;  
                                         $fechaRealiza = date('y-m-d') ; 
-                                        // echo "Ingrese fecha de realizacion" ; 
-                                        $fechaRealiza = "31/32/74" ;  
                                         $inscripcion = new Inscripcion() ; 
-                                        $inscripcion -> cargar($idInscripcion, $fechaRealiza, $costoFinal, $idModulo, $dni) ; 
+                                        $inscripcion -> cargar($idInscrip, $fechaRealiza, $costoFinal, $idModulo, $dni) ; 
                                         $inscripcion -> modificar() ; 
                                             if($modifico) {
                                                 echo "La inscripcion fue modificada \n" ; 
@@ -796,11 +772,9 @@ use LDAP\Result;
                             }
                         break ; 
                         case 5:
-                            /*  */
+                            /* Ver inscripciones en un modulo determinado */
                             echo "Ingrese ID del módulo: ";
-                            $idModulo = trim(fgets(STDIN)) ;
-
-                            // Crear una instancia de BaseDatos fuera del bloque switch
+                            $idMod = trim(fgets(STDIN)) ;
                             $base = new BaseDatos();
                             
                             // Consulta SQL para obtener las inscripciones del módulo
@@ -808,21 +782,19 @@ use LDAP\Result;
                                         ingr.dni, ingr.nombre, ingr.apellido
                                         FROM inscripcion AS inscrp
                                         JOIN ingresante AS ingr ON inscrp.dni = ingr.dni
-                                        WHERE inscrp.midentificacion = $idModulo";
+                                        WHERE inscrp.midentificacion = $idMod";
 
-                            if ($base->Iniciar()) {
-                                if ($base->Ejecutar($consulta)) {
-                                    
-                                        // Mostrar los resultados obtenidos
-                                        while ($row = $base->Registro()) {
-                                            echo "ID de Inscripción: " . $row["iidentificacion"] . "\n" ;
-                                            echo "Fecha de Realización: " . $row["fecha_realizacion"] . "\n" ;
-                                            echo "Costo Final: " . $row["costo_final"] . "\n" ;
-                                            echo "DNI del Ingresante: " . $row["dni"] . "\n" ;
-                                            echo "Nombre del Ingresante: " . $row["nombre"] . "\n" ;
-                                            echo "Apellido del Ingresante: " . $row["apellido"] . "\n" ;
-                                            echo "\n" ;
-                                        }
+                            if($base -> Iniciar()) {
+                                if($base -> Ejecutar($consulta)) {
+                                    while($row = $base->Registro()) {
+                                        echo "ID de Inscripción: " . $row["iidentificacion"] . "\n" ;
+                                        echo "Fecha de Realización: " . $row["fecha_realizacion"] . "\n" ;
+                                        echo "Costo Final: " . $row["costo_final"] . "\n" ;
+                                        echo "DNI del Ingresante: " . $row["dni"] . "\n" ;
+                                        echo "Nombre del Ingresante: " . $row["nombre"] . "\n" ;
+                                        echo "Apellido del Ingresante: " . $row["apellido"] . "\n" ;
+                                        echo "\n" ;
+                                    }
                                     
                                 } else {
                                     $this -> setmensajeoperacion($base -> getError()) ;
@@ -832,11 +804,11 @@ use LDAP\Result;
                             }
                         break ; 
                         case 6: 
+                            /* Ver incripciones a una actividad determinada */
 
                             $base = new BaseDatos();
-
-                            // ID de la actividad objetivo
-                            $idActiv = 10 ; // Reemplaza con el ID de la actividad deseada
+                            echo "Ingrese id de actividad: " ; 
+                            $idActiv = trim(fgets(STDIN)) ; 
 
                             // Consulta SQL para obtener las inscripciones de la actividad
                             $consulta = "SELECT i.iidentificacion, i.fecha_realizacion, i.costo_final,
@@ -848,58 +820,52 @@ use LDAP\Result;
                                         JOIN ingresante AS ing ON i.dni = ing.dni
                                         WHERE a.aidentificacion = $idActiv";
 
-                            if ($base->Iniciar()) {
-                                if ($base->Ejecutar($consulta)) {
-                           
-                                // Mostrar los resultados obtenidos
-                                while ($row = $base -> Registro()) {
-                                    echo "ID de Inscripción: " . $row["iidentificacion"] . "\n" ;
-                                    echo "Fecha de Realización: " . $row["fecha_realizacion"] . "\n" ;
-                                    echo "Costo Final: " . $row["costo_final"] . "\n" ;
-                                    echo "Descripción del Módulo: " . $row["modulo_descripcion"] . "\n" ;
-                                    echo "DNI del Ingresante: " . $row["dni"] . "\n" ;
-                                    echo "Nombre del Ingresante: " . $row["nombre"] . "\n" ;
-                                    echo "Apellido del Ingresante: " . $row["apellido"] . "\n" ;
-                                    echo "\n" ;
-                                }
+                            if($base -> Iniciar()) {
+                                if($base -> Ejecutar($consulta)) {
+                                    while($row = $base -> Registro()) {
+                                        echo "ID de Inscripción: " . $row["iidentificacion"] . "\n" ;
+                                        echo "Fecha de Realización: " . $row["fecha_realizacion"] . "\n" ;
+                                        echo "Costo Final: " . $row["costo_final"] . "\n" ;
+                                        echo "Descripción del Módulo: " . $row["modulo_descripcion"] . "\n" ;
+                                        echo "DNI del Ingresante: " . $row["dni"] . "\n" ;
+                                        echo "Nombre del Ingresante: " . $row["nombre"] . "\n" ;
+                                        echo "Apellido del Ingresante: " . $row["apellido"] . "\n" ;
+                                        echo "\n" ;
+                                    }
                             } else {
                                 $this -> setmensajeoperacion($base -> getError()) ;
                             }
                         } else {
                             $this -> setmensajeoperacion($base -> getError()) ;
-                        }
-                            
+                        } 
                         break ; 
                         case 7: 
+                            /* Ver todos los registros dado un modulo de un mismo dni que tenga mas de un registro */
 
                             $base = new BaseDatos();
-                            // ID del módulo objetivo
-                            $idModulo = 101 ; // Reemplaza con el ID del módulo deseado
+                            echo "Ingrese id de modulo: " ; 
+                            $idMod = trim(fgets(STDIN)) ; 
 
-                            // Consulta SQL para buscar los registros duplicados en el módulo
+                            // Consulta SQL para buscar los registros duplicados en el módulo por dni 
                             $consulta = "SELECT dni, COUNT(*) AS total
                                         FROM inscripcion
-                                        WHERE midentificacion = $idModulo
+                                        WHERE midentificacion = $idMod
                                         GROUP BY dni
-                                        HAVING COUNT(*) > 0";
-
+                                        HAVING COUNT(*) > 1";
                             
-                        if ($base->Iniciar()) {
-                            if ($base->Ejecutar($consulta)) {
-                            
-                                // Mostrar los resultados obtenidos
-                                while ($row = $base -> Registro()) {
-                                    echo "DNI: " . $row["dni"] . "\n" ;
-                                    echo "Cantidad de veces repetido: " . $row["total"] . "\n" ;
-                                    echo "\n" ;
+                            if($base -> Iniciar()) {
+                                if($base -> Ejecutar($consulta)) {
+                                    while($row = $base -> Registro()) {
+                                        echo "DNI: " . $row["dni"] . "\n" ;
+                                        echo "Cantidad de veces repetido: " . $row["total"] . "\n" ;
+                                        echo "\n" ;
+                                    }
+                                } else {
+                                    $this -> setmensajeoperacion($base -> getError()) ;
                                 }
                             } else {
                                 $this -> setmensajeoperacion($base -> getError()) ;
                             }
-                        } else {
-                            $this -> setmensajeoperacion($base -> getError()) ;
-                        }
-                            
                         break ; 
                     } 
                     $opcionInscripcion = menuInscripcion() ; 

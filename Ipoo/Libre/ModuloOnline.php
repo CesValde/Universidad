@@ -22,39 +22,40 @@
             $this -> bonus = $bonus ;
         }
 
-        /**
-         * @param int $mId
+       /**
+         * @param int $idModulo
          * @param string $descrip
-         * @param string $
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * 
-         * Carga el objeto con los valores que se pasan por parámetro
+         * @param int $topeInscrip
+         * @param int $costo
+         * @param string $horarioInicio
+         * @param string $horarioCierre
+         * @param string $fechaInicio 
+         * @param string $fechaFin
+         * @param string $presencial
+         * @param int $idActividad
+         * @param string $link
+         * @param float $bonus
+         * Carga el objeto con los valores que se pasan por parametro
          */
-
-         public function cargarOnline($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId, $link, $bonus) {
-            parent::cargar($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId);
+         public function cargarOnline($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad, $link, $bonus) {
+            parent::cargar($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad);
             $this -> setLink($link);
             $this -> setBonus($bonus);
         } 
 
         /**
          * Recupera los datos de un modulo Online por su identificacion 
-         * @param int $mId
+         * @param int $idModulo
          * @return true en caso de encontrar los datos, false en caso contrario 
          */		
-        public function Buscar($mId) {
+        public function Buscar($idModulo) {
             $base = new BaseDatos() ;
-            $consulta = "Select * from modulo where midentificacion = " . $mId ;
+            $consulta = "Select * from modulo where midentificacion = " . $idModulo ;
             $resp = false ;
             if($base -> Iniciar()) {
                 if($base -> Ejecutar($consulta)) {
                     if($row = $base -> Registro()) {					
-                        $this -> setMIdentificacion($mId) ; 
+                        $this -> setMIdentificacion($idModulo) ; 
                         $this -> setDescripcion($row['descripcion']) ; 
                         $this -> setTopeInscripcion($row['tope_inscripciones']) ; 
                         $this -> setCosto($row['costo']) ;
@@ -78,7 +79,11 @@
             return $resp ; 
         }
 
-        // preguntar a chat como funciona xd 
+        /**
+         * Obtiene una lista de actividades de la base de datos que cumplan con una condición opcional
+         * @param string $condicion
+         * @return array
+         */ 
         public function listar($condicion = "") {
             $coleccModulos = null ;
             $base = new BaseDatos() ;
@@ -93,7 +98,7 @@
                 if($base -> Ejecutar($consulta)) {				
                     $coleccModulos = [] ;
                         while($row = $base -> Registro()) {
-                            $mId = $row['aidentificacion'] ; 
+                            $idModulo = $row['aidentificacion'] ; 
                             $descrip = $row['descripcion'] ; 
                             $topeInscrip = $row['tope_inscripciones'] ; 
                             $costo = $row['costo'] ;
@@ -102,13 +107,12 @@
                             $fechaInicio = $row['fecha_inicio'] ; 
                             $fechaFin = $row['fecha_fin'] ; 
                             $presencial = $row['es_en_linea'] ; 
-                            $aId = $row['aidentificacion'] ; 
+                            $idActividad = $row['aidentificacion'] ; 
 
                             $link = $row['link_reunion'] ; 
                             $bonus = $row['bonificacion'] ; 
-
                             $modulo = new ModuloOnline() ;
-                            $modulo -> cargarOnline($mId, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $aId, $link, $bonus) ;
+                            $modulo -> cargarOnline($idModulo, $descrip, $topeInscrip, $costo, $horarioInicio, $horarioCierre, $fechaInicio, $fechaFin, $presencial, $idActividad, $link, $bonus) ;
                             array_push($coleccModulos, $modulo) ;
                         }
                 } else {
@@ -120,6 +124,10 @@
             return $coleccModulos ;
         } 
         
+        /**
+         * Inserta los valores en sus respectivas tablas de la base de datos
+         * @return boolean 
+         */
         public function insertar() {
             $base = new BaseDatos() ;
             $resp = false ; 
@@ -164,6 +172,10 @@
             return $resp ;
         }
         
+        /**
+         * Modifica los valores de sus respectivas tablas en la base de datos
+         * @return boolean
+         */
         public function modificar() {
             $resp = false ; 
             $base = new BaseDatos() ;
@@ -193,6 +205,10 @@
             return $resp ;
         }
         
+        /**
+         * Elimina una fila de la base de datos por su id
+         * @return boolean 
+         */
         public function eliminar() {
             $base = new BaseDatos() ;
             $resp = false ;
@@ -210,6 +226,10 @@
             return $resp ; 
         }
 
+        /**
+         * Retorna el importe final correspondiente a la inscripción de un respectivo módulo
+         * @return float
+         */
         public function darCostoMódulo() {
             $bonus = $this -> getBonus() ; 
             $subTotal = parent::darCostoMódulo() ; 

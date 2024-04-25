@@ -167,9 +167,8 @@
                     $dato = trim(fgets(STDIN)) ; 
                     echo "\n" ;             
 
-                    // innecesario 
                     $dato = str_replace('', '', $dato) ;        // 1ra '' lo que quieres modificar, 2da '' lo que vas a poner en su lugar, 3ro la variable a retornar.
-                    $dato = strtolower($dato) ;         // todo minusculas
+                    $dato = strtolower($dato) ; 
                         switch($dato) {
                             case "cdv": 
                                 echo "Ingrese nuevo codigo de viaje: " ; 
@@ -228,13 +227,13 @@
                                 $apellido = trim(fgets(STDIN)) ; 
                                 $apellido = validarApellido($dni, $apellido) ; 
                                 $existe = $viajeNqn -> cambiarNombre($dni, $nombre, $apellido) ;
-                                    // se podria decir pq no fue modificado 
                                     if($existe) {
                                         echo "El dni fue modificado \n" ; 
                                     } else {
                                         echo "El dni no pudo ser modificado\n" ;    
                                     }
                             break ; 
+                            /* eliminar pasajero */
                             case "ep":
                                 echo "Ingrese dni del pasajero: " ; 
                                 $dni = trim(fgets(STDIN)) ; 
@@ -243,11 +242,11 @@
                                     if($eliminado) {
                                         echo "El pasajero fue eliminado \n" ; 
                                         $cantPasajeros-- ; 
-                                        // $pasajeros = $viajeNqn -> getPasajeros() ;
                                     } else {
                                         echo "El pasajero no fue eliminado \n" ;
                                     }         
                             break ; 
+                            /* añadir pasajero */
                             case "ap": 
                                 if($cantPasajeros < $cantMaxPasajeros) {
                                     echo "Ingrese nombre del pasajero: " ; 
@@ -263,8 +262,6 @@
                                         if($agregado) {
                                             echo "El pasajero fue agregado al viaje \n" ; 
                                             $cantPasajeros++ ; 
-                                            // print_r($pasajeros) ;
-                                            // $pasajeros = $viajeNqn -> getPasajeros() ;
                                         } else {
                                             echo "El pasajero no fue agregado al viaje \n" ;
                                         }

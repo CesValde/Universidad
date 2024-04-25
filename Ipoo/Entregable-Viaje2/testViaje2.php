@@ -162,10 +162,8 @@
                             $nroTelPasaj= trim(fgets(STDIN)) ;
                             $nroTelPasaj = validarNroTelefono($nroTelPasaj) ;                       
                             echo "\n" ; 
-                            // objeto Pasajero
                             $pasajero = new Pasajero($nombrePasaj, $apellidoPasaj, $nroDocPasaj, $nroTelPasaj) ;
-                            $coleccPasajeros[$i] = $pasajero ; 
-                            // print_r($coleccPasajeros) ;                      
+                            $coleccPasajeros[$i] = $pasajero ;                    
                         }
 
                     // objeto Responsable
@@ -319,7 +317,6 @@
                                             array_push($coleccPasajeros, $pasajero) ;                            
                                             $viajeZulia -> setColeccPasajeros($coleccPasajeros) ; 
                                             $cantPasajeros++ ;
-                                            // print_r($coleccPasajeros) ; 
                                         }
                                 } else {
                                     echo "No hay asientos disponibles \n" ; 

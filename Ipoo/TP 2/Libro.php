@@ -1,24 +1,27 @@
 <?php 
 
-    class Libro_2 {
+    class Libro {
         private $isbn ; 
         private $titulo ; 
         private $anioEdi ; 
         private $editorial ; 
-        private $persona ;
+        private $nombre ; 
+        private $apellido ; 
 
         public function __construct(
             $isbn,
             $titulo,
             $anioEdi,
             $editorial,
-            $persona
+            $nombre,
+            $apellido
         ) {
             $this -> isbn = $isbn ;             
             $this -> titulo = $titulo ; 
             $this -> anioEdi = $anioEdi ; 
             $this -> editorial = $editorial ; 
-            $this -> persona = $persona ;
+            $this -> nombre = $nombre ; 
+            $this -> apellido = $apellido ; 
         }
 
         public function getIsbn() {
@@ -33,10 +36,12 @@
         public function getEditorial() {
             return $this -> editorial ;
         }
-        public function getPersona() {
-            return $this -> persona ;
+        public function getNombre() {
+            return $this -> nombre ;
         }
-        
+        public function getApellido() {
+            return $this -> apellido ; 
+        }
 
         public function setIsbn($isbn) {
             $this -> isbn = $isbn ; 
@@ -50,10 +55,12 @@
         public function setEditorial($editorial) {
             $this -> editorial = $editorial ;
         }
-        public function setPersona($persona) {
-            $this -> persona = $persona ;
+        public function setNombre($nombre) {
+            $this -> nombre = $nombre ;
         }
-        
+        public function setApellido($apellido) {
+            $this -> apellido = $apellido ; 
+        }
 
         public function perteneceEditorial($pEditorial) {
             $editorial = $this -> getEditorial() ; 
@@ -77,6 +84,7 @@
                 "Titulo: " . $this -> getTitulo() . "\n" .
                 "Año de edicion: " . $this -> getAnioEdi() . "\n" .
                 "Editorial: " . $this -> getEditorial() . "\n" . 
-                "Datos de persona: " . $this -> getPersona() ;
+                "Nombre del autor: " . $this -> getNombre() . "\n" .
+                "Apellido del autor: " . $this -> getApellido() . "\n" ;
         }
     }

@@ -58,12 +58,11 @@
         }
 
         /**
-        * @param int $
-        * @param string $
-        * @param string $
-        *
-        *
-        *
+        * @param int $dni
+        * @param string $nombre
+        * @param string $apellido
+        * @param int $legajo
+        * @param string $correo
         * Carga el objeto con los valores que se pasan por parametro
         */
         public function cargar($dni, $nombre, $apellido, $legajo, $correo) {
@@ -102,7 +101,11 @@
             return $resp ; 
         }	
 
-        // preguntar a chat como funciona xd
+        /**
+         * Obtiene una lista de actividades de la base de datos que cumplan con una condición opcional
+         * @param string $condicion
+         * @return array
+         */
         public function listar($condicion = "") {
             $coleccIngresantes = null ;
             $base = new BaseDatos() ;
@@ -136,6 +139,10 @@
             return $coleccIngresantes ;
         } 
         
+        /**
+         * Inserta los valores en sus respectivas tablas de la base de datos
+         * @return boolean 
+         */
         public function insertar() {
             $base = new BaseDatos() ;
             $resp = false ; 
@@ -160,6 +167,10 @@
             return $resp ;
         }
         
+        /**
+         * Modifica los valores de sus respectivas tablas en la base de datos
+         * @return boolean
+         */
         public function modificar() {
             $resp = false ; 
             $base = new BaseDatos() ;
@@ -182,6 +193,10 @@
             return $resp ;
         }
         
+        /**
+         * Elimina una fila de la base de datos por su id
+         * @return boolean 
+         */
         public function eliminar() {
             $base = new BaseDatos() ;
             $resp = false ;
