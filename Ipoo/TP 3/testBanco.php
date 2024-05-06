@@ -27,7 +27,9 @@
     $banco = new Banco($coleccCuentasCorr, $coleccCajaAhorro, "ultimo dato", $coleccClientes) ; 
 
     // punto 5
+    // este deposito no se hace porque supera el descubierto de la cuenta 
     $deposito = $banco -> realizarDeposito(2, 999999) ;
+    // este si
     $deposito = $banco -> realizarDeposito(2, 10000) ;
 
     /* 
@@ -44,7 +46,7 @@
             echo "Deposito completado \n" ;
         }
 
-    // este deposito no se hace porque supera el descubierto de la cuenta 
+    // estos depositos no se hacen porque supera el descubierto de la cuentas
     $deposito = $banco -> realizarDeposito(1, 8888800) ; 
     $deposito = $banco -> realizarDeposito(5, 2643634756) ;
 
@@ -68,7 +70,7 @@
     $transferencia = $cuentaCorr -> realizarRetiro(150) ; 
     $cajaAhorro2 -> realizarDeposito($transferencia) ; 
 
-    // ahora es cliente el nro 1111
+    // ahora es cliente el nro 9990 
     $nuevoCliente = new Cliente(9990, "Tu vieja", "el dramas", 1111) ;
     $existeCliente = $banco -> incorporarCliente($nuevoCliente) ; 
         if($existeCliente) {
@@ -77,6 +79,7 @@
             echo "El cliente ahora es cliente del banco \n" ;
         }
 
+    //. 
     $incorporaCtaCorr = $banco -> incorporarCuentaCorriente(9990, 10000) ;
         if($incorporaCtaCorr) {
             echo "Se agrego la cuenta corriente \n" ; 
@@ -87,7 +90,7 @@
     // ahora es cliente el nro 8102
     $nuevoCliente = new Cliente(8102, "Luffy", "D", 3453) ;
     $existeCliente = $banco -> incorporarCliente($nuevoCliente) ; 
-        if($existeCliente) {
+        if($existeCliente == -1) {
             echo "El cliente ya es cliente del banco \n" ;
         } else {
             echo "El cliente ahora es cliente del banco \n" ;
@@ -99,9 +102,6 @@
         } else {
             echo "No se agrego la caja de ahorro \n" ;
         }
-
-    // para probar si funcionaba el seteo ultimo valor
-    // $deposito = $banco -> realizarDeposito(2, 999) ;
-
-    // punto 7 ? 
+        
+    // punto 7
     echo $banco ; 

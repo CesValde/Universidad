@@ -39,7 +39,6 @@
             return "\n" . 
             "Saldo de la cuenta de ahorro: " . $this -> getSaldo() . "\n" . 
             "Tipo de cuenta: " . $this -> getTipoCuenta() . "\n" . 
-            "\n" . 
             "Cliente: " . $this -> getCliente() . "\n" ; 
         }
     }

@@ -48,39 +48,51 @@
         public function incorporarCliente($nuevoCliente) {
             $coleccClientes = $this -> getColeccClientes() ; 
             $existeCliente = false ;
+            $i=0 ;
 
-                // valiadacion de si el cliente ya existe
-                foreach($coleccClientes as $cliente) {
-                    if($nuevoCliente -> getNroCliente() == $cliente -> getNroCliente()) {
-                        $existeCliente = true ; 
-                    }
+            // valiadacion de si el cliente ya existe
+            while($existeCliente == false && $i < count($coleccClientes)) {
+                $cliente = $coleccClientes[$i] ;
+                if($nuevoCliente -> getNroCliente() == $cliente -> getNroCliente()) {
+                    $existeCliente = true ; 
                 }
-                
-                // si el cliente no existe se agrega a la coleccion
-                if($existeCliente == false) {
-                    array_push($coleccClientes, $nuevoCliente) ; 
-                    $this -> setColeccClientes($coleccClientes) ; 
-                    $this -> setUltimoValorCuentasAsignado($nuevoCliente) ;
-                }
+                $i++ ;
+            }
+
+            // si el cliente no existe se agrega a la coleccion
+            if($existeCliente == false) {
+                array_push($coleccClientes, $nuevoCliente) ; 
+                $this -> setColeccClientes($coleccClientes) ; 
+                $this -> setUltimoValorCuentasAsignado($nuevoCliente) ;
+            }
             return $existeCliente ;
         }
         
         public function incorporarCuentaCorriente($nroCliente, $montoDescubierto) { 
-            $coleccClientes = $this -> getColeccClientes() ;
+            $coleccClientes = $this -> getColeccClientes() ; 
             $coleccCuentaCorr = $this -> getColeccCuentaCorr() ;
             $incorpora = false ;
+            $existeCliente = false ;
+            $i=0 ;
+            $indice = -1 ;
 
-                foreach($coleccClientes as $cliente) {
-                    if($cliente -> getNroCliente() == $nroCliente) {
-                        $incorpora = true ;
-                        // cliente no pisaria el valor si se agg 2 clientes?? serian la misma variable
-                        // ejercicio listo y no pisa valor esta en una posicion diferente
-                        $nuevaCtaCorriente = new CuentaCorriente($montoDescubierto, 6000, "fbsdhfghs", $cliente, 3) ;
-                        array_push($coleccCuentaCorr, $nuevaCtaCorriente) ; 
-                        $this -> setColeccCuentaCorr($coleccCuentaCorr) ;
-                        $this -> setUltimoValorCuentasAsignado($nuevaCtaCorriente) ;
-                    }
+            while($existeCliente == false && $i < count($coleccClientes)) {
+                $cliente = $coleccClientes[$i] ;
+                if($nroCliente == $cliente -> getNroCliente()) {
+                    $existeCliente = true ; 
+                    $indice = $i ;
                 }
+                $i++ ;
+            }
+
+            if($existeCliente) {
+                $incorpora = true ;
+                $cliente = $this -> getColeccClientes()[$indice] ;
+                $nuevaCtaCorriente = new CuentaCorriente($montoDescubierto, 6000, "NUEVA CUENTA", $cliente, 3) ;
+                $coleccCuentaCorr[] = $nuevaCtaCorriente  ;
+                $this -> setColeccCuentaCorr($coleccCuentaCorr) ;
+                $this -> setUltimoValorCuentasAsignado($nuevaCtaCorriente) ;
+            }
             return $incorpora ;  
         }
 
@@ -88,17 +100,27 @@
             $coleccClientes = $this -> getColeccClientes() ;
             $coleccCajaAhorro = $this -> getColeccCajaAhorro() ;
             $incorpora = false ;
+            $existeCliente = false ;
+            $i=0 ;
+            $indice = -1 ;
 
-                foreach($coleccClientes as $cliente) {
-                    if($cliente -> getNroCliente() == $nroCliente) {
-                        $incorpora = true ;
-                        // cliente no pisaria el valor si se agg 2 clientes?? serian la misma variable
-                        $nuevaCajaAhorro = new CuentaAhorro(6000, "azaaz", $cliente, 4) ;
-                        array_push($coleccCajaAhorro, $nuevaCajaAhorro) ; 
-                        $this -> setColeccCajaAhorro($coleccCajaAhorro) ;
-                        $this -> setUltimoValorCuentasAsignado($nuevaCajaAhorro) ;
-                    }
+            while($existeCliente == false && $i < count($coleccClientes)) {
+                $cliente = $coleccClientes[$i] ;
+                if($nroCliente == $cliente -> getNroCliente()) {
+                    $existeCliente = true ; 
+                    $indice = $i ;
                 }
+                $i++ ;
+            }
+
+            if($existeCliente) {
+                $incorpora = true ;
+                $cliente = $this -> getColeccClientes()[$indice] ;
+                $nuevaCtaAhorro = new CuentaAhorro(6000, "fbsdhfghs", $cliente, 3) ;
+                $coleccCajaAhorro[] = $nuevaCtaAhorro ;
+                $this -> setColeccCajaAhorro($coleccCajaAhorro) ;
+                $this -> setUltimoValorCuentasAsignado($nuevaCtaAhorro) ;
+            }
             return $incorpora ; 
         }
 
@@ -107,40 +129,31 @@
             $coleccCajaAhorro = $this -> getColeccCajaAhorro() ; 
             $coleccionCtas = array_merge($coleccCuentaCorr, $coleccCajaAhorro) ; 
             $i = 0 ;
-            $deposito = -3 ; 
-            $existe = false ; 
+            $deposito = -2 ;  
 
-                // recorro a ver si el nro de cuenta existe 
-                foreach($coleccionCtas as $cuenta) {
+            while($deposito = -2 && $i < count($coleccionCtas)) {
+                $cuenta = $coleccionCtas[$i] ; 
                     if($numCuenta == $cuenta -> getNroCuenta()) {
-                        $existe = true ;
-                    } 
-                }
-                    
-                while($numCuenta <> $coleccionCtas[$i] -> getNroCuenta() && $existe == true) {
-                    // echo $i ;
-                    $i++ ;
-                }
-                if($numCuenta == $coleccionCtas[$i] -> getNroCuenta()) {
-                    if($coleccionCtas[$i] -> getTipoCuenta() == "corriente") {
-                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
-                        $tope = $saldo + $monto ;
-                            if($tope > $coleccionCtas[$i] -> getMontoMax()) {
-                                $deposito = -1 ;
-                            } else {
-                                $this -> setUltimoValorCuentasAsignado($monto) ;
-                                $saldo = $saldo + $monto ; 
-                                $coleccionCtas[$i] -> setSaldo($saldo) ;
-                            }  
-                    } else {
-                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
-                        $saldo = $saldo + $monto ;
-                        $coleccionCtas[$i] -> setSaldo($saldo) ;
-                        $this -> setUltimoValorCuentasAsignado($monto) ;
+                        if($coleccionCtas[$i] -> getTipoCuenta() == "corriente") {
+                            $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                            $tope = $saldo + $monto ;
+                                if($tope > $coleccionCtas[$i] -> getMontoMax()) {
+                                    $deposito = -1 ;
+                                } else {
+                                    $saldo = $saldo + $monto ; 
+                                    $coleccionCtas[$i] -> setSaldo($saldo) ;
+                                    $this -> setUltimoValorCuentasAsignado($monto) ;
+                                }  
+                        } else {
+                            $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                            $saldo = $saldo + $monto ;
+                            $coleccionCtas[$i] -> setSaldo($saldo) ;
+                            $this -> setUltimoValorCuentasAsignado($monto) ;
+                            $deposito = -3 ;
+                        }  
                     }
-                } else {
-                    $deposito = -2 ;
-                }                       
+                $i++ ;
+            }                  
             return $deposito ;
         }
 
@@ -149,40 +162,31 @@
             $coleccCajaAhorro = $this -> getColeccCajaAhorro() ; 
             $coleccionCtas = array_merge($coleccCuentaCorr, $coleccCajaAhorro) ; 
             $i = 0 ;
-            $retiro = -3 ; 
-            $existe = false ; 
-
-                // recorro a ver si el nro de cuenta existe 
-                foreach($coleccionCtas as $cuenta) {
-                    if($numCuenta == $cuenta -> getNroCuenta()) {
-                        $existe = true ;
-                    } 
-                }
-
-                while($numCuenta <> $coleccionCtas[$i] -> getNroCuenta() && $existe == true) {
-                    // echo $i ;
-                    $i++ ;
-                }
+            $retiro = -2 ; 
                 
-                if($numCuenta == $coleccionCtas[$i] -> getNroCuenta()) {
-                    if($coleccionCtas[$i] -> getTipoCuenta() == "corriente") {
-                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
-                        $tope = $saldo + $monto ;
-                            if($tope > $coleccionCtas[$i] -> getMontoMax()) {
-                                $retiro = -1 ;
-                            } else {
-                                $this -> setUltimoValorCuentasAsignado($monto) ;
-                                $saldo = $saldo - $monto ; 
-                                $coleccionCtas[$i] -> setSaldo($saldo) ;
-                            }
-                    } else {
-                        $saldo = $coleccionCtas[$i] -> getSaldo() ;
-                        $saldo = $saldo - $monto ;
-                        $coleccionCtas[$i] -> setSaldo($saldo) ;
-                    }
-                } else {
-                    $retiro = -2 ;
-                }                       
+            while($retiro == -2 && $i < count($coleccionCtas)) {
+                $cuenta = $coleccionCtas[$i] ; 
+                    if($numCuenta == $cuenta -> getNroCuenta()) {
+                        if($coleccionCtas[$i] -> getTipoCuenta() == "corriente") {
+                            $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                            $tope = $saldo + $monto ;
+                                if($tope > $coleccionCtas[$i] -> getMontoMax()) {
+                                    $retiro = -1 ;
+                                } else {
+                                    $saldo = $saldo - $monto ; 
+                                    $coleccionCtas[$i] -> setSaldo($saldo) ;
+                                    $this -> setUltimoValorCuentasAsignado($monto) ;
+                                }
+                        } else {
+                            $saldo = $coleccionCtas[$i] -> getSaldo() ;
+                            $saldo = $saldo - $monto ;
+                            $coleccionCtas[$i] -> setSaldo($saldo) ;
+                            $this -> setUltimoValorCuentasAsignado($monto) ;
+                            $retiro = -3 ;
+                        }
+                    }      
+                $i++ ;
+            }                     
             return $retiro ;
         }
 
@@ -196,7 +200,7 @@
                     "Monto maximo: " . $ctaCorriente -> getMontoMax() . "\n" . 
                     "Saldo actual: " . $ctaCorriente -> getSaldo() . "\n" .
                     "Tipo de cuenta: " . $ctaCorriente -> getTipoCuenta() . "\n" .
-                    "Clienteeeee: " . $ctaCorriente -> getCliente() . "\n" ;
+                    "Cliente de la cuenta: " . $ctaCorriente -> getCliente() . "\n" ;
                 }
             return $cadenaCtaCorrientes ;
         }
@@ -207,10 +211,10 @@
 
                 foreach($coleccCajaAhorro as $cajaAhorro) {
                    $cadenaCajaAhorro = $cadenaCajaAhorro . "\n" .
-                   "Datos Cuenta: " . "\n" .
+                   "Datos Cuenta de Ahorro: " . "\n" .
                    "Saldo actual: " . $cajaAhorro -> getSaldo() . "\n" .
                    "Tipo de cuenta: " . $cajaAhorro -> getTipoCuenta() . "\n" .
-                   "Clientuliii: " . $cajaAhorro -> getCliente() . "\n" ;
+                   "Cliente de la cuenta: " . $cajaAhorro -> getCliente() . "\n" ;
                 }
             return $cadenaCajaAhorro ; 
         }
@@ -221,7 +225,7 @@
 
                 foreach($coleccClientes as $cliente) {
                    $cadenaClientes = $cadenaClientes . "\n" .
-                   "Datos Cliente: " . "\n" .
+                   "Datos del cliente: " . "\n" .
                     "Numero de cliente: " . $cliente -> getNroCliente() . "\n" .
                     "Nombre: " . $cliente -> getNombre() . "\n" .
                     "Apellido: " . $cliente -> getApellido() . "\n" .
@@ -234,13 +238,14 @@
             $cadenaCtaCorrientes = $this -> mostrarCuentasCorrientes() ; 
             $cadenaCajaAhorro = $this -> mostrarCajasAhorro() ;
             $cadenaClientes = $this -> mostrarClientes() ;
-            // 
 
-            // y si quiero usar el to string de cliente.php ?
-            return 
+            return "\n" .
+                "CUENTAS CORRIENTES: " . "\n" . 
                 $cadenaCtaCorrientes . "\n" . 
+                "CUENTAS AHORRO: " . "\n" . 
                 $cadenaCajaAhorro . "\n" . 
-                "Ultimo valor de cuenta asignado: " . $this -> getUltimoValorCuentasAsignado() . "\n" . 
+                "Ultimo valor de cuenta asignado: " . $this -> getUltimoValorCuentasAsignado() . "\n" .
+                "CLIENTES DEL BANCO" . "\n" .
                 $cadenaClientes . "\n" ; 
         }
     }

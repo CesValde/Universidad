@@ -1,6 +1,5 @@
 <?php 
 
-    // incluir la clase padre en la clase hija 
     include_once "Persona_3.php" ; 
 
     class Cliente extends Persona_3 {
