@@ -9,95 +9,88 @@
     include_once "ProductoRegional.php" ;
     include_once "ProductoImportado.php" ;
 
-    // test 
+    // para el uasort
+    function cmp($a, $b) {
+        return $b["cantVendidos"] - $a["cantVendidos"] ;
+    }
 
-    // objetos rubros 
-    $rubro1 = new Rubro("conservas", 35) ; 
+    // test  
+    $rubro1 = new Rubro("compromiso", 35) ; 
     $rubro2 = new Rubro("regalo", 55) ; 
 
-    // objetos Prodcutos 
-
-    // estos objetos tienen que ser new productoRegional // Importado ???
     $monster = new ProductoImportado(1234, "Monster", 100, 2, 500, $rubro1) ; 
     $celular = new ProductoImportado(7435, "Celular", 200, 3, 50000, $rubro1) ;
-    $cpu = new ProductoRegional(15, 74027, "CPU", 300, 5, 80000, $rubro2) ;             // 00033 me sale numero raro con un echo
+    $cpu = new ProductoRegional(15, 74027, "CPU", 300, 5, 80000, $rubro2) ;
     $gpu = new ProductoRegional(10, 92624, "GPU", 400, 8, 120000, $rubro2) ;
 
     // colecciones 
     $coleccProducImpor = [$monster, $celular] ;
     $coleccProducRegio = [$cpu, $gpu] ; 
-    // modificar 
     $coleccProductos = array_merge($coleccProducImpor, $coleccProducRegio) ;
     $coleccVentas = [] ;
 
     // objeto Tienda/Local 
     $local = new Local($coleccProducImpor, $coleccProducRegio, $coleccVentas) ;
 
-    // precio de venta de cada producto 
-        for($i=0 ; $i<count($coleccProductos) ; $i++) {
-            $codigoProducto = $coleccProductos[$i] -> getCodigoBarra() ;
-            $precioVenta = $local -> retornarImporteProducto($codigoProducto) ; 
-                if($precioVenta == -1) {
-                    echo "El codigo de barra o producto no existe \n" ; 
-                } else {
-                    echo "Precio de venta de: " . $coleccProductos[$i] -> getDescripcion() . " " . $precioVenta . "\n" ;
-                }
-        }
-           
+    // test aprobado
+    $precioVenta = $local -> retornarImporteProducto(1234) ;
+    // echo $precioVenta ;   
 
     // costo en productos hasta ahora en el local 
-    $sumaCostos = "Costo total en productos: " . $local -> retornarCostoProductoLocal() ; 
-    echo $sumaCostos . "\n" ;
+    $sumaCostos = "Costo total en productos: " . $local -> retornarCostoProductoTienda() ; 
+    // echo $sumaCostos . "\n" ;
 
-    // primer test
-    // echo $local ; 
-    
-    // ejercicio listo lo de abajo al pedo ya no es tan al pedo JAJAJA
-
+    // producto mas barato
     $productoMasBarato = $local -> productoMasEcomomico($rubro1) ;
-    echo "Producto mas barato: " . $productoMasBarato . "\n" ;
-
-    // objeto Producto 
-    $pc = new Producto(2748, "Pc", 40, 75, 800000, $rubro1) ;
-    $incorpora = $local -> incorporarProductoLocal($pc) ;
+    // echo "Producto mas barato: " . $productoMasBarato ;
+ 
+    // test aprobado
+    /* 
+        Si no existe tambien test aprobado
+    */
+    $pc = new ProductoImportado(2748, "Pc", 40, 75, 10, $rubro1) ;
+    $incorpora = $local -> incorporarProductoTienda($pc) ;
         if($incorpora) {
             echo "El producto fue agregado al local \n" ; 
         } else {
             echo "El producto ya existe en el local \n" ;
-        }
+        } 
+    // aprobado
+    $productoMasBarato = $local -> productoMasEcomomico($rubro1) ;
+    echo "Producto mas barato: " . $productoMasBarato ;
 
+    $precioVenta = $local -> retornarImporteProducto(1234) ;
+    // echo $precioVenta . "\n" ; 
+    // nuevo producto se agregra y se setean lo valores necesarios check aprobado
+    $precioVenta = $local -> retornarImporteProducto(2748) ;
+    // echo $precioVenta ; 
 
-    /* 
-        Hacer precio de venta de los productos. 'El precio de venta de un producto se calcula 
-        sobre el precio de compra, más el porcentaje de ganancia en basea su rubro, más el 
-        porcentaje de IVA que se aplica al producto' . 
-    */
-
-
-
-
-    $fecha = "9/05/2023" ;
-    // objeto Cliente
-    $cliente1 = new Cliente(8675, "Cesar", "Valderrama", 95947908) ;
-    //objeto Venta  
-    // agregar $cantProductos y setear con la resta de cantProductos ??
-    // se resta el stock y setea
-    $ventaCelular = new Venta($fecha, $celular, $cliente1) ;
-    array_push($coleccVentas, $ventaCelular) ;
+    // check 
+    $fecha = date("Y-m-d H:i:s") ;
+    $cliente1 = new Cliente2("Dni", "Cesar", "Valderrama", 95947908) ;
+    $ventaCelular = new Venta($fecha, $celular, 22, $cliente1) ;
+    $coleccVentas[] = $ventaCelular ;
     $local -> setColeccVentas($coleccVentas) ;
-    
 
+    // check
+    $anio = date("Y", strtotime($fecha)); 
+    $coleccProdMasVendidos = $local -> informarProductosMasVendidos(2024, 2) ;
+    print_r($coleccProdMasVendidos) ;
 
-    // precio venta de un producto 
-    $precioVenta = $local -> darPrecioVenta($gpu) ; // 120k
-    echo "Precio de " . $gpu -> getDescripcion() . ": " . $precioVenta . "\n" ; 
+    // CHECK 
+    // Ordena el array usando la función de comparación personalizada
+    uasort($coleccProdMasVendidos, 'cmp');
+    // permanecen los n productos dentro del array desde 0 a $n=2
+    $coleccProdMasVendidos = array_slice($coleccProdMasVendidos, 0, 2) ;
+    // print_r($coleccProdMasVendidos) ; 
 
-    // precio venta de un producto 
-    $precioVenta = $local -> darPrecioVenta($celular) ;
-    echo "Precio de " . $celular -> getDescripcion() . ": " . $precioVenta . "\n" ; 
+    // check
+    $promedioVentasImpor = $local -> promedioVentasImportados() ; 
+    // echo $promedioVentasImpor . "\n" ;
 
+    // check
+    $lista = $local -> informarConsumoCliente('Dni', 95947908) ;
+    // print_r($lista) ;
 
-
-
-    // test final
-    echo $local ; 
+    // test aprobado
+    // echo $local ;

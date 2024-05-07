@@ -1,6 +1,7 @@
 <?php
 
-    class Cliente extends Persona_3 {
+    /* Para el testLocal */
+    class Cliente2 extends Persona_3 {
         private $tipoDoc ; 
 
         public function __construct(

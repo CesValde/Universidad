@@ -31,19 +31,17 @@
             return $this -> porcenDescuento ;
         }
 
-        public function darImporteVenta() {
-            $importeFinal = 0 ; 
-            
+        public function darPrecioVenta() {
+            $porcenDescuento = $this -> getPorcenDescuento() ;
+            $precioVenta = parent::darPrecioVenta() ;
 
-
-
-
-
-            return $importeFinal ; 
+            $precioVenta = $precioVenta - (($precioVenta * $porcenDescuento) / 100) ; 
+            return $precioVenta ;
         }
 
         public function __toString() {
             $cadena = parent::__toString() ;
-            return $cadena ; 
+            return $cadena . "\n" . 
+                "Porcentaje de descuento: " . $this -> getPorcenDescuento() . "%" ; 
         }
     }

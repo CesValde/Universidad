@@ -61,6 +61,17 @@
         public function setRubro($rubro) {
             $this -> rubro = $rubro ; 
         }
+
+        /* calcula el precio de venta de un producto */
+        public function darPrecioVenta() {
+            $precioCompra = $this -> getPrecioCompra() ;
+            $iva = $this -> getPorcenIva() ;
+            $ganancia = $this->getRubro() ->getPorcenGananApli();
+
+            $precioVenta = ($precioCompra + ($precioCompra * $ganancia) / 100) ;
+            $precioVenta = $precioVenta + (($precioVenta * $iva) / 100) ;
+            return $precioVenta ;
+        }
         
         public function __toString() {
             return 
@@ -69,6 +80,6 @@
             "Stock: " . $this -> getStock() . "\n" . 
             "Porcentaje Iva: " . $this -> getPorcenIva() . "\n" . 
             "Precio de Compra: " . $this -> getPrecioCompra() . "\n" . 
-            "Rubro: " . $this -> getRubro() . "\n" . "\n" ;
+            "Rubro: " . $this -> getRubro() . "\n" ;
         }
     }
