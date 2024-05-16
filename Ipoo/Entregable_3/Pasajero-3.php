@@ -62,10 +62,6 @@
             $this -> nroTicket = $nroTicket ; 
         }
 
-        public function darPorcentajeIncremento() {
-            return 0 ; 
-        }
-
         public function __toString() {
             return 
                 "Nombre: " . $this -> getNombrePasajero() . "\n" . 

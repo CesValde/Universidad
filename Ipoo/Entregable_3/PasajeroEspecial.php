@@ -57,55 +57,16 @@
         }
 
         public function mostrarCondiciones() {
-            $sillaRuedas = $this -> getSillaRuedas() ; 
-            $asistencia = $this -> getAsistencia() ; 
-            $comida = $this -> getComida() ; 
-            $cadena = "" ;
-
-                if($sillaRuedas) {   
-                    if($asistencia) {
-                        if($comida) {
-                            $cadena .= 
-                                "Silla de ruedas: Si" . "\n" . 
-                                "Asistencia: Si" . "\n" . 
-                                "Comida: Si" . "\n" ;
-                        } else {
-                            $cadena .= 
-                                "Silla de ruedas: Si" . "\n" . 
-                                "Asistencia: Si" . "\n" . 
-                                "Comida: No" . "\n" ;
-                        }
-                    } elseif($comida) {
-                        $cadena .= 
-                        "Silla de ruedas: Si" . "\n" . 
-                        "Asistencia: No" . "\n" . 
-                        "Comida: Si" . "\n" ;
-                    } else {
-                        $cadena .= 
-                        "Silla de ruedas: Si" . "\n" . 
-                        "Asistencia: No" . "\n" . 
-                        "Comida: No" . "\n" ; 
-                    }
-                } elseif($asistencia) { 
-                    if($comida) {
-                        $cadena .= 
-                        "Silla de ruedas: No" . "\n" . 
-                        "Asistencia: Si" . "\n" . 
-                        "Comida: Si" . "\n" ;
-                    } else {
-                        $cadena .= 
-                        "Silla de ruedas: No" . "\n" . 
-                        "Asistencia: Si" . "\n" . 
-                        "Comida: No" . "\n" ;
-                    }
-                } else {
-                    $cadena .= 
-                    "Silla de ruedas: No" . "\n" . 
-                    "Asistencia: No" . "\n" . 
-                    "Comida: Si" . "\n" ;
-                } 
-            return $cadena ; 
-        }
+            $sillaRuedas = $this->getSillaRuedas();
+            $asistencia = $this->getAsistencia();
+            $comida = $this->getComida();
+            $cadena = "";
+        
+            $cadena .= "Silla de ruedas: " . ($sillaRuedas ? "Si" : "No") . "\n";
+            $cadena .= "Asistencia: " . ($asistencia ? "Si" : "No") . "\n";
+            $cadena .= "Comida: " . ($comida ? "Si" : "No") . "\n";
+            return $cadena ;  
+        } 
 
         public function darPorcentajeIncremento() {
             $sillaRuedas = $this -> getSillaRuedas() ; 

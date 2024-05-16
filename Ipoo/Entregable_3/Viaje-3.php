@@ -13,7 +13,7 @@
             $codigoViaje, 
             $destino, 
             $cantMaxPasajeros,
-            $coleccPasajeros,    // Los objetos son pasajeros 
+            $coleccPasajeros,
             $responsableV, 
             $precioTicket, 
             $dineroTotal 
@@ -27,7 +27,6 @@
             $this -> dineroTotal = $dineroTotal ;
         }
 
-        // get
         public function getCodigoViaje() {
             return $this -> codigoViaje ; 
         }
@@ -50,7 +49,6 @@
             return $this -> dineroTotal ; 
         }
         
-        // set
         public function setCodigoViaje($codigoViaje) {
             $this -> codigoViaje = $codigoViaje ; 
         }
@@ -87,14 +85,12 @@
             $coleccPasajeros = $this -> getColeccPasajeros() ; 
             $existe = false ;
             $j = 0 ;
-                while($j<count($coleccPasajeros)) {
+                while($existe == false && $j<count($coleccPasajeros)) {
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         $coleccPasajeros[$j] -> setNombrePasajero($nombre) ; 
-                        $this -> setColeccPasajeros($coleccPasajeros) ; 
-                        $j = count($coleccPasajeros) ; 
+                        $this -> setColeccPasajeros($coleccPasajeros) ;  
                         $existe = true ; 
                     }
-                    // print_r($coleccPasajeros) ;
                     $j++ ; 
                 }
             return $existe ; 
@@ -114,11 +110,10 @@
             $coleccPasajeros = $this -> getColeccPasajeros() ; 
             $existe = false ;
             $j = 0 ;
-                while($j<count($coleccPasajeros)) {
+                while($existe == false && $j<count($coleccPasajeros)) {
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         $coleccPasajeros[$j] -> setApellidoPasajero($apellido) ; 
                         $this -> setColeccPasajeros($coleccPasajeros) ; 
-                        $j = count($coleccPasajeros) ; 
                         $existe = true ; 
                     }
                     $j++ ; 
@@ -142,18 +137,16 @@
             $existe = false ; 
             $j = 0 ; 
 
-                while($j<count($coleccPasajeros)) {
+                while($existe == false && $j<count($coleccPasajeros)) {
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         if($nombre == $coleccPasajeros[$j] -> getNombrePasajero()) {
                             if($apellido == $coleccPasajeros[$j] -> getApellidoPasajero()) {
                                 $coleccPasajeros[$j] -> setNroDocPasajero($nroDocPasaj) ; 
-                                $this -> setColeccPasajeros($coleccPasajeros) ; 
-                                $j = count($coleccPasajeros) ; 
+                                $this -> setColeccPasajeros($coleccPasajeros) ;  
                                 $existe = true ;
                             }
                         }                  
                     }
-                    // print_r($pasajeros) ;
                     $j++ ; 
                 } 
             return $existe ; 
@@ -174,11 +167,10 @@
             $coleccPasajeros = $this -> getColeccPasajeros() ; 
             $existe = false ; 
             $j = 0 ; 
-                while($j<count($coleccPasajeros)) {
+                while($existe == false && $j<count($coleccPasajeros)) {
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         $coleccPasajeros[$j] -> setNroTelefPasajero($nroTelPasaj) ; 
-                        $this -> setColeccPasajeros($coleccPasajeros) ; 
-                        $j = count($coleccPasajeros) ; 
+                        $this -> setColeccPasajeros($coleccPasajeros) ;  
                         $existe = true ; 
                     }
                     $j++ ; 
@@ -203,16 +195,14 @@
             $existPasaj = false ;
             $j = 0 ; 
 
-                while($j<count($coleccPasajeros)) {
+                while($existPasaj == false && $j<count($coleccPasajeros)) {
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) {
                         if($nombre == $coleccPasajeros[$j] -> getNombrePasajero()) {
-                            if($apellido == $coleccPasajeros[$j] -> getApellidoPasajero()) {
-                                $j = count($coleccPasajeros) ; 
+                            if($apellido == $coleccPasajeros[$j] -> getApellidoPasajero()) { 
                                 $existPasaj = true ;
                             }
                         }                  
                     }
-                    // print_r($pasajeros) ;
                     $j++ ; 
                 }
             return $existPasaj ; 
@@ -231,13 +221,13 @@
             $j=0 ; 
             $eliminado = false ; 
             $coleccPasajeros = $this -> getColeccPasajeros() ; 
-                while($j<count($coleccPasajeros)) {
+
+                while($eliminado == false && $j<count($coleccPasajeros)) {
                     if($nroDocPasaj == $coleccPasajeros[$j] -> getNroDocPasajero()) { 
                          /* array_splice elimina de $pasajeros $desde la posicion $j '1 elemento' */                  
                         array_splice($coleccPasajeros, $j, 1) ; 
                         $eliminado = true ;
                         $this -> setColeccPasajeros($coleccPasajeros) ; 
-                        // print_r($coleccPasajeros) ;
                     }
                     $j++ ; 
                 }
@@ -254,17 +244,13 @@
             $cantPasajeros = count($coleccPasajeros) ; 
             $importe = 0 ;
             $descuento = $pasajero -> darPorcentajeIncremento() ;
-            // echo $cantPasajeros . "\n" ;
-
             $disponible = $this -> hayPasajeDisponible($cantPasajeros) ;
+
                 if($disponible) {              
                     $precioTicket = $this -> getPrecioTicket() ;
-                    $cantPasajeros++ ;  
                     $importe = $precioTicket + ($precioTicket * $descuento) ; 
-                    array_push($coleccPasajeros, $pasajero) ;
+                    $coleccPasajeros[] = $pasajero ;
                     $this -> setColeccPasajeros($coleccPasajeros) ;
-                   /*  $dineroTotal .= $importe ;
-                    setDineroTotal($dineroTotal) ; */
                 } else {
                     $importe = -1 ;
                 }
@@ -299,7 +285,6 @@
                     $descuento = $pasajero -> darPorcentajeIncremento() ;
                     $precioTicket = $this -> getPrecioTicket() ;
                     $dineroTotal = $dineroTotal + ($precioTicket + ($precioTicket * $descuento)) ; 
-                    // echo $dineroTotal . "\n" ;
                 }
                 $this -> setDineroTotal($dineroTotal) ;
 
@@ -321,13 +306,12 @@
 
             foreach($coleccPasajeros as $pasajero) {
                 $cadena = $cadena . $pasajero ;
-                // echo $cadena . "\n" ;
             }    
             return $cadena ; 
         }   
         
         public function __toString() {
-            $cadena = $this -> datosPasajeros() ; 
+            $cadenaPasajeros = $this -> datosPasajeros() ; 
             $dineroTotal = $this -> gastoTotalViaje() ;
 
             return "\n" .
@@ -338,6 +322,6 @@
                 "Dinero Total: " . $dineroTotal . "\n" . 
                 "\n" . 
                 "Datos del responsable: " . $this -> getResponsableV() . "\n" .
-                "Datos de los pasajeros: " . "\n" . $cadena . "\n" ;
+                "Datos de los pasajeros: " . "\n" . $cadenaPasajeros . "\n" ;
         }
     }
