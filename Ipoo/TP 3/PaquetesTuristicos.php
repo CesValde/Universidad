@@ -5,20 +5,19 @@
         private $cantDias ; 
         private $destino ; 
         private $cantTotalPlazas ; 
-        private $cantDispoPlazas ; 
+        private $cantDispPlazas ; 
 
         public function __construct(
             $fechaDesde , 
             $cantDias, 
             $destino, 
             $cantTotalPlazas, 
-            // $cantDispoPlazas
         ) { 
             $this -> fechaDesde = $fechaDesde ;                 
             $this -> cantDias = $cantDias ;             
             $this -> destino = $destino ;          
             $this -> cantTotalPlazas = $cantTotalPlazas ; 
-            // $this -> cantDispoPlazas = $cantDispoPlazas ; 
+            $this -> cantDispPlazas = $cantTotalPlazas ; 
         }
 
         public function getFechaDesde() {
@@ -33,8 +32,8 @@
         public function getCantTotalPlazas() {
             return $this -> cantTotalPlazas ; 
         }
-        public function getcantDispoPlazas() {
-            return $this -> cantDispoPlazas ; 
+        public function getCantDispPlazas() {
+            return $this -> cantDispPlazas ; 
         }
 
         public function setFechaDesde($fechaDesde) {
@@ -49,16 +48,29 @@
         public function setCantTotalPlazas($cantTotalPlazas) {
             $this -> cantTotalPlazas = $cantTotalPlazas ; 
         }
-        public function setcantDispoPlazas($cantDispoPlazas) {
-            $this -> cantDispoPlazas = $cantDispoPlazas ; 
+        public function setcantDispPlazas($cantDispoPlazas) {
+            $this -> cantDispPlazas = $cantDispoPlazas ; 
+        }
+
+        /* 
+            El importe final de una venta normal se calcula en base a la cantidad de días, por el importe del 
+            día del paquete, por la cantidad de personas de la venta
+        */
+        public function darImporteVenta() {
+            $cantDias = $this -> getCantidadDias() ;
+
+            $fechaDesde = $this -> getFechaDesde() ;
+            $importeDia = date("d", strtotime($fechaDesde)) ;
+            $importeVenta = ($cantDias * $importeDia) ;
+            return $importeVenta ;
         }
        
         public function __toString() {
             return "\n" . 
             "Fecha desde: " . $this -> getFechaDesde() . "\n" . 
             "Cantidad de dias: " . $this -> getCantidadDias() . "\n" . 
-            "Destino: " . $this -> getDestino() . "\n" .
-            ": " . $this -> getCantTotalPlazas() . "\n" .
-            ": " . $this -> getcantDispoPlazas() . "\n" ;
+            "INFORMACION DEL DESTINO: " . $this -> getDestino() . 
+            "Cantidad total de plazas: " . $this -> getCantTotalPlazas() . "\n" .
+            "Cantidad disponibles de plazas: " . $this -> getcantDispPlazas() . "\n" ;
         }
     }

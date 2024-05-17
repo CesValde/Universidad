@@ -39,7 +39,6 @@
             return "\n" . 
             "Identificacion: " . $this -> getIdentificacion() . "\n" . 
             "Nombre lugar: " . $this -> getNombreLugar() . "\n" . 
-            "Valor del dia por pasajero: " . $this -> getValorPorDiaXPasaj() . "\n" ;
+            "Valor del dia del destino por pasajero: " . $this -> getValorPorDiaXPasaj() . "\n" ;
         }
-
     }
