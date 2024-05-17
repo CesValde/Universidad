@@ -135,7 +135,7 @@
         /* 
             retorna los n productos más vendidos en el año recibido por parámetro.
             $coleccProdMasVendidos = [
-                "producto" => prop objeto, 
+                "producto" => objeto, 
                 "cantVendidos => 30
             ]
         */
@@ -186,7 +186,7 @@
 
             if($cantVentas > 0) {
                 $promedioVentasImpor = $sumaCostos / $cantVentas ;
-            }   
+            } 
             return $promedioVentasImpor ;
         }
 

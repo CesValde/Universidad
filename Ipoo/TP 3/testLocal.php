@@ -32,7 +32,6 @@
     // objeto Tienda/Local 
     $local = new Local($coleccProducImpor, $coleccProducRegio, $coleccVentas) ;
 
-    // test aprobado
     $precioVenta = $local -> retornarImporteProducto(1234) ;
     // echo $precioVenta ;   
 
@@ -40,14 +39,9 @@
     $sumaCostos = "Costo total en productos: " . $local -> retornarCostoProductoTienda() ; 
     // echo $sumaCostos . "\n" ;
 
-    // producto mas barato
     $productoMasBarato = $local -> productoMasEcomomico($rubro1) ;
     // echo "Producto mas barato: " . $productoMasBarato ;
  
-    // test aprobado
-    /* 
-        Si no existe tambien test aprobado
-    */
     $pc = new ProductoImportado(2748, "Pc", 40, 75, 10, $rubro1) ;
     $incorpora = $local -> incorporarProductoTienda($pc) ;
         if($incorpora) {
@@ -55,42 +49,37 @@
         } else {
             echo "El producto ya existe en el local \n" ;
         } 
-    // aprobado
+
     $productoMasBarato = $local -> productoMasEcomomico($rubro1) ;
     echo "Producto mas barato: " . $productoMasBarato ;
 
     $precioVenta = $local -> retornarImporteProducto(1234) ;
     // echo $precioVenta . "\n" ; 
-    // nuevo producto se agregra y se setean lo valores necesarios check aprobado
+    // nuevo producto se agregra y se setean lo valores necesarios
     $precioVenta = $local -> retornarImporteProducto(2748) ;
     // echo $precioVenta ; 
 
-    // check 
+    // seteo de coleccion de ventas
     $fecha = date("Y-m-d H:i:s") ;
     $cliente1 = new Cliente2("Dni", "Cesar", "Valderrama", 95947908) ;
     $ventaCelular = new Venta($fecha, $celular, 22, $cliente1) ;
     $coleccVentas[] = $ventaCelular ;
     $local -> setColeccVentas($coleccVentas) ;
 
-    // check
     $anio = date("Y", strtotime($fecha)); 
     $coleccProdMasVendidos = $local -> informarProductosMasVendidos(2024, 2) ;
     print_r($coleccProdMasVendidos) ;
 
-    // CHECK 
     // Ordena el array usando la función de comparación personalizada
     uasort($coleccProdMasVendidos, 'cmp');
     // permanecen los n productos dentro del array desde 0 a $n=2
     $coleccProdMasVendidos = array_slice($coleccProdMasVendidos, 0, 2) ;
     // print_r($coleccProdMasVendidos) ; 
 
-    // check
     $promedioVentasImpor = $local -> promedioVentasImportados() ; 
     // echo $promedioVentasImpor . "\n" ;
 
-    // check
     $lista = $local -> informarConsumoCliente('Dni', 95947908) ;
     // print_r($lista) ;
 
-    // test aprobado
     // echo $local ;
