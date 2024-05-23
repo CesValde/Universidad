@@ -54,13 +54,16 @@
             $this -> coleccVentas = $coleccVentas ;
         }
 
+        /* 
+            Retorna el objeto moto si coincide con el codigo de moto enviado por parametro
+        */
         public function retornarMoto($codigoMoto) {
             $coleccMotos = $this -> getColeccMotos() ;
             $motoEncontrada = false ;
             $i=0 ;
             $motoRetorno = null ;
 
-            /* while($motoEncontrada == false || $i<=count($coleccMotos)) {
+            while($motoEncontrada == false && $i<=count($coleccMotos)) {
                 $moto = $coleccMotos[$i] ;
                 $codMoto = $moto -> getCodigo() ;
                 if($codMoto == $codigoMoto) {
@@ -68,17 +71,14 @@
                     $motoRetorno = $moto ;
                 }
                 $i++ ;
-            } */
+            } 
 
-                foreach($coleccMotos as $moto) {
-                    $codMoto = $moto -> getCodigo() ;
-                        if($codMoto == $codigoMoto) {
-                            $motoRetorno = $moto ;
-                        }
-                } 
             return $motoRetorno ;
         }
 
+        /* 
+            Registra la venta en caso de poder hacerse y retorna el precio final de lo contrario retorna -1
+        */
         public function registrarVenta($colCodigosMoto, $objCliente) {
             $coleccVentas = $this -> getColeccVentas() ;
             $coleccMotos = $this -> getColeccMotos() ;
@@ -89,57 +89,32 @@
             while($ventaRealizada == false && $i<count($colCodigosMoto)) {
                 $cod = $colCodigosMoto[$i] ;
                 $motoEncontrada = $this -> retornarMoto($cod) ; 
-                    if($motoEncontrada == null) {
-                        $activa = false ;
-                    } else {
+                    if($motoEncontrada != null) {
                         $activa = $motoEncontrada -> getActiva() ;
                         if($activa) {
                             $dadoBaja = $objCliente -> getDadoBaja() ;
-                                if($dadoBaja == false) {
-                                    $numero = count($coleccVentas) ; 
-                                    $numero++ ;
-                                    $fecha = Date("Y-m-d") ;
-                                    $precioFinal = $motoEncontrada -> darPrecioVenta() ;
-                                    $venta = new Venta_S($numero, $fecha, $objCliente, $coleccMotos, $precioFinal) ;
-                                    $venta -> incorporarMoto($motoEncontrada) ;
-                                    array_push($coleccVentas, $venta) ;
-                                    $motoEncontrada -> setActiva(false) ;
-                                    $this -> setColeccVentas($coleccVentas) ;
-                                    $ventaRealizada = true ; 
-                                }
+                            if($dadoBaja == false) {
+                                $numero = count($coleccVentas) ; 
+                                $numero++ ;
+                                $fecha = Date("Y-m-d") ;
+                                $precioFinal = $motoEncontrada -> darPrecioVenta() ;
+                                $venta = new Venta_S($numero, $fecha, $objCliente, $coleccMotos, $precioFinal) ;
+                                $venta -> incorporarMoto($motoEncontrada) ;
+                                array_push($coleccVentas, $venta) ;
+                                $motoEncontrada -> setActiva(false) ;
+                                $this -> setColeccVentas($coleccVentas) ;
+                                $ventaRealizada = true ; 
+                            }
                         }
                     }
                 $i++ ;
-            } 
-
-            /* foreach($colCodigosMoto as $cod) {
-                $motoEncontrada = $this -> retornarMoto($cod) ; 
-                    if($motoEncontrada == null) {
-                        $activa = false ;
-                    } else {
-                        $activa = $motoEncontrada -> getActiva() ;
-                        if($activa) {
-                            $dadoBaja = $objCliente -> getDadoBaja() ;
-                                if($dadoBaja == false) {
-                                    // echo $motoEncontrada ;
-                                    $numero = count($coleccVentas) ; 
-                                    $numero++ ;
-                                    $fecha = Date("Y-m-d") ;
-                                    $precioFinal = $motoEncontrada -> darPrecioVenta() ;
-                                    $venta = new Venta_S($numero, $fecha, $objCliente, $coleccMotos, $precioFinal) ;
-                                    $venta -> incorporarMoto($motoEncontrada) ;
-                                    array_push($coleccVentas, $venta) ;
-                                    $motoEncontrada -> setActiva(false) ;
-                                    $this -> setColeccVentas($coleccVentas) ;
-                                }
-                                
-                        }
-                    }
-            }  */
-            
+            }   
             return $precioFinal ;
         }
 
+        /* 
+            Retorna las ventas realizadas por un cliente
+        */
         public function retornarVentasXCliente($tipo,$numDoc) {
             $coleccVentas = $this -> getColeccVentas() ;
             $ventasRealizadas = [] ;

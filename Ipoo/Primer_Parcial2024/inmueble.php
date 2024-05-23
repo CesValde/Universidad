@@ -43,30 +43,44 @@ class Inmueble {
         return $this->objInquilino !== null;
     }
 
-    /* agregado */
+    /* 
+        recibe por parámetro la referencia al nuevo inquilino del inmueble. Tener en cuenta que un 
+        inmueble sólo puede ser alquilado si no se encuentra alquilado en ese momento.  
+    */
     public function alquilar($obj) {
+        $alquilado = false ;
         if($this -> getObjInquilino() == null) {
             $this -> setObjInquilino($obj) ;
-            return true ;
+            $alquilado = true ;
         }
-        return false ; 
+        return $alquilado ; 
     }
 
+    /* 
+        recibe como parámetro el tipo de uso que se requiere y el monto máximo disponible para alquilar 
+        y determine si el inmueble está disponible o no. Tener en cuenta que un inmueble sólo puede 
+        ser alquilado si no se encuentra alquilado en ese momento
+    */
     public function estaDisponible($tipouso, $costoMaximo) {
-        if($this->objInquilino == null) {
-            if($this->tipoUso == $tipouso || $this->costoMensual < $costoMaximo) {
-                return true ;
+        $objInquilino = $this -> getObjInquilino() ;
+        $tipo = $this -> getTipoUso() ;
+        $costoMensual = $this -> getCostoMensual() ;
+        $disponible = false ;
+
+        if($objInquilino == null) {
+            if($tipo == $tipouso && $costoMensual < $costoMaximo) {
+                $disponible = true ;
             }
-            return false ;
+            return $disponible ;
         }
     }
 
     public function __toString() {
         $alquilado = $this->estaAlquilado() ? "Sí" : "No";
-        return "Código de referencia: " . $this->codigoReferencia . "\n" .
-               "Número de piso: " . $this->numeroPiso . "\n" .
-               "Tipo de uso: " . $this->tipoUso . "\n" .
-               "Costo mensual: " . $this->costoMensual . "\n" .
+        return "Código de referencia: " . $this->getCodigoReferencia() . "\n" .
+               "Número de piso: " . $this->getNumeroPiso() . "\n" .
+               "Tipo de uso: " . $this->getTipoUso() . "\n" .
+               "Costo mensual: " . $this->getCostoMensual() . "\n" .
                "¿Está alquilado?: " . $alquilado;
     }
 }

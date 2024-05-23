@@ -56,10 +56,10 @@
 
         public function incorporarMoto($objMoto) {
             $coleccMotos = $this -> getColeccMotos() ;
-            $vender = $objMoto -> getActiva() ;
+            $activa = $objMoto -> getActiva() ;
             $mensaje = "" ;
 
-                if($vender) {
+                if($activa) {
                     $precioFinal = $objMoto -> darPrecioVenta() ;
                     array_push($coleccMotos, $objMoto) ;
                     $this -> setprecioFinal($precioFinal) ;

@@ -35,11 +35,31 @@ class Persona {
         return $this->telefonoContacto;
     }
 
+    public function setTipoDocumento($tipoDocumento) {
+        $this->tipoDocumento = $tipoDocumento;
+    }
+
+    public function setNumeroDocumento($numeroDocumento) {
+        $this->numeroDocumento = $numeroDocumento;
+    }
+
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    public function setApellido($apellido) {
+        $this->apellido = $apellido;
+    }
+
+    public function setTelefonoContacto($telefonoContacto) {
+        $this->telefonoContacto = $telefonoContacto;
+    }
+
     public function __toString() {
-        return "Tipo de documento: " . $this->tipoDocumento . "\n" .
-               "Número de documento: " . $this->numeroDocumento . "\n" .
-               "Nombre: " . $this->nombre . "\n" .
-               "Apellido: " . $this->apellido . "\n" .
-               "Teléfono de contacto: " . $this->telefonoContacto;
+        return "Tipo de documento: " . $this->getTipoDocumento() . "\n" .
+               "Número de documento: " . $this->getNumeroDocumento() . "\n" .
+               "Nombre: " . $this->getNombre() . "\n" .
+               "Apellido: " . $this->getApellido() . "\n" .
+               "Teléfono de contacto: " . $this->getTelefonoContacto();
     }
 }

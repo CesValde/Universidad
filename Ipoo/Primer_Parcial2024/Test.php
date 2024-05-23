@@ -16,30 +16,34 @@
     $inmueble4 = new Inmueble(14, 2, "departamento", 35000, null) ;
     $inmueble5 = new Inmueble(15, 3, "departamento", 35000, null) ;
 
-    $coleccInmuebles = [$inmueble1, $inmueble2, $inmueble3, $inmueble4, $inmueble5] ;
+    $coleccInmuebles = [] ;
    
     $edificio = new Edificio("Juab B. Justo 3456", $coleccInmuebles, $objPersona) ; 
+    $coleccInmuebles = [$inmueble1, $inmueble2, $inmueble3, $inmueble4, $inmueble5] ;
+    $edificio -> setColInmuebles($coleccInmuebles) ;
 
-    //$disponibles = $edificio -> darInmueblesDisponibles("departamento", 550000) ;
-    //print_r($disponibles) ;
+    $disponibles = $edificio -> darInmueblesDisponibles("departamento", 550000) ;
+    var_dump($disponibles) ;
 
     $mariaela = new Persona("DNI", 28765436, "Mariela", "Suarez", 25543562) ;
-    $resul = $edificio -> registrarAlquilerInmueble("departamento", 550000, $mariaela) ;    
-        if($resul) {
+    $alquilado = $edificio -> registrarAlquilerInmueble("departamento", 550000, new Persona("DNI", 28765436, "Mariela", "Suarez", 25543562)) ;    
+        if($alquilado) {
             echo "Registrado" ;
         } else {
             echo "No registrado" ;
         }  
+    $disponibles = $edificio -> darInmueblesDisponibles("departamento", 550000) ;
+    print_r($disponibles) ;
 
     // echo $edificio ; 
     // $costo = $edificio -> calculaCostoEdificio() ; 
     // echo $costo ; 
 
     /* post parcial */
-    $resultado = $inmueble1 -> alquilar($mariaela) ;
+    $resultado = $inmueble4 -> alquilar($mariaela) ;
         if($resultado) {
             echo "Si" ; 
         } else {
             echo "no" ;
         }
-    /* funciona jaja */
+    /* Terminado */

@@ -5,8 +5,8 @@
     include_once "Ventas.php" ; 
     include_once "VentasOnline.php" ;
     include_once "PaquetesTuristicos.php" ;
-    include_once "Persona_3.php" ;
-    include_once "Cliente_2.php" ;
+    include_once "../Persona_3.php" ;
+    include_once "../Cliente_2.php" ;
 
     // test 
     $destino = new Destinos(1, "Bariloche", 250) ;
