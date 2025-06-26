@@ -57,7 +57,7 @@
         public function __toString() {
             return "Nombre del cliente: " . $this -> getNombre() . "\n" .
                 "Apellido del cliente: " . $this -> getApellido() . "\n" .
-                "Estado del cliente: " . $this -> getDadoBaja() . "\n" .
+                "Estado del cliente: " . ($this->getDadoBaja() ? "Dado de baja" : "Activo") . "\n" .
                 "Tipo de documento: " . $this -> getTipoDoc() . "\n" .
                 "Nro de documento: " . $this -> getNroDoc() . "\n" ;
         }

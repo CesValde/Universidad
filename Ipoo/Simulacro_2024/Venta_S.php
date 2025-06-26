@@ -58,11 +58,10 @@
             $coleccMotos = $this -> getColeccMotos() ;
             $activa = $objMoto -> getActiva() ;
             $mensaje = "" ;
-
                 if($activa) {
                     $precioFinal = $objMoto -> darPrecioVenta() ;
-                    array_push($coleccMotos, $objMoto) ;
                     $this -> setprecioFinal($precioFinal) ;
+                    array_push($coleccMotos, $objMoto) ;
                 } else {
                     $mensaje = "No se pudo incorporar la moto" ;
                 }
@@ -72,7 +71,6 @@
         public function mostrarMotos() {
             $coleccMotos = $this -> getColeccMotos() ; 
             $cadenaMotos = "" ; 
-            
                 foreach($coleccMotos as $moto) {
                     $cadenaMotos = $cadenaMotos . "\n" . $moto ; 
                 }
@@ -84,7 +82,7 @@
             return "Numero de venta: " . $this -> getNumero() . "\n" .
                 "Fecha: " . $this -> getFecha() . "\n" .
                 "Cliente: " . $this -> getCliente() . "\n" .
-                "Coleccion de motos: " . $cadenaMotos . "\n" .
+                "Coleccion de motos: " . $cadenaMotos .
                 "Precio Final: " . $this -> getPrecioFinal() . "\n" ;
         }
     }

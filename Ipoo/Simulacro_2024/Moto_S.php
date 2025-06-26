@@ -66,11 +66,9 @@
         public function darPrecioVenta() {
             $compra = $this -> getCosto() ; 
             $anio = date("Y") - $this -> getAnioFabrica() ; 
-            $por_inc_anual = $this -> getPorcIncrAnual() ;
-            $por_inc_anual = 0 * $por_inc_anual ;
+            $por_inc_anual = $this -> getPorcIncrAnual() / 100 ;
             $estado = $this -> getActiva() ;
             $venta = -1 ;
-
                 if($estado) {
                     $venta = $compra + $compra * ($anio * $por_inc_anual) ;
                 }
@@ -83,6 +81,6 @@
                 "Año de fabricacion: " . $this -> getAnioFabrica() . "\n" .
                 "Descripcion: " . $this -> getDescripcion() . "\n" .
                 "Incremento de porcentaje anual: " . $this -> getPorcIncrAnual() . "\n" . 
-                "Activa: " . $this -> getActiva() . "\n" ; 
+                "Activa?: " . ($this -> getActiva() ? "Si" : "No") . "\n" ;
         }
     }

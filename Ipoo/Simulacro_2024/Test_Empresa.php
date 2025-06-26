@@ -24,26 +24,28 @@
     echo $ventaRegistrada . "\n" ;
 
     /* punto 6 */
-    $colCodigosMoto2 = [0] ;
-    $ventaRegistrada2 = $empresa -> registrarVenta($colCodigosMoto2, $objCliente2) ;
-    echo $ventaRegistrada2 . "\n" ;
+    $colCodigosMoto = [0] ;
+    $ventaRegistrada = $empresa -> registrarVenta($colCodigosMoto, $objCliente2) ;
+    echo $ventaRegistrada . "\n" ;
 
     /* Punto 7 */
-    $colCodigosMoto3 = [2] ;
-    $ventaRegistrada3 = $empresa -> registrarVenta($colCodigosMoto3, $objCliente2) ;
-    echo $ventaRegistrada3 . "\n" ; 
+    $colCodigosMoto = [2] ;
+    $ventaRegistrada = $empresa -> registrarVenta($colCodigosMoto, $objCliente2) ;
+    echo $ventaRegistrada . "\n" ;
 
     /* punto 8 */
     $tipo = $objCliente1 -> getTipoDoc() ; 
     $numDoc = $objCliente1 -> getNroDoc() ;
-    $ventasRealizada1 = $empresa -> retornarVentasXCliente($tipo,$numDoc) ;
-    print_r($ventasRealizada1) . "\n" ;
+    $ventasRealizada = $empresa -> retornarVentasXCliente($tipo, $numDoc) ;
+    $cadenaVentas = $empresa -> MostrarVentasXCliente($ventasRealizada);
+    echo $cadenaVentas . "\n" ;
 
     /* punto 9 */
     $tipo = $objCliente2 -> getTipoDoc() ; 
     $numDoc = $objCliente2 -> getNroDoc() ;
-    $ventasRealizada2 =  $empresa -> retornarVentasXCliente($tipo,$numDoc) ;
-    print_r($ventasRealizada2) . "\n" ;
+    $ventasRealizada =  $empresa -> retornarVentasXCliente($tipo,$numDoc) ;
+    $cadenaVentas = $empresa -> MostrarVentasXCliente($ventasRealizada) ;
+    echo $cadenaVentas ;
 
-    /* punto 10 */
+    /* punto 10 */  
     echo $empresa . "\n" ;

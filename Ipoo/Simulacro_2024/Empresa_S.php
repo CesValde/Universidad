@@ -62,8 +62,7 @@
             $motoEncontrada = false ;
             $i=0 ;
             $motoRetorno = null ;
-
-            while($motoEncontrada == false && $i<=count($coleccMotos)) {
+            while($motoEncontrada == false && $i<count($coleccMotos)) {
                 $moto = $coleccMotos[$i] ;
                 $codMoto = $moto -> getCodigo() ;
                 if($codMoto == $codigoMoto) {
@@ -72,70 +71,73 @@
                 }
                 $i++ ;
             } 
-
             return $motoRetorno ;
         }
 
-        /* 
-            Registra la venta en caso de poder hacerse y retorna el precio final de lo contrario retorna -1
+        /*  
+            Registra la venta en caso de poder hacerse, retorna el precio final de todas las ventas realizadas de lo contrario retorna 0
         */
-        public function registrarVenta($colCodigosMoto, $objCliente) {
-            $coleccVentas = $this -> getColeccVentas() ;
-            $coleccMotos = $this -> getColeccMotos() ;
-            $precioFinal = -1 ;
-            $ventaRealizada = false ;
-            $i = 0 ;
-
-            while($ventaRealizada == false && $i<count($colCodigosMoto)) {
-                $cod = $colCodigosMoto[$i] ;
+        public function registrarVenta($colCodigosMoto, $objCliente) {         
+            $totalEnVentas = 0 ;
+            foreach ($colCodigosMoto as $cod) {
                 $motoEncontrada = $this -> retornarMoto($cod) ; 
-                    if($motoEncontrada != null) {
-                        $activa = $motoEncontrada -> getActiva() ;
-                        if($activa) {
-                            $dadoBaja = $objCliente -> getDadoBaja() ;
-                            if($dadoBaja == false) {
-                                $numero = count($coleccVentas) ; 
-                                $numero++ ;
-                                $fecha = Date("Y-m-d") ;
-                                $precioFinal = $motoEncontrada -> darPrecioVenta() ;
-                                $venta = new Venta_S($numero, $fecha, $objCliente, $coleccMotos, $precioFinal) ;
-                                $venta -> incorporarMoto($motoEncontrada) ;
-                                array_push($coleccVentas, $venta) ;
-                                $motoEncontrada -> setActiva(false) ;
-                                $this -> setColeccVentas($coleccVentas) ;
-                                $ventaRealizada = true ; 
-                            }
-                        }
+                if ($motoEncontrada !== null && $motoEncontrada->getActiva()) {
+                    if(!$objCliente -> getDadoBaja()) {
+                        $coleccVentas = $this -> getColeccVentas() ;
+                        $coleccMotos = $this -> getColeccMotos() ;
+                        $numeroVenta = count($coleccVentas) ; 
+                        $numeroVenta++ ;
+                        $fecha = Date("Y-m-d") ;
+                        $precioFinalVenta = $motoEncontrada -> darPrecioVenta() ;
+                        $totalEnVentas = $totalEnVentas + $precioFinalVenta ;
+                        $venta = new Venta_S($numeroVenta, $fecha, $objCliente, $coleccMotos, $precioFinalVenta) ;
+                        $venta -> incorporarMoto($motoEncontrada) ;
+                        array_push($coleccVentas, $venta) ;
+                        $this -> setColeccVentas($coleccVentas) ; 
+                        $motoEncontrada -> setActiva(false) ;            
                     }
-                $i++ ;
-            }   
-            return $precioFinal ;
+                }       
+            }
+            return $totalEnVentas ;
         }
 
         /* 
-            Retorna las ventas realizadas por un cliente
+            Retorna un array con las ventas realizadas por un cliente 
         */
         public function retornarVentasXCliente($tipo,$numDoc) {
             $coleccVentas = $this -> getColeccVentas() ;
             $ventasRealizadas = [] ;
-
                 foreach($coleccVentas as $venta) {
                     $cliente = $venta -> getCLiente() ;
                     $doc = $cliente -> getTipoDoc() ;
                     $nro = $cliente -> getNroDoc() ;
-                        if($doc == $tipo) {
-                            if($nro == $numDoc) {
-                                array_push($ventasRealizadas, $venta) ;
-                            }
+                        if($doc == $tipo && $nro == $numDoc) {
+                            array_push($ventasRealizadas, $venta) ;
                         }
                 }
             return $ventasRealizadas ;
         }
 
+        /* Devuelve una cadena con las ventas de X cliente */
+        public function MostrarVentasXCliente($ventasRealizadas) {
+            $cadenaVentas = "" ;
+            if(!empty($ventasRealizadas)) {
+                foreach($ventasRealizadas as $venta) {
+                    // Cadena con los datos de la venta   
+                    $cadenaVentas = $cadenaVentas . "Numero de venta: " . $venta -> getNumero() . "\n" .
+                    "Fecha: " . $venta -> getFecha() . "\n" .
+                    "Cliente: " . $venta -> getCliente() .
+                    "Precio Final: " . $venta -> getPrecioFinal() . "\n" . "\n" ;
+                }
+            } else {
+                $cadenaVentas = "No hay ventas para mostrar \n" ;
+            }
+            return $cadenaVentas ;
+        }
+
         public function mostrarClientes() {
             $coleccClientes = $this -> getcoleccClientes() ; 
             $cadenaClientes = "" ; 
-            
                 foreach($coleccClientes as $cliente) {
                     $cadenaClientes = $cadenaClientes . "\n" . $cliente ; 
                 }
@@ -145,7 +147,6 @@
         public function mostrarMotos() {
             $coleccMotos = $this -> getColeccMotos() ; 
             $cadenaMotos = "" ; 
-            
                 foreach($coleccMotos as $moto) {
                     $cadenaMotos = $cadenaMotos . "\n" . $moto ; 
                 }
@@ -155,7 +156,6 @@
         public function mostrarVentas() {
             $coleccVentas = $this -> getColeccVentas() ; 
             $cadenaVentas = "" ; 
-            
                 foreach($coleccVentas as $venta) {
                     $cadenaVentas = $cadenaVentas . "\n" . $venta ; 
                 }
@@ -168,7 +168,7 @@
             $cadenaVentas = $this -> mostrarVentas() ;
             return "Denominacion: " . $this -> getDenominacion() . "\n" .
                 "Direccion: " . $this -> getDireccion() . "\n" .
-                "coleccion de Clientes: " . $cadenaClientes . "\n" .
+                "Coleccion de Clientes: " . $cadenaClientes . "\n" . "\n" .
                 "Coleccion de motos: " . $cadenaMotos . "\n" .
                 "Coleccion de ventas: " . $cadenaVentas . "\n" ; 
         }
